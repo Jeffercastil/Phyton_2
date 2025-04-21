@@ -7,6 +7,12 @@
   --light-gray:hsl(0,0%,80%);
   --cultured-1:hsl(0,0%,97%);
   --cultured-2:hsl(60,6%,93%);
-  
+  --gray-web:hsl(0,0%,49%);
+  --white_30:hsl(0,0%,100%,0.3);
+  --black_70:hsl(0,0%,0%,0.7);
+  --black_50:hsl(0,0%,0%,0.5);
+  --black_15:hsl(0,0%,0%,0.15);
+  --black_10:hsl(0,0%,0%,0.1);
+  --black_5:hsl(0,0%,0%,0.05);
   
 }
