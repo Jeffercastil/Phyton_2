@@ -14,5 +14,9 @@
   --black_15:hsl(0,0%,0%,0.15);
   --black_10:hsl(0,0%,0%,0.1);
   --black_5:hsl(0,0%,0%,0.05);
-  
+  --white:hsl(0,0%,100%);
+  --black:hsl(0,0%,0%);
+
+--gradient:linear-gradient( to right: transparent 50%, var(--white_30) 100%);
+
 }
