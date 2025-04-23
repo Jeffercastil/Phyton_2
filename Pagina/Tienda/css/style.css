@@ -294,3 +294,15 @@ body {
   transform: translateY(0);
   opacity: 1;
 }
+/*-----------------------------------*\
+  #HEADER
+\*-----------------------------------*/
+
+.header .input-wrapper,
+.header-action-btn:not(:first-child),
+.navbar { display: none; }
+
+.header {
+  position: relative;
+  padding-block-end: 80px;
+}
