@@ -110,3 +110,8 @@ body {
 :focus-visible{
   outline-offset: 4px;
 }
+::-webkit-scrollbal{
+  width: 10px;
+  height: 5px;
+  
+}
