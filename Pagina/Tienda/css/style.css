@@ -38,6 +38,9 @@
   --fw-800: 800;
   
   
-  --section-padding:100px;
+  --section-padding:35px;
+  
+  --shadows-1:0 8px 16px var(--black_15);
+  --shadows-2:0 4px 10px var(--black_5);
 
 }
