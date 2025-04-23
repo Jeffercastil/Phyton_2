@@ -102,7 +102,11 @@ html {
 body {
  background-color: var(--white); 
  color:var(--gray-web);
- font-size: 1,5rem;
+ font-size: 1.5rem;
  font-weight: var(--fw-500);
- line-height: 1,7;
+ line-height: 1.6;
+}
+
+:focus-visible{
+  outline-offset: 4px;
 }
