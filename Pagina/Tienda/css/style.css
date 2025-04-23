@@ -70,3 +70,10 @@ span,
 input,
 button,
 ion-icon{display: block;}
+
+a{text-decoration: none;
+color: inherit;
+}
+
+img{height: auto;}
+
