@@ -128,6 +128,13 @@ body {
   background-repeat:no-repeat;
   background-size: cover;
   background-position: center;
-  
 }
 
+.h1,
+.h2,
+.h3,
+.h2-large {
+  color: var(--black);
+  font-weight: var(--fw-600);
+  line-height: 1.3;
+}
