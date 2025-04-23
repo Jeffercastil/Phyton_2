@@ -92,8 +92,17 @@ ion-icon{
   --ionicon-stroke-width: 25px;
 }
 
+/* parte que le da estilo a las letras y la lagina */
 html {
   font-family: var(--ff-urbanist);
   font-size: 10px;
   scroll-behavior: smooth;
+}
+
+body {
+ background-color: var(--white); 
+ color:var(--gray-web);
+ font-size: 1,5rem;
+ font-weight: var(--fw-500);
+ line-height: 1,7;
 }
