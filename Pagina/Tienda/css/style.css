@@ -64,3 +64,9 @@
 
 li{list-style: none;}
 
+a,
+img,
+span,
+input,
+button,
+ion-icon{display: block;}
