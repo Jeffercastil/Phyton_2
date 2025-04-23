@@ -245,3 +245,52 @@ body {
   0% { transform: skewX(-25deg) translateX(0); }
   100% { transform: skewX(-25deg) translateX(250%); }
 }
+.btn-link {
+  color: var(--black);
+  font-weight: var(--fw-600);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  transition: var(--transition-1);
+}
+
+.img-holder {
+  aspect-ratio: var(--width) / var(--height);
+  background-color: var(--light-gray);
+}
+
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge {
+  max-width: max-content;
+  background-color: var(--hoockers-green);
+  color: var(--white);
+  font-weight: var(--fw-700);
+  padding-inline: 12px;
+  border-radius: var(--radius-3);
+}
+
+.flex-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.w-100 { width: 100%; }
+
+[data-section] > * {
+  transform: translateY(100px);
+  opacity: 0;
+  transition: var(--transition-3);
+}
+
+[data-section].active > * {
+  transform: translateY(0);
+  opacity: 1;
+}
