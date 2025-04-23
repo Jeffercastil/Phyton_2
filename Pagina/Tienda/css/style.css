@@ -124,12 +124,14 @@ body {
 .container {  inset-inline: 15px;}
 .section { padding-block:var(--section-padding) ;}
 
+/* cambio en las imagenes*/
 .has-bg-image{
   background-repeat:no-repeat;
   background-size: cover;
   background-position: center;
 }
 
+/* cambio en los titulos*/
 .h1,
 .h2,
 .h3,
@@ -149,3 +151,11 @@ body {
 .h2-large { font-size: var(--fs-2); }
 
 .h3 { font-size: var(--fs-4); }
+
+.btn{
+  font-weight: var(--fw-600);
+  max-width: max-content;
+  padding: 10px 30px;
+  border-radius: var(--radius-3);
+  transition: var(--transition-1);
+}
