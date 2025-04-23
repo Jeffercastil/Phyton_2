@@ -152,6 +152,8 @@ body {
 
 .h3 { font-size: var(--fs-4); }
 
+
+/* cambio en los botones*/
 .btn{
   font-weight: var(--fw-600);
   max-width: max-content;
@@ -165,3 +167,12 @@ body {
   background-color: var(--black);
   color: var(--white);
 }
+
+.btn-primary:is(:hover, :focus) { background-color: var(--hoockers-green); }
+
+.btn-secondary {
+  background-color: var(--white);
+  color: var(--black);
+  box-shadow: var(--shadow-2);
+}
+
