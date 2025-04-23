@@ -159,3 +159,9 @@ body {
   border-radius: var(--radius-3);
   transition: var(--transition-1);
 }
+
+.btn-primary,
+.btn-secondary:is(:hover, :focus) {
+  background-color: var(--black);
+  color: var(--white);
+}
