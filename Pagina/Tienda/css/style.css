@@ -176,3 +176,13 @@ body {
   box-shadow: var(--shadow-2);
 }
 
+.has-scrollbal{
+  display:flex;
+  gap:15px ;
+  overflow-x: auto;
+  padding-inline-end: 15px;
+  margin-block-end: -15px;
+  scroll-snap-type: inline mandatory;
+}
+
+
