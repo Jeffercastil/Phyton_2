@@ -1,2 +1,2 @@
 
-const addE
+const addEventOnElem
