@@ -1,2 +1,3 @@
 
-const addEventOnElem = functio
+const addEventOnElem = function(
+  )
