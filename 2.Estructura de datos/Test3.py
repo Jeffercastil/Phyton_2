@@ -13,3 +13,9 @@ for i in range(n):
     "Compras",Compras,
     "Gasto total",gasto_total
   })
+  
+  print("\nResumen de clientes:")
+  for cliente in clientes:
+    gasto_promedio=
+    cliente['gasto_total']
+    
