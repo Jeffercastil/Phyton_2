@@ -17,5 +17,7 @@ for i in range(n):
   print("\nResumen de clientes:")
   for cliente in clientes:
     gasto_promedio=
-    cliente['gasto_total']
+    cliente['gasto_total']/cliente['compras']
+    print(f"{cliente['Nombre']}:
+      {cliente['compras']}compras,"f"Gastos total:${ cliente['gasto_total']:.2f},"f"Promedio:${gasto_promedio:.2f} por comprar ")
     
