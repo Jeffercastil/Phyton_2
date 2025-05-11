@@ -3,7 +3,7 @@ texto_guardados=[]
 while true:
   print("\n--Menu---")
   print(" 1. Agregar texto")
-  print(" 2. Mostrar todos los twxtos en orden")
+  print(" 2. Mostrar todos los textos en orden")
   print(" Salir")
   
   opcion=input ("selecione una opcion (1-3")
