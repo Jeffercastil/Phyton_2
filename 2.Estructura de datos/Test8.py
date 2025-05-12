@@ -13,5 +13,18 @@ while true:
     texto_guardados.append(nuevo_texto)
     print(f"texto guardado correctamente".Total:{len(texto_guardados)})
     )
-  
+    elif opcion =="2":
+      if not texto_guardados:
+        print ("\n No hay textos guardados aun")
+        else:
+          print("\n Texto guardado")
+          for i,texto in enumerate(texto_guardados,1):
+            print(f"{i}.{texto}")
+            
+    elif opcion == "3":
+      print("\n Saliendo del programa ")
+      break
+    else:
+      print("\n Opcion no valida intenta otra vez")
+        
   
