@@ -18,5 +18,13 @@ class DataSet:
     midpoint = n // 2
     if n % 2 == 0:
       return ( sorted_data [midpoint - 1 ]+ sorted_data[midpoint]) / 2
+    else:
+      return sorted_data[midpoint]
+      
+  def anadir_datos(self,nuevo_dato):
+    self.data.append(nuevo_dato)
     
+print(Mis_datos.media())
+print(Mis_datos.mediana())
+print(Mis_datos.data())
     
