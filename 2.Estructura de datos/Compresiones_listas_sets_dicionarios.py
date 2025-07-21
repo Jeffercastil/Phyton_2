@@ -14,20 +14,24 @@ while True:
     
 calculador_IMC = (peso / (altura **2) for peso ,altura in datos_paciente) 
 
- categorias ={(0, 18.5): \"Bajo peso\",
-(18.5, 25): \"Normal\" (25, 30): \"Sobrepeso\", (30, float('inf')): \"Obesidad\"} 
+categorias ={
+     (0, 18.5): "Bajo peso",
+     (18.5, 25): "Normal", 
+     (25, 30): "Sobrepeso",
+     (30, float('inf')): "Obesidad"
+} 
     
-    print("Resultados de análisis:"),
-    "print("-----------------------"),
+print("Resultados de análisis:")
+print("-----------------------")
 
 for i, imc in enumerate(calculador_IMC):
-  for rango, categoria in categorias.items()
-  if rango[0] <= imc rango[1]
-     resultado = categoria
-     break
+  for rango, categoria in categorias.items():
+    if rango[0] <= imc  < rango[1]:
+      resultado = categoria
+      break
    
-      print(f\"Paciente {i}:)"
-    print(f\"  Peso: {datos_pacientes[i-1][0]} kg"),
-    print(f\"  Altura: {datos_pacientes[i-1][1]} m"),
-    print(f\"  IMC: {imc:.2f} → {resultado}")
+  print(f"Paciente {i+1}:")
+  print(f"  Peso: {datos_pacientes[i-1][0]} kg"),
+  print(f"  Altura: {datos_pacientes[i-1][1]} m"),
+  print(f"  IMC: {imc:.2f} → {resultado}")
     
