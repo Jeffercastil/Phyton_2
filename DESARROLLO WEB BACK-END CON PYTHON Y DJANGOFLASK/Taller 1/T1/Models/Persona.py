@@ -11,7 +11,7 @@ class adoptante(persona):
   def __init__(self,nombre:str,edad:int):
     super().__init__(nombre,edad)
     self.mascotas_adoptadas=[]
-    
+  
   def adoptar(self,mascota:Mascota):
     if mascota.adoptado:
       return f"La mascota {mascota.nombre} ya fue adoptado"
