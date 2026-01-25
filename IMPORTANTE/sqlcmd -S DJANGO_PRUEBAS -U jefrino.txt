@@ -1,0 +1,12 @@
+sqlcmd -S DJANGO_PRUEBAS -U jefrino -P Emily2713*cas
+
+Base django
+http://127.0.0.1:8000/admin/login/?next=/admin/
+
+Crear super usuario en Django
+python manage.py createsuperuser
+
+
+user: jeffercastil
+correo : jeffrycastil84@gmail.com
+pass:Emily2713*cas

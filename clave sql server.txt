@@ -1,0 +1,23 @@
+DATABASES = {
+    'default': {
+        'ENGINE': 'mssql',
+         'NAME': 'DJANGO_PRUEBAS',
+        'USER': 'jefrino',
+        'PASSWORD': 'Emily2713*cas',
+        'HOST': 'localhost',# o IP\INSTANCIA
+        'PORT': '1433',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    }
+}
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'mssql',
+]

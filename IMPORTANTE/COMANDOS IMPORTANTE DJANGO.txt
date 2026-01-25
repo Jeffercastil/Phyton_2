@@ -1,0 +1,99 @@
+
+Validación de conexión
+sqlcmd -S DJANGO_PRUEBAS -U jefrino -P Emily2713*cas
+
+Base django
+http://127.0.0.1:8000/admin/login/?next=/admin/
+
+Crear super usuario en Django
+python manage.py createsuperuser
+
+
+user: jeffercastil
+correo : jeffrycastil84@gmail.com
+pass:Emily2713*cas
+
+
+iniciar env
+.\env\Scripts\activate
+
+Iniciar sql server
+py .\manage.py runserver
+python .\manage.py runserver
+
+crear carpeta
+md Nombredelacarpeta
+
+
+migrar tablas a sql server 
+py .\manage.py migrate
+
+
+crear una carpeta con todo lo necesario para utilizar django
+
+django-admin startapp ingresos
+
+-----------------------------------------------------------
+# Eliminar caché de Python
+Remove-Item -Recurse -Force "Aplicaciones\ingresos\__pycache__" -ErrorAction SilentlyContinue
+Remove-Item -Recurse -Force "Aplicaciones\__pycache__" -ErrorAction SilentlyContinue
+Remove-Item -Recurse -Force "Tutorial\__pycache__" -ErrorAction SilentlyContinue
+
+# Verificar que models.py existe
+Get-Content "Aplicaciones\ingresos\models.py" -Head 5
+
+-------------------------------------------------------------
+4. Crear y aplicar migraciones:
+python manage.py makemigrations
+python manage.py migrate
+
+------------------------------------------
+ Como debe ir el install para que tome la carpeta y la carpeta models
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'mssql',
+    'Aplicaciones.ingresos',
+]
+
+----------------------------------------------------
+LA OPCION apps.py debe estar asi
+from django.apps import AppConfig
+
+
+class IngresosConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'Aplicaciones.ingresos'
+
+
+
+-------------
+La base de datos debe estar asi para sql server 
+DATABASES = {
+    'default': {
+        'ENGINE': 'mssql',
+         'NAME': 'DJANGO_PRUEBAS',
+        'USER': 'jefrino',
+        'PASSWORD': 'Emily2713*cas',
+        'HOST': 'localhost',# o IP\INSTANCIA
+        'PORT': '1433',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    }
+}
+
+pip install Pillow
+python manage.py makemigrations
+python manage.py migrate
+
+
+
+
+
+primero quiero crear una aplicacion web, donde utilice django y sql server , y la visual en javascript html, pero la base de datos son las siguientes, clientes, con documento de identididad, telefono y correo, nombre y apellido, otra tabla con producto que tenga , producto, descripcion, tipo en el cual indica si es para mujer o hombre, o niño, debido a que en los productos va a tener perfumeria, joyeria accesorios, , y disponibilidad,  el codigo del producto sera autonumerico, y tendra comor eferencia  el nombre del producto duplicado quiere decir si es joyeria seria JJ, y luego el numero auto incremental para que sea unico el producto , y otra tabla si es necesario donde diga que valide la disponibilidad y cuanto tiempo aplica para que llegue el pedido, adicional, eso la primera parte, yo despues realizo las relaciones con la tabla, bueno ahora ya tengo la conexion con sql server y django ahora como realizaria esta parte , pero con parte visual o codificada como quede mas facil, para el diseño y claramente me explicas el paso a paso del proceso de como poder realizarlo.
+

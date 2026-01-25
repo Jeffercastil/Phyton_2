@@ -1,0 +1,11 @@
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'sqlparse',
+        'NAME': 'DJANGO_PRUEBAS',
+        'USER': 'jefrino',
+        'PASSWORD': 'Emily2713*cas',
+        'HOST': 'localhost',
+        'PORT': '1433',
+    }
+}

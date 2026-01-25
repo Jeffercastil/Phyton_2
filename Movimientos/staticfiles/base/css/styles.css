@@ -1,0 +1,64 @@
+/* 
+===============================================
+ESTILOS GENERALES Y RESET
+===============================================
+*/
+
+/* 
+* = selector universal (aplica a TODOS los elementos)
+Eliminamos márgenes y padding por defecto del navegador
+box-sizing: border-box hace que el padding se incluya en el ancho total
+*/
+
+*{ 
+    margin: 0;
+    padding : 0;
+    box-sizing: border-box;
+}
+
+/* 
+Estilos del body (cuerpo de la página)
+*/
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuentes del sistema */
+    background-color: #f5f7fa; /* Color de fondo gris claro */
+    color: #333; /* Color de texto gris oscuro */
+    line-height: 1.6; /* Espaciado entre líneas */
+    min-height: 100vh; /* Altura mínima = 100% del viewport (pantalla) */
+    display: flex; /* Usamos flexbox para layout */
+    flex-direction: column; /* Los elementos se apilan verticalmente */
+}
+
+/* 
+===============================================
+BARRA DE NAVEGACIÓN (NAVBAR)
+===============================================
+*/
+
+.navbar {
+    background:linear-gradient(135deg, #667eea 0%,#764ba2 100%);/*Degradado morado*/
+    color: white; /* texto blanco*/
+    padding : 1rem 2rem; /* Espacio interno: 1rem arriba /abajo, 2rem izquierda /derecha */
+    box-shadow :0px 2px 10PX rgba(0,0,0,0.1); /* sombra sutil*/
+    position :sticky; /* Se queda fijo al hacer scroll  */
+    top: 0; /* pegado arriba  */
+    z-index :1000; /* Aparece sobre  otros elementos */
+}
+
+/* 
+Contenedor flexible de la navbar
+justify-content: space-between separa los elementos a los extremos
+*/
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between; /* Logo a la izq, menú al centro, usuario a la der */
+    align-items: center; /* Centra verticalmente */
+    max-width: 1400px; /* Ancho máximo */
+    margin: 0 auto; /* Centra horizontalmente */
+}
+
+/* Logo y nombre del sistema */
+h1{
+    font-size:100px;
+}

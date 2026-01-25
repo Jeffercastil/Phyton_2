@@ -1,0 +1,211 @@
+{# Heredamos del template base #}
+{% extends 'base/base.html' %}
+
+{# Cargamos el sistema de archivos estáticos #}
+{% load static %}
+
+{# Definimos el título de la página #}
+{% block title %}Dashboard - Sistema de Movimientos{% endblock %}
+
+{# Iniciamos el bloque de contenido principal #}
+{% block content %}
+
+<div class="dashboard-container">
+    {# Encabezado del Dashboard (Título y subtítulo) #}
+    <div class="dashboard-header">
+        <h1>
+            {# Icono de velocímetro #}
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </h1>
+        {# Descripción breve de la página #}
+        <p>Resumen general de tus finanzas</p>
+    </div>
+
+    {# Contenedor Grid para las 3 tarjetas de estadísticas #}
+    <div class="stats-cards">
+        
+        {# TARJETA 1: Total de Ingresos (Clase 'success' para verde) #}
+        <div class="stat-card success">
+            {# Contenedor del icono #}
+            <div class="stat-icon">
+                {# Icono flecha arriba #}
+                <i class="fas fa-arrow-up"></i>
+            </div>
+            {# Contenedor del texto y valor #}
+            <div class="stat-info">
+                <h3>Total Ingresos</h3>
+                {# Variable 'total_ingresos' enviada desde views.py | filtro floatformat:2 para 2 decimales #}
+                <p class="stat-value">${{ total_ingresos|floatformat:2 }}</p>
+            </div>
+        </div>
+
+        {# TARJETA 2: Total de Gastos (Clase 'danger' para rojo) #}
+        <div class="stat-card danger">
+            {# Contenedor del icono #}
+            <div class="stat-icon">
+                {# Icono flecha abajo #}
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            {# Contenedor del texto y valor #}
+            <div class="stat-info">
+                <h3>Total Gastos</h3>
+                {# Variable 'total_gastos' enviada desde views.py | filtro floatformat:2 para 2 decimales #}
+                <p class="stat-value">${{ total_gastos|floatformat:2 }}</p>
+            </div>
+        </div>
+
+        {# TARJETA 3: Balance (Ingresos - Gastos) #}
+        {# Condición: Si balance >= 0 añade clase 'info' (azul), si no añade 'warning' (naranja) #}
+        <div class="stat-card {% if balance >= 0 %}info{% else %}warning{% endif %}">
+            {# Contenedor del icono #}
+            <div class="stat-icon">
+                {# Icono balanza #}
+                <i class="fas fa-balance-scale"></i>
+            </div>
+            {# Contenedor del texto y valor #}
+            <div class="stat-info">
+                <h3>Balance</h3>
+                {# Variable 'balance' enviada desde views.py | filtro floatformat:2 para 2 decimales #}
+                <p class="stat-value">${{ balance|floatformat:2 }}</p>
+            </div>
+        </div>
+    </div>
+
+    {# Sección de Últimas Transacciones #}
+    <div class="recent-transactions">
+        
+        {# Fila con título y botón "Ver todas" #}
+        <div class="section-header">
+            <h2>
+                {# Icono de reloj/historial #}
+                <i class="fas fa-history"></i> Últimas Transacciones
+            </h2>
+            {# Botón enlace a la página de todas las transacciones usando URL 'base:transacciones' #}
+            <a href="{% url 'base:transacciones' %}" class="btn btn-primary btn-sm">
+                Ver todas <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        {# Verificamos si la lista 'ultimas_transacciones' tiene datos #}
+        {% if ultimas_transacciones %}
+            
+            {# Contenedor responsive para hacer scroll horizontal en móviles #}
+            <div class="table-responsive">
+                <table class="data-table">
+                    
+                    {# Encabezado de la tabla (Títulos de columnas) #}
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Categoría</th>
+                            <th>Cliente</th>
+                            <th>Descripción</th>
+                            <th>Monto</th>
+                        </tr>
+                    </thead>
+                    
+                    {# Cuerpo de la tabla (Filas de datos) #}
+                    <tbody>
+                        {# Iniciamos el bucle FOR para iterar sobre cada transacción #}
+                        {% for transaccion in ultimas_transacciones %}
+                        <tr>
+                            {# Celda: Fecha de la transacción formateada (día/mes/año hora:minutos) #}
+                            <td>{{ transaccion.fecha|date:"d/m/Y H:i" }}</td>
+                            
+                            {# Celda: Tipo de transacción #}
+                            <td>
+                                {# Etiqueta span (badge) #}
+                                {# Condición dinámica de clase: Si es 'INGRESO' verde ('success'), si no rojo ('danger') #}
+                                <span class="badge {% if transaccion.tipo == 'INGRESO' %}badge-success{% else %}badge-danger{% endif %}">
+                                    {# Condición: Si es Ingreso muestra icono más, si no icono menos #}
+                                    {% if transaccion.tipo == 'INGRESO' %}
+                                        <i class="fas fa-plus"></i>
+                                    {% else %}
+                                        <i class="fas fa-minus"></i>
+                                    {% endif %}
+                                    {# Muestra el texto del tipo (INGRESO o GASTO) #}
+                                    {{ transaccion.tipo }}
+                                </span>
+                            </td>
+                            
+                            {# Celda: Categoría de la transacción #}
+                            <td>{{ transaccion.categoria }}</td>
+                            
+                            {# Celda: Cliente asociado (opcional) #}
+                            <td>
+                                {# Verifica si existe un cliente vinculado #}
+                                {% if transaccion.cliente %}
+                                    {# Si existe, muestra nombre y apellido #}
+                                    {{ transaccion.cliente.nombre }} {{ transaccion.cliente.apellido }}
+                                {% else %}
+                                    {# Si no existe, muestra texto atenuado "Sin cliente" #}
+                                    <span class="text-muted">Sin cliente</span>
+                                {% endif %}
+                            </td>
+                            
+                            {# Celda: Descripción #}
+                            {# Filtro 'truncatewords:10' corta el texto a 10 palabras | Filtro 'default' muestra "-" si está vacío #}
+                            <td>{{ transaccion.descripcion|truncatewords:10|default:"-" }}</td>
+                            
+                            {# Celda: Monto #}
+                            {# Condición de clase: Si es Ingreso texto verde ('text-success'), si no rojo ('text-danger') #}
+                            <td class="{% if transaccion.tipo == 'INGRESO' %}text-success{% else %}text-danger{% endif %}">
+                                {# Condición: Si es Ingreso muestra signo +, si no signo - #}
+                                {% if transaccion.tipo == 'INGRESO' %}+{% else %}-{% endif %}
+                                {# Muestra el monto con 2 decimales #}
+                                ${{ transaccion.monto|floatformat:2 }}
+                            </td>
+                        </tr>
+                        {# Cierre del bucle FOR #}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        
+        {# ELSE del IF: Si NO hay transacciones #}
+        {% else %}
+            
+            {# Contenedor de estado vacío #}
+            <div class="empty-state">
+                {# Icono grande de bandeja de entrada #}
+                <i class="fas fa-inbox fa-3x"></i>
+                <p>No hay transacciones registradas todavía</p>
+                {# Botón para crear primera transacción #}
+                <a href="{% url 'base:transacciones' %}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Crear primera transacción
+                </a>
+            </div>
+        
+        {# Cierre del IF ultimas_transacciones #}
+        {% endif %}
+    </div>
+
+    {# Sección de Acciones Rápidas #}
+    <div class="quick-actions">
+        <h2>
+            {# Icono rayo #}
+            <i class="fas fa-bolt"></i> Acciones Rápidas
+        </h2>
+        
+        {# Grid de tarjetas de acción #}
+        <div class="actions-grid">
+            
+            {# Tarjeta acción: Nueva Transacción #}
+            <a href="{% url 'base:transacciones' %}" class="action-card">
+                <i class="fas fa-plus-circle"></i>
+                <span>Nueva Transacción</span>
+            </a>
+            
+            {# Tarjeta acción: Nuevo Cliente #}
+            <a href="{% url 'base:clientes' %}" class="action-card">
+                <i class="fas fa-user-plus"></i>
+                <span>Nuevo Cliente</span>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{# Cierre del bloque de contenido #}
+{% endblock %}

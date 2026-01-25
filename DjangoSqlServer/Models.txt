@@ -1,0 +1,283 @@
+# ============================================
+# IMPORTACIONES
+# ============================================
+# Importar el módulo 'models' de Django
+# Esto permite crear clases que se convierten en tablas de la base de datos
+from django.db import models
+
+
+# ============================================
+# DEFINICIÓN DE LA CLASE
+# ============================================
+# Crear una clase llamada 'activos' que hereda de models.Model
+# Esto significa que será una tabla en la base de datos
+class activos(models.Model):
+    
+    # ============================================
+    # CAMPO 1: CÓDIGO (se genera automáticamente)
+    # ============================================
+    # CharField = campo de texto
+    # max_length=100 = máximo 100 caracteres
+    # unique=True = cada código debe ser único (no puede repetirse)
+    # editable=False = el usuario NO puede editarlo manualmente
+    # blank=True = puede estar vacío al principio (se llena automáticamente)
+    codigo = models.CharField(
+        max_length=100, 
+        unique=True, 
+        editable=False,
+        blank=True
+    )
+    
+    
+    # ============================================
+    # CAMPO 2: NOMBRE
+    # ============================================
+    # CharField = campo de texto
+    # max_length=100 = máximo 100 caracteres
+    # El usuario SÍ puede editarlo (no tiene editable=False)
+    nombre = models.CharField(max_length=100)
+    
+    
+    # ============================================
+    # CAMPO 3: DESCRIPCIÓN
+    # ============================================
+    # CharField = campo de texto
+    # max_length=100 = máximo 100 caracteres
+    descripcion = models.CharField(max_length=100)
+    
+    
+    # ============================================
+    # CAMPO 4: FECHA DE CREACIÓN
+    # ============================================
+    # DateField = campo de fecha
+    # auto_now_add=True = automáticamente asigna la fecha actual cuando se crea
+    # Nunca cambia después de crearse
+    fecha_creacion = models.DateField(auto_now_add=True)
+
+
+    # ============================================
+    # CONFIGURACIÓN DE LA TABLA (Meta)
+    # ============================================
+    class Meta:
+        # db_table = nombre de la tabla en la base de datos
+        # Si no lo especificas, Django genera un nombre automático
+        db_table = 'activos'
+        
+        # ordering = cómo se ordenan los registros por defecto
+        # ['id'] = ordenar por ID de forma ascendente (1, 2, 3, 4...)
+        ordering = ['id']
+
+
+    # ============================================
+    # MÉTODO save() - GENERA EL CÓDIGO AUTOMÁTICAMENTE
+    # ============================================
+    # Este método se ejecuta AUTOMÁTICAMENTE cada vez que guardas un registro
+    # self = referencia al objeto actual (el activo que estás guardando)
+    # *args, **kwargs = parámetros técnicos de Django (déjalos así)
+    def save(self, *args, **kwargs):
+        
+        # ============================================
+        # PASO 1: VERIFICAR SI ES UN REGISTRO NUEVO
+        # ============================================
+        # self.pk = "Primary Key" (la clave primaria, osea el ID)
+        # Si un registro acaba de crearse, no tiene ID aún (self.pk es None)
+        # 
+        # not self.pk = Significa: ¿el registro NO tiene ID?
+        # Si es True = es un registro NUEVO
+        # Si es False = es un registro EXISTENTE (ya tiene ID)
+        #
+        # EJEMPLO:
+        # - Primer activo: self.pk = None → not self.pk = True → ENTRA al if
+        # - Segundo activo: self.pk = None → not self.pk = True → ENTRA al if
+        # - Editar activo existente: self.pk = 5 → not self.pk = False → NO entra
+        if not self.pk:
+            
+            # ============================================
+            # PASO 2: BUSCAR EL ÚLTIMO REGISTRO
+            # ============================================
+            # activos.objects = acceder a TODOS los activos en la BD
+            # .all() = obtener todos los registros
+            # .order_by('-id') = ordenarlos por ID en orden DESCENDENTE
+            #                    El '-' significa orden invertido (de mayor a menor)
+            #                    Sin el '-' sería ascendente (1, 2, 3, 4...)
+            #                    Con el '-' es descendente (4, 3, 2, 1)
+            # .first() = tomar solo el PRIMERO de esa lista
+            #
+            # RESULTADO: Obtienes el registro con el mayor ID (el último creado)
+            #
+            # EJEMPLO:
+            # Si tienes activos con IDs: 1, 2, 3, 4, 5
+            # order_by('-id') da: 5, 4, 3, 2, 1
+            # .first() toma: 5  ← Este es el último
+            # ultimo_registro.id = 5
+            ultimo_registro = activos.objects.all().order_by('-id').first()
+            
+            
+            # ============================================
+            # PASO 3: CALCULAR EL PRÓXIMO NÚMERO
+            # (VERSIÓN EXPANDIDA - SIN COMPRIMIR)
+            # ============================================
+            # Aquí verificamos si existe el último registro
+            # La mayoría de Python se escribe comprimido así:
+            # proximo_numero = (ultimo_registro.id + 1) if ultimo_registro else 1
+            #
+            # PERO vamos a hacerlo de forma expandida para que veas TODO:
+            
+            # Primero: ¿Existe un registro anterior?
+            if ultimo_registro:
+                # Sí existe un registro anterior
+                # Entonces: toma el ID del último registro y suma 1
+                # Ejemplo: Si el último tiene ID 5, suma 1 = 6
+                proximo_numero = ultimo_registro.id + 1
+            else:
+                # No existe ningún registro anterior
+                # Entonces: este es el PRIMER registro
+                # Por lo tanto, el número será 1
+                proximo_numero = 1
+            
+            # Fin del if/else
+            # En este punto, proximo_numero tiene un valor:
+            # - Si había registros: proximo_numero = último_id + 1
+            # - Si no había registros: proximo_numero = 1
+            
+            
+            # ============================================
+            # PASO 4: EXTRAER LA PRIMERA LETRA DEL NOMBRE
+            # (VERSIÓN EXPANDIDA - SIN COMPRIMIR)
+            # ============================================
+            # Aquí verificamos si el nombre tiene contenido
+            # La mayoría de Python se escribe comprimido así:
+            # primera_letra = self.nombre[0].upper() if self.nombre else 'X'
+            #
+            # PERO vamos a hacerlo de forma expandida para que veas TODO:
+            
+            # Primero: ¿Existe el nombre? (¿no está vacío?)
+            if self.nombre:
+                # Sí existe el nombre
+                # self.nombre[0] = accede al primer carácter
+                #   "Perro"[0] = "P"
+                #   "Joyería"[0] = "J"
+                #   "Almacén"[0] = "A"
+                # .upper() = convierte a mayúscula
+                #   "p".upper() = "P"
+                #   "j".upper() = "J"
+                #   "a".upper() = "A"
+                primer_caracter = self.nombre[0]  # Obtener el 1er carácter
+                primera_letra = primer_caracter.upper()  # Convertir a mayúscula
+            else:
+                # No existe el nombre (está vacío)
+                # Entonces: usa 'X' por defecto
+                primera_letra = 'X'
+            
+            # Fin del if/else
+            # En este punto, primera_letra tiene un valor:
+            # - Si hay nombre: primera_letra = 1ª letra en mayúscula
+            # - Si no hay nombre: primera_letra = 'X'
+            
+            
+            # ============================================
+            # PASO 5: GENERAR EL CÓDIGO FINAL
+            # ============================================
+            # Aquí combinamos el número con la letra
+            # f"..." = es un "f-string" (cadena con formato)
+            # Los {} dentro son variables que se reemplazan
+            # {proximo_numero} = inserta el número
+            # {primera_letra} = inserta la letra
+            #
+            # EJEMPLOS:
+            # Si proximo_numero = 1 y primera_letra = "P"
+            #   → f"{1}{P}" → "1P"
+            #   → self.codigo = "1P"
+            #
+            # Si proximo_numero = 5 y primera_letra = "J"
+            #   → f"{5}{J}" → "5J"
+            #   → self.codigo = "5J"
+            #
+            # Si proximo_numero = 10 y primera_letra = "A"
+            #   → f"{10}{A}" → "10A"
+            #   → self.codigo = "10A"
+            
+            self.codigo = f"{proximo_numero}{primera_letra}"
+        
+        # FIN DEL if not self.pk
+        # Si el registro ya existía (era una edición), no entra al if
+        # Por lo tanto, no regenera el código (mantiene el original)
+        
+        
+        # ============================================
+        # PASO 6: GUARDAR EN LA BASE DE DATOS
+        # ============================================
+        # super().save(*args, **kwargs) = llama al método save() de la clase padre
+        # La clase padre es models.Model
+        # Este método ES EL QUE REALMENTE GUARDA el registro en la BD
+        #
+        # SIN ESTA LÍNEA:
+        # - El código se genera pero NO se guarda
+        # - Nada se almacena en la base de datos
+        # - Todo se pierde
+        #
+        # CON ESTA LÍNEA:
+        # - Se guarda el registro en la BD
+        # - Se almacena el código generado
+        # - Queda guardado para siempre
+        super().save(*args, **kwargs)
+    
+    # FIN DEL MÉTODO save()
+
+
+    # ============================================
+    # MÉTODO __str__() - REPRESENTACIÓN EN TEXTO
+    # ============================================
+    # Este método define cómo se ve el objeto cuando lo imprimes
+    # O cuando aparece en el admin de Django
+    #
+    # return f"..." = devuelve un texto formateado
+    # {self.codigo} = inserta el código del activo
+    # {self.nombre} = inserta el nombre del activo
+    #
+    # EJEMPLO:
+    # Si tienes un activo con codigo="1P" y nombre="Perro"
+    #   → return f"{1P} - {Perro}" → "1P - Perro"
+    #   → Cuando imprimes: print(activo) → "1P - Perro"
+    #   → En el admin de Django verías: "1P - Perro"
+    def __str__(self):
+        return f"{self.codigo} - {self.nombre}"
+    
+    # FIN DEL MÉTODO __str__()
+
+
+# ============================================
+# FIN DE LA CLASE activos
+# ============================================
+
+
+# ============================================
+# RESUMEN DE FLUJO DE EJECUCIÓN
+# ============================================
+# 1. Usuario crea: a = activos(nombre="Perro", descripcion="Animal")
+# 2. Usuario guarda: a.save()
+# 3. Django ejecuta: def save(self)
+# 4. Verifica: ¿Es nuevo? (not self.pk) → SÍ (entra al if)
+# 5. Busca: último registro en BD → NO ENCUENTRA (None)
+# 6. Verifica: ¿Existe último_registro? → NO
+# 7. Calcula: proximo_numero = 1 (porque no hay registros)
+# 8. Verifica: ¿Existe self.nombre? → SÍ (es "Perro")
+# 9. Extrae: primer_caracter = self.nombre[0] = "P"
+# 10. Convierte: primera_letra = "P".upper() = "P"
+# 11. Genera: self.codigo = f"{1}{P}" = "1P"
+# 12. Guarda en BD: super().save()
+# 13. Resultado final: activo.codigo = "1P" ✅
+#
+# Cuando creas el 2do:
+# a2 = activos(nombre="Joyería", descripcion="...")
+# a2.save()
+# 1. Verifica: ¿Es nuevo? (not self.pk) → SÍ (entra al if)
+# 2. Busca: último registro en BD → ENCUENTRA (el activo con ID 1 y codigo "1P")
+# 3. Verifica: ¿Existe último_registro? → SÍ
+# 4. Calcula: proximo_numero = 1 + 1 = 2
+# 5. Verifica: ¿Existe self.nombre? → SÍ (es "Joyería")
+# 6. Extrae: primer_caracter = self.nombre[0] = "J"
+# 7. Convierte: primera_letra = "J".upper() = "J"
+# 8. Genera: self.codigo = f"{2}{J}" = "2J"
+# 9. Guarda en BD: super().save()
+# 10. Resultado final: activo.codigo = "2J" ✅
