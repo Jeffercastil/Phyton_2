@@ -28,7 +28,7 @@ class Transaccion(models.Model):
     tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)
     categoria = models.CharField(max_length=100, default="General")
     monto = models.DecimalField(max_digits=10, decimal_places=2)
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateField()
     descripcion = models.TextField(blank=True, null=True)
 
     class Meta:

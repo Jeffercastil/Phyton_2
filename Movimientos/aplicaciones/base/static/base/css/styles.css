@@ -20,7 +20,9 @@ Esto sirve para limpiar los estilos "sucios" que vienen por defecto en los naveg
     box-sizing: border-box; 
 } /* Fin de la regla universal (Reset) */
 
-
+html, body {
+    height: 100%;
+}
 /* 
 Estilos para la etiqueta <body> (el cuerpo principal de toda la página web).
 */
@@ -755,3 +757,341 @@ Todo lo que esté dentro solo se aplica en pantallas pequeñas.
     } /* Fin Stats Cards Móvil */
     
 } /* Fin de la Media Query (Estilos para móvil) */
+
+/* 
+===============================================
+PÁGINA DE CLIENTES Y TRANSACCIONES
+===============================================
+*/
+
+/* Encabezado de página con título y botón */
+.page-header {
+    display: flex; /* Flexbox para alinear elementos */
+    justify-content: space-between; /* Título a la izq, botón a la der */
+    align-items: center; /* Centrado vertical */
+    margin-bottom: 2rem; /* Espacio debajo del encabezado */
+    flex-wrap: wrap; /* Se ajusta en pantallas pequeñas */
+    gap: 1rem; /* Espacio entre elementos si se apilan */
+}
+
+.page-header h1 {
+    color: #333; /* Texto gris oscuro */
+    font-size: 2rem; /* Tamaño grande */
+    margin-bottom: 0.5rem; /* Espacio debajo del título */
+}
+
+.page-header p {
+    color: #666; /* Texto gris medio */
+}
+
+/* Link de email */
+.email-link {
+    color: #667eea; /* Color morado */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.email-link:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* Botones de acción en las tablas */
+.action-buttons {
+    display: flex; /* Flexbox para alinear botones */
+    gap: 0.5rem; /* Espacio entre botones */
+}
+
+/* 
+Botones con iconos pequeños
+Usados para Ver, Editar, Eliminar
+*/
+.btn-icon {
+    padding: 0.5rem; /* Relleno pequeño */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    transition: all 0.3s ease; /* Animación suave */
+    background-color: transparent; /* Fondo transparente por defecto */
+    font-size: 1rem; /* Tamaño del icono */
+}
+
+.btn-icon:hover {
+    transform: scale(1.1); /* Crece 10% al pasar el mouse */
+}
+
+/* Botón de información (azul) */
+.btn-icon.btn-info {
+    color: #3b82f6; /* Color azul */
+}
+
+.btn-icon.btn-info:hover {
+    background-color: rgba(59, 130, 246, 0.1); /* Fondo azul muy claro */
+}
+
+/* Botón de advertencia (amarillo/naranja) */
+.btn-icon.btn-warning {
+    color: #f59e0b; /* Color naranja */
+}
+
+.btn-icon.btn-warning:hover {
+    background-color: rgba(245, 158, 11, 0.1); /* Fondo naranja muy claro */
+}
+
+/* Botón de peligro (rojo) */
+.btn-icon.btn-danger {
+    color: #ef4444; /* Color rojo */
+}
+
+.btn-icon.btn-danger:hover {
+    background-color: rgba(239, 68, 68, 0.1); /* Fondo rojo muy claro */
+}
+
+/* 
+===============================================
+MODALES (VENTANAS EMERGENTES)
+===============================================
+*/
+
+/* 
+Contenedor principal del modal
+position: fixed = Se queda fijo sobre la página
+z-index: 9999 = Asegura que esté por encima del Navbar (que era 1000)
+*/
+.modal {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 9999; /* Z-Index muy alto para estar sobre todo */
+    display: none; /* Oculto por defecto (controlado por JS: display: flex) */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    padding: 1rem; 
+    background-color: rgba(0,0,0,0.6); /* Fondo oscuro semitransparente directamente en el contenedor */
+    backdrop-filter: blur(3px); /* Desenfoca el fondo para resaltar el modal */
+}
+
+/* 
+Overlay oscuro de fondo (Ya lo tenemos en .modal, pero lo mantenemos por compatibilidad)
+Le damos un z-index bajo para asegurar que el contenido quede encima.
+*/
+.modal-overlay {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 1; /* Capa 1: El fondo */
+}
+
+/* 
+Caja blanca del modal
+position: relative + z-index: 2 = Asegura que quede encima del overlay
+*/
+.modal-content {
+    position: relative; 
+    z-index: 2; /* Capa 2: El contenido (encima del fondo) */
+    background: white; 
+    border-radius: 12px; /* Bordes redondeados modernos */
+    max-width: 550px; /* Ancho máximo ideal para lectura */
+    width: 100%; 
+    max-height: 90vh; /* No exceda el 90% de la altura de la pantalla */
+    overflow-y: auto; /* Scroll si el contenido es muy largo */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3); /* Sombra fuerte y elegante */
+    animation: modalEntrada 0.3s ease-out forwards; /* Animación de entrada */
+}
+
+/* Animación de entrada suave */
+@keyframes modalEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95); /* Empieza arriba y pequeño */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1); /* Termina en su posición */
+    }
+}
+
+/* Encabezado del modal */
+.modal-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 1.2rem 1.5rem; 
+    border-bottom: 1px solid #e5e7eb; /* Borde inferior gris suave */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Degradado morado */
+    color: white; 
+    border-radius: 12px 12px 0 0; /* Redondea solo las esquinas superiores */
+}
+
+.modal-header h2 {
+    font-size: 1.25rem; 
+    margin: 0; 
+    font-weight: 600;
+}
+
+/* Botón de cerrar (X) */
+.modal-close {
+    background: rgba(255,255,255,0.2); 
+    border: none; 
+    color: white; 
+    font-size: 1.2rem; 
+    cursor: pointer; 
+    padding: 0.3rem 0.6rem; 
+    border-radius: 6px; /* Cuadrado ligeramente redondeado */
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    transition: all 0.2s ease; 
+}
+
+.modal-close:hover {
+    background: rgba(255,255,255,0.4); 
+    transform: rotate(90deg); /* Gira al pasar el mouse */
+}
+
+/* Cuerpo del modal */
+.modal-body {
+    padding: 1.5rem 2rem; /* Espacio cómodo */
+}
+/* 
+===============================================
+FORMULARIOS
+===============================================
+*/
+
+/* 
+Grupo de formulario (label + input)
+Cada campo del formulario está dentro de un form-group
+*/
+.form-group {
+    margin-bottom: 1.5rem; /* Espacio entre cada campo */
+}
+
+/* Etiquetas de los campos (Label) */
+.form-group label {
+    display: block; /* Ocupa toda la línea */
+    margin-bottom: 0.5rem; /* Espacio debajo de la etiqueta */
+    font-weight: 600; /* Semi-negrita */
+    color: #374151; /* Color gris oscuro */
+}
+
+/* 
+Campos de entrada (input, select, textarea)
+width: 100% = Ocupa todo el ancho disponible
+*/
+.form-control {
+    width: 100%; /* Ancho completo */
+    padding: 0.75rem 1rem; /* Relleno interno */
+    border: 2px solid #e5e7eb; /* Borde gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente */
+    transition: all 0.3s ease; /* Animación suave */
+    font-family: inherit; /* Usa la misma fuente del body */
+}
+
+/* 
+:focus se activa cuando haces clic en el campo
+outline: none quita el borde azul por defecto del navegador
+*/
+.form-control:focus {
+    outline: none; /* Quita el borde azul por defecto */
+    border-color: #667eea; /* Borde morado */
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); /* Sombra sutil morada */
+}
+
+/* Contenedor de botones del formulario */
+.form-actions {
+    display: flex; /* Flexbox para alinear botones */
+    gap: 1rem; /* Espacio entre botones */
+    justify-content: flex-end; /* Botones alineados a la derecha */
+    margin-top: 2rem; /* Espacio arriba de los botones */
+}
+
+/* 
+===============================================
+ESTADÍSTICAS RÁPIDAS
+===============================================
+*/
+
+.quick-stats {
+    padding: 3rem 0; /* Espacio vertical */
+}
+
+.quick-stats h2 {
+    text-align: center; /* Título centrado */
+    font-size: 2rem; /* Tamaño grande */
+    margin-bottom: 2rem; /* Espacio debajo del título */
+    color: #333; /* Color gris oscuro */
+}
+
+.stats-grid {
+    display: grid; /* Grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Grid responsivo */
+    gap: 2rem; /* Espacio entre tarjetas */
+}
+
+.stat-card {
+    background: white; /* Fondo blanco */
+    padding: 2rem; /* Relleno interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra */
+    text-align: center; /* Texto centrado */
+    transition: transform 0.3s ease; /* Animación */
+}
+
+.stat-card:hover {
+    transform: translateY(-5px); /* Sube 5px al pasar el mouse */
+}
+
+.stat-number {
+    font-size: 1.2rem; /* Tamaño del número */
+    color: #667eea; /* Color morado */
+    margin: 1rem 0; /* Espacio arriba y abajo */
+}
+
+.btn-link {
+    color: #667eea; /* Color morado */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: 600; /* Semi-negrita */
+    transition: all 0.3s ease; /* Animación */
+}
+
+.btn-link:hover {
+    color: #764ba2; /* Color morado más oscuro al pasar el mouse */
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* 
+===============================================
+RESPONSIVE (PANTALLAS PEQUEÑAS)
+===============================================
+*/
+
+/* 
+Media Query para pantallas de máximo 768px (tablets y móviles)
+*/
+@media (max-width: 768px) {
+    
+    /* Modal ocupa más espacio en móviles */
+    .modal-content {
+        max-width: 95%; /* 95% del ancho en móvil */
+        margin: 1rem; /* Margen alrededor */
+    }
+    
+    /* Header de página se apila verticalmente */
+    .page-header {
+        flex-direction: column; /* Elementos uno debajo del otro */
+        align-items: flex-start; /* Alineados a la izquierda */
+    }
+    
+    /* Botones del formulario se apilan */
+    .form-actions {
+        flex-direction: column; /* Botones uno debajo del otro */
+    }
+    
+    .form-actions .btn {
+        width: 100%; /* Botones ocupan todo el ancho */
+    }
+}

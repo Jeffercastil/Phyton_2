@@ -1,13 +1,777 @@
-
-<!-- Heredamos del template base -->
+<!-- Comentario HTML: Indicamos que heredamos de la plantilla base -->
 {% extends 'base/base.html' %}
 
-<!-- Cargamos el sistema de archivos estáticos -->
+{# Comentario Django: Cargamos la librería de archivos estáticos #}
 {% load static %}
 
-<!-- Título específico para esta página -->
-{% block title %}Transacciones - Sistema de Movimientos{% endblock %}
+{# Comentario Django: Iniciamos el bloque para el título de la página #}
+{% block title %}Transacciones - Sistema de Movimientos{# Texto del título #}{% endblock %}
 
-<!-- Contenido principal de la página de transacciones -->
+
+
+{# Comentario Django: Iniciamos el bloque de contenido principal #}
 {% block content %}
 
+<!-- Etiqueta HTML: Contenedor principal de la página con su clase CSS -->
+<div class="transacciones-container">
+    
+    <!-- Etiqueta HTML: Encabezado de la página -->
+    <div class="page-header" style="flex-wrap: wrap; align-items: flex-start;">
+        
+        <!-- Etiqueta HTML: Contenedor para el título y los filtros -->
+        <div style="flex: 1; min-width: 300px;">
+            <!-- Etiqueta HTML: Título principal con icono -->
+            <h1><i class="fas fa-exchange-alt"></i> Gestión de Transacciones</h1>
+            <!-- Etiqueta HTML: Párrafo de descripción -->
+            <p>Registra y visualiza tus ingresos y gastos</p>
+
+
+ <!-- BOTONES DE ACCIÓN (Importar Excel + Nueva Transacción) -->
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            
+                
+                <!-- BOTÓN DESCARGAR PLANTILLA -->
+                <a href="{% static 'plantillas/plantilla_transacciones.xlsx' %}" 
+                   class="btn btn-success" 
+                   download
+                   title="Descargar archivo Excel vacío para llenar">
+                    <i class="fas fa-download"></i> Descargar Plantilla
+                </a>
+
+
+            <!-- FORMULARIO PARA IMPORTAR EXCEL (CORREGIDO) -->
+            <form method="post" action="{% url 'base:importar_excel' %}" enctype="multipart/form-data" style="display: inline;">
+                {% csrf_token %}  <!-- Token de seguridad de Django -->
+                <input type="file" id="archivo_excel" name="archivo_excel" accept=".xlsx,.xls" style="display: none;" onchange="this.form.submit()">
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('archivo_excel').click()">
+                    <i class="fas fa-file-excel"></i> Importar Excel
+                </button>
+            </form>
+        
+
+    </div>
+
+                <!-- SECCIÓN DE FILTROS -->
+            <form method="GET" action="" style="margin-top: 1rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                
+                <!-- Filtro Año -->
+                <select name="anio" class="form-control" style="width: auto; padding: 0.5rem; font-size: 0.9rem;">
+                    <option value="">Todos los años</option>
+                    <option value="2024" {% if request.GET.anio == "2024" %}selected{% endif %}>2024</option>
+                    <option value="2025" {% if request.GET.anio == "2025" %}selected{% endif %}>2025</option>
+                    <option value="2026" {% if request.GET.anio == "2026" %}selected{% endif %}>2026</option>
+                </select>
+
+                <!-- Filtro Mes -->
+                <select name="mes" class="form-control" style="width: auto; padding: 0.5rem; font-size: 0.9rem;">
+                    <option value="">Todos los meses</option>
+                    <option value="1"  {% if request.GET.mes == "1"  %}selected{% endif %}>Enero</option>
+                    <option value="2"  {% if request.GET.mes == "2"  %}selected{% endif %}>Febrero</option>
+                    <option value="3"  {% if request.GET.mes == "3"  %}selected{% endif %}>Marzo</option>
+                    <option value="4"  {% if request.GET.mes == "4"  %}selected{% endif %}>Abril</option>
+                    <option value="5"  {% if request.GET.mes == "5"  %}selected{% endif %}>Mayo</option>
+                    <option value="6"  {% if request.GET.mes == "6"  %}selected{% endif %}>Junio</option>
+                    <option value="7"  {% if request.GET.mes == "7"  %}selected{% endif %}>Julio</option>
+                    <option value="8"  {% if request.GET.mes == "8"  %}selected{% endif %}>Agosto</option>
+                    <option value="9"  {% if request.GET.mes == "9"  %}selected{% endif %}>Septiembre</option>
+                    <option value="10" {% if request.GET.mes == "10" %}selected{% endif %}>Octubre</option>
+                    <option value="11" {% if request.GET.mes == "11" %}selected{% endif %}>Noviembre</option>
+                    <option value="12" {% if request.GET.mes == "12" %}selected{% endif %}>Diciembre</option>
+                </select>
+
+                <!-- Filtro Tipo (NUEVO) -->
+                <select name="tipo" class="form-control" style="width: auto; padding: 0.5rem; font-size: 0.9rem;">
+                    <option value="">Todos los tipos</option>
+                    <option value="INGRESO" {% if request.GET.tipo == "INGRESO" %}selected{% endif %}>💰 Ingreso</option>
+                    <option value="GASTO"   {% if request.GET.tipo == "GASTO"   %}selected{% endif %}>💸 Gasto</option>
+                </select>
+
+                <!-- Filtro Categoría (NUEVO) — select dinámico con categorías reales -->
+                <select name="categoria" class="form-control" style="width: auto; padding: 0.5rem; font-size: 0.9rem;">
+                    <option value="">Todas las categorías</option>
+                    {% for cat in categorias_disponibles %}
+                        <option value="{{ cat }}" {% if request.GET.categoria == cat %}selected{% endif %}>
+                            {{ cat }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <!-- Botón Filtrar -->
+                <button type="submit" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                    <i class="fas fa-filter"></i> Filtrar
+                </button>
+
+                <!-- Botón Limpiar -->
+                <a href="{% url 'base:transacciones' %}" class="btn btn-secondary" 
+                style="padding: 0.5rem 1rem; background: #6c757d; color: white; text-decoration: none; border: none;">
+                    Limpiar
+                </a>
+            </form>
+            <!-- FIN SECCIÓN FILTROS -->
+        </div>
+        
+
+    <!-- ⚠️ SECCIÓN DE MENSAJES - ESTA ES LA IMPORTANTE -->
+    {% if messages %}
+        <div class="messages-container" style="margin: 1rem 0;">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" 
+                     style="padding: 1rem; 
+                            margin-bottom: 0.5rem; 
+                            border-radius: 5px;
+                            {% if message.tags == 'success' %}
+                                background-color: #d4edda; 
+                                color: #155724; 
+                                border: 1px solid #c3e6cb;
+                            {% elif message.tags == 'error' %}
+                                background-color: #f8d7da; 
+                                color: #721c24; 
+                                border: 1px solid #f5c6cb;
+                            {% elif message.tags == 'warning' %}
+                                background-color: #fff3cd; 
+                                color: #856404; 
+                                border: 1px solid #ffeaa7;
+                            {% else %}
+                                background-color: #d1ecf1; 
+                                color: #0c5460; 
+                                border: 1px solid #bee5eb;
+                            {% endif %}">
+                    <strong>
+                        {% if message.tags == 'success' %}✅ 
+                        {% elif message.tags == 'error' %}❌ 
+                        {% elif message.tags == 'warning' %}⚠️ 
+                        {% else %}ℹ️ 
+                        {% endif %}
+                    </strong>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <!-- FIN SECCIÓN MENSAJES -->        
+
+
+
+
+        <!-- Etiqueta HTML: Contenedor para botones de acción (Cargar y Nuevo) -->
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            
+          
+
+            <!-- Etiqueta HTML: Botón para abrir el modal, llama a función JS -->
+            <button class="btn btn-primary" onclick="abrirModalTransaccion()">
+                <!-- Icono de más -->
+                <i class="fas fa-plus"></i> Nueva Transacción
+            </button>
+        </div>
+    </div>
+
+    <!-- SECCIÓN DE MENSAJES (Alertas de carga exitosa o error) -->
+    {# Comentario Django: Verificamos si hay mensajes del sistema #}
+    {% if messages %}
+        {# Comentario Django: Recorremos la lista de mensajes #}
+        {% for message in messages %}
+            <!-- Etiqueta HTML: Div para mostrar el mensaje con colores dinámicos -->
+            <div style="padding: 1rem; margin-bottom: 1rem; border-radius: 5px; background-color: {% if message.tags == 'error' %}#f8d7da{% elif message.tags == 'success' %}#d4edda{% else %}#fff3cd{% endif %}; color: {% if message.tags == 'error' %}#721c24{% elif message.tags == 'success' %}#155724{% else %}#856404{% endif %}; border: 1px solid {% if message.tags == 'error' %}#f5c6cb{% elif message.tags == 'success' %}#c3e6cb{% else %}#ffeaa7{% endif %};">
+                {# Comentario Django: Texto del mensaje #}
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {# Comentario Django: Verificamos si la variable transacciones tiene datos #}
+    {% if transacciones %}
+        <!-- Etiqueta HTML: Div para hacer la tabla adaptable a móviles -->
+        <div class="table-responsive">
+            <!-- Etiqueta HTML: Inicio de la tabla de datos -->
+            <table class="data-table">
+                <!-- Etiqueta HTML: Cabeza de la tabla (encabezados) -->
+                <thead>
+                    <!-- Etiqueta HTML: Fila de encabezados -->
+                    <tr>
+                        <!-- Etiqueta HTML: Columna Fecha -->
+                        <th>Fecha</th>
+                        <!-- Etiqueta HTML: Columna Tipo -->
+                        <th>Tipo</th>
+                        <!-- Etiqueta HTML: Columna Categoría -->
+                        <th>Categoría</th>
+                        <!-- Etiqueta HTML: Columna Cliente -->
+                        <th>Cliente</th>
+                        <!-- Etiqueta HTML: Columna Descripción -->
+                        <th>Descripción</th>
+                        <!-- Etiqueta HTML: Columna Monto -->
+                        <th>Monto</th>
+                        <!-- Etiqueta HTML: Columna Acciones -->
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <!-- Etiqueta HTML: Cuerpo de la tabla (datos) -->
+                <tbody>
+                    {# Comentario Django: Iniciamos bucle para recorrer transacciones #}
+                    {% for transaccion in transacciones %}
+                    <!-- Etiqueta HTML: Fila de la tabla para cada elemento -->
+                    <tr>
+                        <!-- Etiqueta HTML: Celda de datos para la fecha -->
+                        <td>
+                            <!-- Icono de calendario -->
+                            <i class="fas fa-calendar"></i>
+                            {# Comentario Django: Muestra fecha filtrada con formato día mes año #}
+                            {{ transaccion.fecha|date:"d/m/Y" }}
+                        </td>
+                        
+                        <!-- Etiqueta HTML: Celda para el tipo de transacción -->
+                        <td>
+                            <!-- Etiqueta HTML: Span para la etiqueta de color -->
+                            <span class="badge {# Comentario Django: Si es ingreso pone clase verde #}{% if transaccion.tipo == 'INGRESO' %}badge-success{% else %}badge-danger{% endif %}">
+                                {# Comentario Django: Si es ingreso muestra icono y texto #}
+                                {% if transaccion.tipo == 'INGRESO' %}
+                                    <i class="fas fa-plus-circle"></i> INGRESO
+                                {# Comentario Django: Sino muestra gasto #}
+                                {% else %}
+                                    <i class="fas fa-minus-circle"></i> GASTO
+                                {# Comentario Django: Cierra la condición if del tipo #}
+                                {% endif %}
+                            </span>
+                        </td>
+                        
+                        <!-- Etiqueta HTML: Celda para la categoría -->
+                        <td>
+                            <!-- Icono de etiqueta -->
+                            <i class="fas fa-tag"></i>
+                            {# Comentario Django: Muestra el valor de la categoría #}
+                            {{ transaccion.categoria }}
+                        </td>
+                        
+                        <!-- Etiqueta HTML: Celda para el cliente -->
+                        <td>
+                            {# Comentario Django: Verifica si existe cliente asociado #}
+                            {% if transaccion.cliente %}
+                                <!-- Icono de usuario -->
+                                <i class="fas fa-user"></i>
+                                {# Comentario Django: Muestra nombre y apellido del cliente #}
+                                {{ transaccion.cliente.nombre }} {{ transaccion.cliente.apellido }}
+                            {# Comentario Django: Si no hay cliente ejecuta esto #}
+                            {% else %}
+                                <!-- Etiqueta HTML: Span con texto tenue -->
+                                <span class="text-muted">
+                                    <!-- Icono de usuario tachado -->
+                                    <i class="fas fa-user-slash"></i> Sin cliente
+                                </span>
+                            {# Comentario Django: Cierra la condición del cliente #}
+                            {% endif %}
+                        </td>
+                        
+                        <!-- Etiqueta HTML: Celda para la descripción -->
+                        <td>
+                            {# Comentario Django: Muestra descripción cortada a 15 palabras o guion #}
+                            {{ transaccion.descripcion|truncatewords:15|default:"-" }}
+                        </td>
+                        
+                        <!-- Etiqueta HTML: Celda para el monto -->
+                        <td>
+                            <!-- Etiqueta HTML: Negrita con clase dinámica -->
+                            <strong class="{# Comentario Django: Clase verde si ingreso o rojo si gasto #}{% if transaccion.tipo == 'INGRESO' %}text-success{% else %}text-danger{% endif %}">
+                                {# Comentario Django: Muestra signo mas o menos #}
+                                {% if transaccion.tipo == 'INGRESO' %}+{% else %}-{% endif %}
+                                {# Comentario Django: Muestra monto con formato decimal #}
+                                ${{ transaccion.monto|floatformat:2 }}
+                            </strong>
+                        </td>
+                        
+                        <!-- Etiqueta HTML: Celda para botones de acción -->
+                        <td>
+                            <!-- Etiqueta HTML: Contenedor de botones -->
+                            <div class="action-buttons">
+                                <!-- Etiqueta HTML: Botón de ver detalles -->
+                                <button class="btn-icon btn-info" onclick="verTransaccion({{ transaccion.id }})" title="Ver detalles">
+                                    <!-- Icono de ojo -->
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                
+                                <!-- Etiqueta HTML: Botón de editar -->
+                                <button class="btn-icon btn-warning" onclick="editarTransaccion({{ transaccion.id }})" title="Editar">
+                                    <!-- Icono de lápiz -->
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                
+                                <!-- Etiqueta HTML: Botón de eliminar -->
+                                <button class="btn-icon btn-danger" onclick="eliminarTransaccion({{ transaccion.id }})" title="Eliminar">
+                                    <!-- Icono de basura -->
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {# Comentario Django: Cierra el bucle for de transacciones #}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {# Comentario Django: Si no hay transacciones ejecuta el bloque else #}
+    {% else %}
+        <!-- Etiqueta HTML: Div para estado vacío -->
+        <div class="empty-state">
+            <!-- Icono grande de recibo -->
+            <i class="fas fa-receipt fa-3x"></i>
+            <!-- Subtítulo -->
+            <h3>No hay transacciones registradas</h3>
+            <!-- Texto descriptivo -->
+            <p>Comienza registrando tu primera transacción</p>
+            
+            <!-- Etiqueta HTML: Botón para crear primera transacción -->
+            <button class="btn btn-primary" onclick="abrirModalTransaccion()">
+                <!-- Icono de más -->
+                <i class="fas fa-plus"></i> Crear Primera Transacción
+            </button>
+        </div>
+    {# Comentario Django: Cierra la condición if transacciones #}
+    {% endif %}
+</div>
+
+<!-- Etiqueta HTML: Div que representa el modal, oculto por defecto -->
+<div id="modalTransaccion" class="modal" style="display: none;">
+    <!-- Etiqueta HTML: Fondo oscuro del modal, cierra al hacer click -->
+    <div class="modal-overlay" onclick="cerrarModalTransaccion()"></div>
+    
+    <!-- Etiqueta HTML: Caja de contenido blanca del modal -->
+    <div class="modal-content">
+        <!-- Etiqueta HTML: Encabezado del modal -->
+        <div class="modal-header">
+            <!-- Título del modal -->
+            <h2><i class="fas fa-plus-circle"></i> Nueva Transacción</h2>
+            <!-- Botón de cerrar con equis -->
+            <button class="modal-close" onclick="cerrarModalTransaccion()">
+                <!-- Icono de cruz -->
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Etiqueta HTML: Cuerpo del modal -->
+        <div class="modal-body">
+            <!-- Etiqueta HTML: Formulario de creación -->
+            <form id="formTransaccion" onsubmit="guardarTransaccion(event)">
+                <!-- Etiqueta HTML: Grupo del campo tipo -->
+                <div class="form-group">
+                    <!-- Etiqueta de texto para el input -->
+                    <label for="tipo">
+                        <!-- Icono de intercambio -->
+                        <i class="fas fa-exchange-alt"></i> Tipo de Transacción
+                    </label>
+                    <!-- Etiqueta HTML: Lista desplegable de selección -->
+                    <select 
+                        id="tipo" 
+                        name="tipo" 
+                        class="form-control" 
+                        required
+                        onchange="cambiarColorTipo()"
+                    >
+                        <!-- Opción por defecto -->
+                        <option value="">Seleccione...</option>
+                        <!-- Opción ingreso -->
+                        <option value="INGRESO">💰 Ingreso</option>
+                        <!-- Opción gasto -->
+                        <option value="GASTO">💸 Gasto</option>
+                    </select>
+                </div>
+                
+                <!-- Etiqueta HTML: Grupo del campo categoría -->
+                <div class="form-group">
+                    <!-- Etiqueta de texto -->
+                    <label for="categoria">
+                        <!-- Icono de etiqueta -->
+                        <i class="fas fa-tag"></i> Categoría
+                    </label>
+                    <!-- Etiqueta HTML: Input de texto -->
+                    <input 
+                        type="text" 
+                        id="categoria" 
+                        name="categoria" 
+                        class="form-control" 
+                        required
+                        placeholder="Ej: Ventas, Alimentación, Servicios"
+                    >
+                </div>
+                
+                <!-- Etiqueta HTML: Grupo del campo monto -->
+                <div class="form-group">
+                    <!-- Etiqueta de texto -->
+                    <label for="monto">
+                        <!-- Icono de dólar -->
+                        <i class="fas fa-dollar-sign"></i> Monto
+                    </label>
+                    <!-- Etiqueta HTML: Input numérico -->
+                    <input 
+                        type="number" 
+                        id="monto" 
+                        name="monto" 
+                        class="form-control" 
+                        required
+                        step="0.01"
+                        min="0"
+                        placeholder="Ej: 150000.50"
+                    >
+                </div>
+      <!-- Etiqueta HTML: Grupo del campo fecha -->              
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-calendar-alt"></i>Fecha
+                    </label>
+                    <div style="display: flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
+                        <input type="checkbox" id="usar_fecha_actual" name="usar_fecha_actual" checked onchange="toggleFechaInput()">
+                        <label for="usar_fecha_actual" style ="margin:0; font-weight:normal;">Usar fecha actual</label>
+                    </div>
+                    <input type="date" id="fecha" name="fecha" class="form-control" disabled>
+                    </div>
+          <!-- fin del campo  fecha -->  
+           
+          
+                <!-- Etiqueta HTML: Grupo del campo cliente -->
+                <div class="form-group">
+                    <!-- Etiqueta de texto -->
+                    <label for="cliente_id">
+                        <!-- Icono de usuario -->
+                        <i class="fas fa-user"></i> Cliente (Opcional)
+                    </label>
+                    <!-- Etiqueta HTML: Select para elegir cliente -->
+                    <select id="cliente_id" name="cliente_id" class="form-control">
+                        <!-- Opción vacía -->
+                        <option value="">Sin cliente asociado</option>
+                        {# Comentario Django: Bucle para llenar la lista con clientes #}
+                        {% for cliente in clientes %}
+                            <!-- Opción con valor ID del cliente -->
+                            <option value="{{ cliente.id }}">
+                                {# Comentario Django: Muestra nombre y documento en la lista #}
+                                {{ cliente.nombre }} {{ cliente.apellido }} - {{ cliente.documento_identidad }}
+                            </option>
+                        {# Comentario Django: Cierra el bucle de clientes #}
+                        {% endfor %}
+                    </select>
+                </div>
+                
+           
+ <!-- Etiqueta HTML: Grupo del campo descripción -->
+                    <div class="form-group">
+                    <!-- Etiqueta de texto -->
+                    <label for="descripcion">
+                        <!-- Icono de alineación izquierda -->
+                        <i class="fas fa-align-left"></i> Descripción (Opcional)
+                    </label>
+                    <!-- Etiqueta HTML: Área de texto grande -->
+                    <textarea 
+                        id="descripcion" 
+                        name="descripcion" 
+                        class="form-control" 
+                        rows="3"
+                        placeholder="Detalles adicionales de la transacción..."
+                    ></textarea>
+                </div>
+                
+                <!-- Etiqueta HTML: Grupo de botones de acción -->
+                <div class="form-actions">
+                    <!-- Botón cancelar -->
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModalTransaccion()">
+                        <!-- Icono de cruz -->
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <!-- Botón guardar de tipo submit -->
+                    <button type="submit" class="btn btn-primary">
+                        <!-- Icono de disco -->
+                        <i class="fas fa-save"></i> Guardar Transacción
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL VER / EDITAR TRANSACCIÓN -->
+<div id="modalVerEditar" class="modal" style="display: none;">
+    <div class="modal-overlay" onclick="cerrarModalVerEditar()"></div>
+    
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="tituloModal"><i class="fas fa-eye"></i> Ver Transacción</h2>
+            <button class="modal-close" onclick="cerrarModalVerEditar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <form id="formVerEditar" onsubmit="guardarEdicion(event)">
+                <input type="hidden" id="edit_id">
+                
+                <div class="form-group">
+                    <label><i class="fas fa-calendar"></i> Fecha</label>
+                    <input type="date" id="edit_fecha" class="form-control" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-exchange-alt"></i> Tipo</label>
+                    <input type="text" id="edit_tipo" class="form-control" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Categoría</label>
+                    <input type="text" id="edit_categoria" class="form-control" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-dollar-sign"></i> Monto</label>
+                    <input type="number" id="edit_monto" class="form-control" step="0.01" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-align-left"></i> Descripción</label>
+                    <textarea id="edit_descripcion" class="form-control" rows="3" readonly></textarea>
+                </div>
+                
+                <!-- Botones modo VER -->
+                <div id="botonesVer" class="form-actions" style="display: flex;">
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModalVerEditar()">
+                        <i class="fas fa-times"></i> Cerrar
+                    </button>
+                    <button type="button" class="btn btn-warning" onclick="habilitarEdicion()">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                </div>
+                
+                <!-- Botones modo EDITAR -->
+                <div id="botonesEditar" class="form-actions" style="display: none;">
+                    <button type="button" class="btn btn-secondary" onclick="cancelarEdicion()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{# Comentario Django: Termina el bloque de contenido principal #}
+{% endblock %}
+
+<!-- Comentario HTML: Sección de scripts de la página -->
+{# Comentario Django: Inicia el bloque para javascript extra #}
+{% block extra_js %}
+<script>
+    // DEBUG: Verificar que el JS se cargó
+    console.log('=== JAVASCRIPT CARGADO ===');
+    
+    // ========== MODAL NUEVA TRANSACCIÓN (el que ya tenías) ==========
+    function abrirModalTransaccion() {
+        document.getElementById('modalTransaccion').style.display = 'flex';
+    }
+    
+    function cerrarModalTransaccion() {
+        document.getElementById('modalTransaccion').style.display = 'none';
+        document.getElementById('formTransaccion').reset();
+    }
+    
+    function cambiarColorTipo() {
+        const selectTipo = document.getElementById('tipo');
+        const valor = selectTipo.value;
+        
+        if (valor === 'INGRESO') {
+            selectTipo.style.backgroundColor = '#d1fae5'; 
+            selectTipo.style.color = '#065f46'; 
+        } else if (valor === 'GASTO') {
+            selectTipo.style.backgroundColor = '#fee2e2'; 
+            selectTipo.style.color = '#991b1b'; 
+        } else {
+            selectTipo.style.backgroundColor = ''; 
+            selectTipo.style.color = '';
+        }
+    }
+    
+    function toggleFechaInput() {
+        const checkbox = document.getElementById('usar_fecha_actual');
+        const input = document.getElementById('fecha');
+        input.disabled = checkbox.checked;
+        if (checkbox.checked) {
+            input.value = '';
+        }
+    }
+
+    function getFechaActual() {
+        const hoy = new Date();
+        const anio = hoy.getFullYear();
+        const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+        const dia = String(hoy.getDate()).padStart(2, '0');
+        return `${anio}-${mes}-${dia}`;
+    }
+
+    function guardarTransaccion(event) {
+        event.preventDefault();
+        
+        const usarFechaActual = document.getElementById('usar_fecha_actual').checked;
+        const fechaSeleccionada = document.getElementById('fecha').value;
+        const fechaFinal = usarFechaActual ? getFechaActual() : fechaSeleccionada;
+
+        const datos = {
+            tipo: document.getElementById('tipo').value,
+            categoria: document.getElementById('categoria').value,
+            monto: document.getElementById('monto').value,
+            fecha: fechaFinal,
+            cliente_id: document.getElementById('cliente_id').value || null,
+            descripcion: document.getElementById('descripcion').value
+        };
+        
+        fetch("{% url 'base:crear_transaccion' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify(datos)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Transacción creada exitosamente');
+                location.reload();
+            } else {
+                alert('Error al crear la transacción');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al conectar con el servidor');
+        });
+    }
+
+    // ========== FUNCIÓN ELIMINAR ==========
+    function eliminarTransaccion(id) {
+        // Confirmar antes de eliminar
+        if (!confirm('¿Estás seguro de que quieres eliminar esta transacción?\n\nEsta acción no se puede deshacer.')) {
+            return;
+        }
+        
+        // Mostrar en consola para debug
+        console.log('Eliminando transacción ID:', id);
+        
+        fetch(`/api/eliminar-transaccion/${id}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => {
+            console.log('Respuesta:', response);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Datos:', data);
+            if (data.success) {
+                alert('Transacción eliminada correctamente');
+                location.reload();
+            } else {
+                alert('Error al eliminar: ' + (data.error || 'No se pudo eliminar'));
+            }
+        })
+        .catch(error => {
+            console.error('Error completo:', error);
+            alert('Error al conectar con el servidor. Revisa la consola (F12)');
+        });
+            // DEBUG: Verificar que las funciones están definidas
+    console.log('Funciones cargadas:', {
+        eliminarTransaccion: typeof eliminarTransaccion,
+        abrirModalTransaccion: typeof abrirModalTransaccion
+    });
+}
+    // ========== FUNCIONES VER/EDITAR ==========
+    let datosOriginales = null;
+
+    function verTransaccion(id) {
+        fetch(`/api/obtener-transaccion/${id}/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                datosOriginales = data.transaccion;
+                
+                document.getElementById('edit_id').value = datosOriginales.id;
+                document.getElementById('edit_fecha').value = datosOriginales.fecha;
+                document.getElementById('edit_tipo').value = datosOriginales.tipo;
+                document.getElementById('edit_categoria').value = datosOriginales.categoria;
+                document.getElementById('edit_monto').value = datosOriginales.monto;
+                document.getElementById('edit_descripcion').value = datosOriginales.descripcion;
+                
+                // Modo ver (solo lectura)
+                document.getElementById('tituloModal').innerHTML = '<i class="fas fa-eye"></i> Ver Transacción';
+                document.getElementById('botonesVer').style.display = 'flex';
+                document.getElementById('botonesEditar').style.display = 'none';
+                setInputsReadOnly(true);
+                
+                document.getElementById('modalVerEditar').style.display = 'flex';
+            }
+        });
+    }
+
+    function editarTransaccion(id) {
+        verTransaccion(id);
+        setTimeout(habilitarEdicion, 100);
+    }
+
+    function habilitarEdicion() {
+        document.getElementById('tituloModal').innerHTML = '<i class="fas fa-edit"></i> Editar Transacción';
+        document.getElementById('botonesVer').style.display = 'none';
+        document.getElementById('botonesEditar').style.display = 'flex';
+        setInputsReadOnly(false);
+    }
+
+    function cancelarEdicion() {
+        if (datosOriginales) {
+            document.getElementById('edit_categoria').value = datosOriginales.categoria;
+            document.getElementById('edit_monto').value = datosOriginales.monto;
+            document.getElementById('edit_descripcion').value = datosOriginales.descripcion;
+        }
+        document.getElementById('tituloModal').innerHTML = '<i class="fas fa-eye"></i> Ver Transacción';
+        document.getElementById('botonesVer').style.display = 'flex';
+        document.getElementById('botonesEditar').style.display = 'none';
+        setInputsReadOnly(true);
+    }
+
+    function setInputsReadOnly(readonly) {
+        document.getElementById('edit_categoria').readOnly = readonly;
+        document.getElementById('edit_monto').readOnly = readonly;
+        document.getElementById('edit_descripcion').readOnly = readonly;
+    }
+
+    function cerrarModalVerEditar() {
+        document.getElementById('modalVerEditar').style.display = 'none';
+        datosOriginales = null;
+    }
+
+    function guardarEdicion(event) {
+        event.preventDefault();
+        
+        const id = document.getElementById('edit_id').value;
+        const datos = {
+            categoria: document.getElementById('edit_categoria').value,
+            monto: document.getElementById('edit_monto').value,
+            descripcion: document.getElementById('edit_descripcion').value
+        };
+        
+        fetch(`/api/editar-transaccion/${id}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify(datos)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Transacción actualizada correctamente');
+                location.reload();
+            } else {
+                alert('Error al actualizar');
+            }
+        });
+    }
+</script>
+{% endblock %}

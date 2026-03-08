@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.humanize',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -134,7 +135,9 @@ import os
 MEDIA_URL= '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-ALLOWED_HOSTS = ['*']
+# Abre el archivo settings.py de tu carpeta de proyecto
+ALLOWED_HOSTS = ['d9df-152-201-102-254.ngrok-free.app', 'localhost', '127.0.0.1', '*']
+CSRF_TRUSTED_ORIGINS = ['https://d9df-152-201-102-254.ngrok-free.app']
 
 STATIC_URL = '/static/'
 

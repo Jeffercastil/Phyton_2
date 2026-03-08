@@ -4,6 +4,8 @@
 {# Cargamos el sistema de archivos estáticos #}
 {% load static %}
 
+{% load humanize %}
+
 {# Definimos el título de la página #}
 {% block title %}Dashboard - Sistema de Movimientos{% endblock %}
 
@@ -35,7 +37,7 @@
             <div class="stat-info">
                 <h3>Total Ingresos</h3>
                 {# Variable 'total_ingresos' enviada desde views.py | filtro floatformat:2 para 2 decimales #}
-                <p class="stat-value">${{ total_ingresos|floatformat:2 }}</p>
+                <p class="stat-value">${{ total_ingresos|floatformat:"0"|intcomma }}</p>
             </div>
         </div>
 
@@ -50,7 +52,7 @@
             <div class="stat-info">
                 <h3>Total Gastos</h3>
                 {# Variable 'total_gastos' enviada desde views.py | filtro floatformat:2 para 2 decimales #}
-                <p class="stat-value">${{ total_gastos|floatformat:2 }}</p>
+                <p class="stat-value">${{ total_gastos|floatformat:"0"|intcomma}}</p>
             </div>
         </div>
 
@@ -66,10 +68,225 @@
             <div class="stat-info">
                 <h3>Balance</h3>
                 {# Variable 'balance' enviada desde views.py | filtro floatformat:2 para 2 decimales #}
-                <p class="stat-value">${{ balance|floatformat:2 }}</p>
+                <p class="stat-value">${{ balance|floatformat:"0"|intcomma}}</p>
             </div>
         </div>
     </div>
+
+        <!-- SECCIÓN GRÁFICA -->
+         <!-- FILTROS DEL DASHBOARD -->
+<div style="margin-bottom: 1.5rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+    <form method="GET" action="" style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+        
+        <select name="anio" class="form-control" style="width: auto; padding: 0.5rem; font-size: 0.9rem;">
+            <option value="">Todos los años</option>
+            <option value="2024" {% if request.GET.anio == "2024" %}selected{% endif %}>2024</option>
+            <option value="2025" {% if request.GET.anio == "2025" %}selected{% endif %}>2025</option>
+            <option value="2026" {% if request.GET.anio == "2026" %}selected{% endif %}>2026</option>
+        </select>
+        
+        <select name="mes" class="form-control" style="width: auto; padding: 0.5rem; font-size: 0.9rem;">
+            <option value="">Todos los meses</option>
+            <option value="1"  {% if request.GET.mes == "1"  %}selected{% endif %}>Enero</option>
+            <option value="2"  {% if request.GET.mes == "2"  %}selected{% endif %}>Febrero</option>
+            <option value="3"  {% if request.GET.mes == "3"  %}selected{% endif %}>Marzo</option>
+            <option value="4"  {% if request.GET.mes == "4"  %}selected{% endif %}>Abril</option>
+            <option value="5"  {% if request.GET.mes == "5"  %}selected{% endif %}>Mayo</option>
+            <option value="6"  {% if request.GET.mes == "6"  %}selected{% endif %}>Junio</option>
+            <option value="7"  {% if request.GET.mes == "7"  %}selected{% endif %}>Julio</option>
+            <option value="8"  {% if request.GET.mes == "8"  %}selected{% endif %}>Agosto</option>
+            <option value="9"  {% if request.GET.mes == "9"  %}selected{% endif %}>Septiembre</option>
+            <option value="10" {% if request.GET.mes == "10" %}selected{% endif %}>Octubre</option>
+            <option value="11" {% if request.GET.mes == "11" %}selected{% endif %}>Noviembre</option>
+            <option value="12" {% if request.GET.mes == "12" %}selected{% endif %}>Diciembre</option>
+        </select>
+
+        <button type="submit" class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+            <i class="fas fa-filter"></i> Filtrar
+        </button>
+        <a href="{% url 'base:dashboard' %}" class="btn btn-secondary" 
+           style="padding: 0.5rem 1rem; background: #6c757d; color: white; text-decoration: none;">
+            Limpiar
+        </a>
+    </form>
+</div>
+
+ {% if categorias_json %}
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <!-- DEBUG TEMPORAL - bórralo después -->
+<!-- <p style="color:red;">DEBUG: {{ categorias_json }}</p>
+<p style="color:red;">DEBUG valores: {{ valores_json }}</p>-->
+<div style="margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; flex-wrap: wrap;">
+    
+    <!-- GRÁFICA DE BARRAS: Gastos por Categoría -->
+    <div style="background: white; border-radius: 16px; padding: 1.5rem; 
+                box-shadow: 0 4px 20px rgba(0,0,0,0.08); grid-column: 1 / -1;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <div>
+                <h3 style="margin: 0; color: #1e293b; font-size: 1.1rem;">
+                    <i class="fas fa-chart-bar" style="color: #6366f1;"></i> Gastos por Categoría
+                </h3>
+                <p style="margin: 0.2rem 0 0; color: #94a3b8; font-size: 0.85rem;">
+                    Distribución de tus gastos
+                </p>
+            </div>
+        </div>
+        <div style="height: 320px; position: relative;">
+           <canvas id="graficaCategorias" style="width:100%; height:100%;"></canvas>
+        </div>
+    </div>
+
+    <!-- GRÁFICA DONA: Proporción Ingresos vs Gastos -->
+    <div style="background: white; border-radius: 16px; padding: 1.5rem; 
+                box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+        <div style="margin-bottom: 1.5rem;">
+            <h3 style="margin: 0; color: #1e293b; font-size: 1.1rem;">
+                <i class="fas fa-chart-pie" style="color: #10b981;"></i> Ingresos vs Gastos
+            </h3>
+            <p style="margin: 0.2rem 0 0; color: #94a3b8; font-size: 0.85rem;">
+                Proporción general
+            </p>
+        </div>
+        <div style="height: 260px; position: relative;">
+            <canvas id="graficaDonut" style="width:100%; height:100%;"></canvas>
+        </div>
+    </div>
+
+    <!-- RESUMEN NUMÉRICO por categoría -->
+    <div style="background: white; border-radius: 16px; padding: 1.5rem; 
+                box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow-y: auto; max-height: 340px;">
+        <h3 style="margin: 0 0 1rem; color: #1e293b; font-size: 1.1rem;">
+            <i class="fas fa-list" style="color: #f59e0b;"></i> Detalle por Categoría
+        </h3>
+        <div id="listaCategorias"></div>
+    </div>
+
+</div>
+
+
+<script>
+    const labels  = {{ categorias_json|safe }};
+    const valores = {{ valores_json|safe }};
+    const totalGastos = parseFloat("{{ total_gastos }}");
+    const totalIngresos = parseFloat("{{ total_ingresos }}");
+
+    const coloresPaleta = [
+        '#6366f1','#10b981','#f59e0b','#ef4444',
+        '#06b6d4','#8b5cf6','#f97316','#84cc16','#d946ef','#14b8a6'
+    ];
+
+    // ── GRÁFICA DE BARRAS ──────────────────────────────────────
+    const ctxBar = document.getElementById('graficaCategorias').getContext('2d');
+    new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Gasto ($)',
+                data: valores,
+                backgroundColor: coloresPaleta.map(c => c + 'cc'),
+                borderColor: coloresPaleta,
+                borderWidth: 2,
+                borderRadius: 10,
+                borderSkipped: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1e293b',
+                    padding: 12,
+                    cornerRadius: 10,
+                    callbacks: {
+                        label: ctx => ' $' + ctx.parsed.y.toLocaleString('es-CO')
+                    }
+                }
+            },
+            scales: {
+                x: { grid: { display: false }, ticks: { color: '#64748b' } },
+                y: {
+                    beginAtZero: true,
+                    grid: { color: '#f1f5f9' },
+                    ticks: {
+                        color: '#64748b',
+                        callback: v => '$' + v.toLocaleString('es-CO')
+                    }
+                }
+            }
+        }
+    });
+
+    // ── GRÁFICA DONUT ──────────────────────────────────────────
+    const ctxDonut = document.getElementById('graficaDonut').getContext('2d');
+    new Chart(ctxDonut, {
+        type: 'doughnut',
+        data: {
+            labels: ['Ingresos', 'Gastos'],
+            datasets: [{
+                data: [totalIngresos, totalGastos],
+                backgroundColor: ['#10b981cc', '#ef4444cc'],
+                borderColor: ['#10b981', '#ef4444'],
+                borderWidth: 2,
+                hoverOffset: 10,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { color: '#475569', padding: 16, font: { size: 13 } }
+                },
+                tooltip: {
+                    backgroundColor: '#1e293b',
+                    padding: 12,
+                    cornerRadius: 10,
+                    callbacks: {
+                        label: ctx => ' $' + ctx.parsed.toLocaleString('es-CO')
+                    }
+                }
+            }
+        }
+    });
+
+    // ── LISTA DE CATEGORÍAS ───────────────────────────────────
+    const lista = document.getElementById('listaCategorias');
+    const maxValor = Math.max(...valores);
+    labels.forEach((label, i) => {
+        const porcentaje = totalGastos > 0 
+            ? ((valores[i] / totalGastos) * 100).toFixed(1) 
+            : 0;
+        const barWidth = maxValor > 0 ? (valores[i] / maxValor * 100).toFixed(0) : 0;
+        lista.innerHTML += `
+            <div style="margin-bottom: 0.9rem;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
+                    <span style="color:#334155; font-size:0.88rem; font-weight:500;">
+                        <span style="display:inline-block; width:10px; height:10px; 
+                                     border-radius:50%; background:${coloresPaleta[i % coloresPaleta.length]}; 
+                                     margin-right:6px;"></span>
+                        ${label}
+                    </span>
+                    <span style="color:#64748b; font-size:0.85rem;">
+                        $${valores[i].toLocaleString('es-CO')} 
+                        <span style="color:#94a3b8;">(${porcentaje}%)</span>
+                    </span>
+                </div>
+                <div style="background:#f1f5f9; border-radius:99px; height:6px;">
+                    <div style="width:${barWidth}%; height:100%; border-radius:99px; 
+                                background:${coloresPaleta[i % coloresPaleta.length]};
+                                transition: width 0.6s ease;"></div>
+                </div>
+            </div>`;
+    });
+</script>
+{% endif %}
+
+</div>
 
     {# Sección de Últimas Transacciones #}
     <div class="recent-transactions">
@@ -111,7 +328,7 @@
                         {% for transaccion in ultimas_transacciones %}
                         <tr>
                             {# Celda: Fecha de la transacción formateada (día/mes/año hora:minutos) #}
-                            <td>{{ transaccion.fecha|date:"d/m/Y H:i" }}</td>
+                            <td>{{ transaccion.fecha|date:"d/m/Y" }}</td>
                             
                             {# Celda: Tipo de transacción #}
                             <td>
@@ -154,7 +371,7 @@
                                 {# Condición: Si es Ingreso muestra signo +, si no signo - #}
                                 {% if transaccion.tipo == 'INGRESO' %}+{% else %}-{% endif %}
                                 {# Muestra el monto con 2 decimales #}
-                                ${{ transaccion.monto|floatformat:2 }}
+                                ${{ transaccion.monto|floatformat:"0"|intcomma }}
                             </td>
                         </tr>
                         {# Cierre del bucle FOR #}
@@ -205,7 +422,9 @@
         </div>
     </div>
 
+
 </div>
 
 {# Cierre del bloque de contenido #}
+
 {% endblock %}
