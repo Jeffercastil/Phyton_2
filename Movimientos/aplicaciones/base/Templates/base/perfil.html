@@ -1,0 +1,355 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Mi Perfil - Sistema de Movimientos{% endblock %}
+
+{% block content %}
+<div class="perfil-container">
+    <!-- Encabezado -->
+    <div class="perfil-header">
+        <div class="perfil-avatar-section">
+            <div class="perfil-avatar" id="avatarDisplay">
+                {{ perfil.avatar|default:'👤' }}
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="cambiarAvatar()">
+                <i class="fas fa-edit"></i> Cambiar Avatar
+            </button>
+        </div>
+
+        <div class="perfil-info-header">
+            <h1>{{ perfil.get_nombre_completo|default:perfil.usuario.username }}</h1>
+            <p class="perfil-username">@{{ perfil.usuario.username }}</p>
+            <p class="perfil-email"><i class="fas fa-envelope"></i> {{ perfil.usuario.email }}</p>
+            <p class="perfil-fecha">
+                <i class="fas fa-calendar"></i> Miembro desde {{ perfil.fecha_registro|date:"d/m/Y" }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Formulario de Perfil -->
+    <form method="post" action="{% url 'base:mi_perfil' %}" class="perfil-form">
+        {% csrf_token %}
+
+        <div class="perfil-sections">
+
+            <!-- Sección: Información Personal -->
+            <div class="perfil-section">
+                <div class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    <h2>Información Personal</h2>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">Nombre</label>
+                        <input type="text" id="first_name" name="first_name" class="form-control"
+                               value="{{ perfil.usuario.first_name }}" placeholder="Tu nombre">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="last_name">Apellido</label>
+                        <input type="text" id="last_name" name="last_name" class="form-control"
+                               value="{{ perfil.usuario.last_name }}" placeholder="Tu apellido">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico *</label>
+                        <input type="email" id="email" name="email" class="form-control" required
+                               value="{{ perfil.usuario.email }}" placeholder="ejemplo@correo.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control"
+                               value="{{ perfil.fecha_nacimiento|date:'Y-m-d'|default:'' }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="bio">Biografía</label>
+                    <textarea id="bio" name="bio" class="form-control" rows="3"
+                              placeholder="Cuéntanos un poco sobre ti...">{{ perfil.bio|default:'' }}</textarea>
+                </div>
+            </div>
+
+
+            <!-- Sección: Información de Contacto -->
+            <div class="perfil-section">
+                <div class="section-title">
+                    <i class="fas fa-address-card"></i>
+                    <h2>Información de Contacto</h2>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" class="form-control"
+                           value="{{ perfil.telefono|default:'' }}" placeholder="Ej: 3001234567">
+                </div>
+
+                <div class="form-group">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" id="direccion" name="direccion" class="form-control"
+                           value="{{ perfil.direccion|default:'' }}" placeholder="Tu dirección">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ciudad">Ciudad</label>
+                        <input type="text" id="ciudad" name="ciudad" class="form-control"
+                               value="{{ perfil.ciudad|default:'' }}" placeholder="Tu ciudad">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pais">País</label>
+                        <input type="text" id="pais" name="pais" class="form-control"
+                               value="{{ perfil.pais|default:'Colombia' }}" placeholder="Tu país">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Campo oculto para el avatar -->
+        <input type="hidden" id="avatar" name="avatar" value="{{ perfil.avatar|default:'👤' }}">
+
+        <!-- Botones de Acción -->
+        <div class="perfil-actions">
+            <div class="action-left">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Guardar Cambios
+                </button>
+            </div>
+
+            <div class="action-right">
+                <a href="{% url 'base:cambiar_password' %}" class="btn btn-warning">
+                    <i class="fas fa-key"></i> Cambiar Contraseña
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Modal para cambiar avatar -->
+<div id="modalAvatar" class="modal" style="display: none;">
+    <div class="modal-overlay" onclick="cerrarModalAvatar()"></div>
+
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h3><i class="fas fa-smile"></i> Seleccionar Avatar</h3>
+            <button type="button" class="modal-close" onclick="cerrarModalAvatar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <p style="color: #6b7280; margin-bottom: 1rem;">Elige un emoji para tu perfil:</p>
+
+            <div class="avatar-grid">
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('👤')">👤</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('😀')">😀</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('😎')">😎</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('🤓')">🤓</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('😊')">😊</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('🤠')">🤠</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('🥸')">🥸</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('🤖')">🤖</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('👽')">👽</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('🐱')">🐱</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('🐶')">🐶</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('🦊')">🦊</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('🦁')">🦁</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('🐯')">🐯</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('👨')">👨</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('👩')">👩</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('🧑')">🧑</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('👴')">👴</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('🎩')">🎩</button>
+                <button type="button" class="avatar-option" onclick="seleccionarAvatar('👑')">👑</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.perfil-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.perfil-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 2.5rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+}
+
+.perfil-avatar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.perfil-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.perfil-info-header h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.perfil-username {
+    opacity: 0.9;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.perfil-email, .perfil-fecha {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 0.25rem;
+}
+
+.perfil-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.perfil-section {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f3f4f6;
+}
+
+.section-title i {
+    color: #667eea;
+    font-size: 1.25rem;
+}
+
+.section-title h2 {
+    color: #1e293b;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.perfil-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 2px solid #f3f4f6;
+}
+
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+}
+
+.avatar-option {
+    aspect-ratio: 1;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    background: white;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.avatar-option:hover {
+    border-color: #667eea;
+    background: #f5f7ff;
+    transform: scale(1.1);
+}
+
+@media (max-width: 640px) {
+    .perfil-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .perfil-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .action-left, .action-right {
+        width: 100%;
+    }
+
+    .action-left button, .action-right a {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+
+    .avatar-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+</style>
+
+<script>
+function cambiarAvatar() {
+    document.getElementById('modalAvatar').style.display = 'flex';
+}
+
+function cerrarModalAvatar() {
+    document.getElementById('modalAvatar').style.display = 'none';
+}
+
+function seleccionarAvatar(emoji) {
+    document.getElementById('avatar').value = emoji;
+    document.getElementById('avatarDisplay').textContent = emoji;
+    cerrarModalAvatar();
+}
+
+// Cerrar modal con Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        cerrarModalAvatar();
+    }
+});
+</script>
+{% endblock %}

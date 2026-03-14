@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Movimientos{% endblock %}</title>
+
+    {% load static %}
+
+    <!-- Chart.js SIN defer — debe estar disponible antes que los JS de cada página -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="{% static 'base/css/styles.css' %}">
+
+    <!-- Font Awesome: iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <i class="fas fa-chart-line"></i>
+                <span>Sistema de Movimientos</span>
+            </div>
+
+            <ul class="navbar-menu">
+                <li><a href="{% url 'base:dashboard' %}">
+                    <i class="fas fa-home"></i> Dashboard
+                </a></li>
+                <li><a href="{% url 'base:transacciones' %}">
+                    <i class="fas fa-exchange-alt"></i> Transacciones
+                </a></li>
+                <li><a href="{% url 'base:deudas' %}">
+                    <i class="fas fa-file-invoice-dollar"></i> Deudas
+                </a></li>
+            </ul>
+
+            <div class="navbar-user">
+                    <a href="{% url 'base:mi_perfil' %}" style="color:white; text-decoration:none; margin-right:0.5rem;">
+                        <i class="fas fa-user-circle"></i> {{ user.username }}
+                    </a>
+                    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i> Salir
+                        </button>
+                    </form>
+                </div>
+            </div>
+    </nav>
+    {% endif %}
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% if user.is_authenticated %}
+    <footer class="footer">
+        <p>&copy; 2026 Sistema de Movimientos - Desarrollado por Jeff</p>
+    </footer>
+    {% endif %}
+
+    <!-- main.js con defer está bien, no usa Chart.js -->
+    <script src="{% static 'base/js/main.js' %}" defer></script>
+
+    <!-- Los JS de cada página van aquí, DESPUÉS de Chart.js -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,412 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Registro - Sistema de Movimientos{% endblock %}
+
+{% block extra_css %}
+<style>
+/* =============================================
+   REGISTRO — tema blanco, igual al resto del sistema
+   ============================================= */
+
+.register-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px);
+    padding: 2rem 1rem;
+    background: #f3f4f6;
+}
+
+.register-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    padding: 2.5rem 2.5rem 2rem;
+    width: 100%;
+    max-width: 540px;
+}
+
+/* ---- Header ---- */
+.register-header { text-align: center; margin-bottom: 2rem; }
+
+.register-icon {
+    font-size: 2.5rem;
+    color: #667eea;
+    margin-bottom: 0.75rem;
+}
+
+.register-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.35rem;
+}
+
+.register-header p {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* ---- Alertas ---- */
+.alert-msg {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.alert-error  { background:#fee2e2; border-left:4px solid #ef4444; color:#991b1b; }
+.alert-success{ background:#d1fae5; border-left:4px solid #10b981; color:#065f46; }
+
+/* ---- Filas ---- */
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1.1rem;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.form-group label i { color: #667eea; }
+
+/* ---- Inputs ---- */
+.register-card .form-control {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #111827;
+    background: #fff;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.register-card .form-control::placeholder { color: #9ca3af; }
+
+.register-card .form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102,126,234,0.12);
+}
+
+.register-card .form-control.input-valid {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
+}
+
+.register-card .form-control.input-invalid {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+}
+
+.form-text { font-size: 0.78rem; color: #9ca3af; }
+
+/* ---- Requisitos contraseña ---- */
+.password-requirements {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.1rem;
+    display: none;
+}
+
+.password-requirements.visible { display: block; }
+
+.password-requirements h4 {
+    font-size: 0.78rem;
+    color: #6b7280;
+    margin: 0 0 0.45rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.password-requirements ul {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 0.3rem;
+}
+
+.password-requirements li {
+    font-size: 0.82rem;
+    color: #9ca3af;
+    display: flex; align-items: center; gap: 0.4rem;
+}
+
+.password-requirements li.req-ok   { color: #059669; }
+.password-requirements li.req-fail { color: #dc2626; }
+
+/* ---- Botón ---- */
+.btn-submit {
+    width: 100%;
+    padding: 0.85rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 4px 14px rgba(102,126,234,0.35);
+}
+
+.btn-submit:hover { opacity: 0.92; transform: translateY(-1px); }
+.btn-submit:active { transform: translateY(0); }
+
+/* El botón NO se deshabilita al inicio — solo con JS si hay error */
+.btn-submit:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    background: #d1d5db;
+    box-shadow: none;
+    transform: none;
+}
+
+/* ---- Footer ---- */
+.register-footer {
+    text-align: center;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1.25rem;
+}
+
+.register-footer p { font-size: 0.875rem; color: #6b7280; margin: 0; }
+
+.register-footer a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-footer a:hover { text-decoration: underline; }
+
+/* ---- Responsive ---- */
+@media (max-width: 560px) {
+    .register-card { padding: 1.75rem 1.25rem; }
+    .form-row-2    { grid-template-columns: 1fr; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="register-container">
+    <div class="register-card">
+
+        <div class="register-header">
+            <div class="register-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h1>Crear Cuenta</h1>
+            <p>Únete y comienza a gestionar tus finanzas de manera inteligente</p>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert-msg {% if message.tags == 'error' %}alert-error{% else %}alert-success{% endif %}">
+                    {% if message.tags == 'error' %}
+                        <i class="fas fa-exclamation-circle"></i>
+                    {% else %}
+                        <i class="fas fa-check-circle"></i>
+                    {% endif %}
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" action="{% url 'base:registro' %}" id="registerForm">
+            {% csrf_token %}
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="first_name"><i class="fas fa-user"></i> Nombre</label>
+                    <input type="text" id="first_name" name="first_name" class="form-control"
+                           value="{{ first_name|default:'' }}" placeholder="Tu nombre">
+                </div>
+                <div class="form-group">
+                    <label for="last_name"><i class="fas fa-user"></i> Apellido</label>
+                    <input type="text" id="last_name" name="last_name" class="form-control"
+                           value="{{ last_name|default:'' }}" placeholder="Tu apellido">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="username">
+                    <i class="fas fa-user-tag"></i> Nombre de Usuario
+                    <span style="color:#ef4444;">*</span>
+                </label>
+                <input type="text" id="username" name="username" class="form-control" required
+                       value="{{ username|default:'' }}" placeholder="Ej: juanperez">
+                <small class="form-text">Este será tu identificador para iniciar sesión</small>
+            </div>
+
+            <div class="form-group">
+                <label for="email">
+                    <i class="fas fa-envelope"></i> Correo Electrónico
+                    <span style="color:#ef4444;">*</span>
+                </label>
+                <input type="email" id="email" name="email" class="form-control" required
+                       value="{{ email|default:'' }}" placeholder="ejemplo@correo.com">
+            </div>
+
+            <div class="form-group">
+                <label for="telefono"><i class="fas fa-phone"></i> Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" class="form-control"
+                       value="{{ telefono|default:'' }}" placeholder="Ej: 3001234567">
+            </div>
+
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Contraseña
+                        <span style="color:#ef4444;">*</span>
+                    </label>
+                    <input type="password" id="password" name="password" class="form-control" required
+                           placeholder="Mínimo 6 caracteres">
+                </div>
+                <div class="form-group">
+                    <label for="password_confirm">
+                        <i class="fas fa-lock"></i> Confirmar
+                        <span style="color:#ef4444;">*</span>
+                    </label>
+                    <input type="password" id="password_confirm" name="password_confirm"
+                           class="form-control" required placeholder="Repite la contraseña">
+                </div>
+            </div>
+
+            <div class="password-requirements" id="passwordRequirements">
+                <h4>La contraseña debe tener:</h4>
+                <ul>
+                    <li id="req-length"><i class="fas fa-circle"></i> Mínimo 6 caracteres</li>
+                    <li id="req-match"><i class="fas fa-circle"></i> Las contraseñas coinciden</li>
+                </ul>
+            </div>
+
+            <!-- El botón NO tiene disabled por defecto -->
+            <button type="submit" class="btn-submit" id="submitBtn">
+                <i class="fas fa-user-plus"></i> Crear Mi Cuenta
+            </button>
+
+            <div class="register-footer">
+                <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+/* ── Validación registro (inline para evitar problemas de carga) ── */
+(function () {
+    document.addEventListener('DOMContentLoaded', function () {
+        var pwdInput  = document.getElementById('password');
+        var confInput = document.getElementById('password_confirm');
+        var reqBox    = document.getElementById('passwordRequirements');
+        var reqLen    = document.getElementById('req-length');
+        var reqMatch  = document.getElementById('req-match');
+        var btn       = document.getElementById('submitBtn');
+        var form      = document.getElementById('registerForm');
+
+        // El botón empieza HABILITADO
+        // Solo se deshabilita si el usuario escribe algo incorrecto
+
+        function mark(el, ok) {
+            if (!el) return;
+            el.classList.toggle('req-ok',   ok);
+            el.classList.toggle('req-fail', !ok);
+        }
+
+        function validate() {
+            var pwd  = pwdInput  ? pwdInput.value  : '';
+            var conf = confInput ? confInput.value : '';
+            var typed = pwd.length > 0 || conf.length > 0;
+
+            if (reqBox) reqBox.classList.toggle('visible', typed);
+
+            var okLen   = pwd.length >= 6;
+            var okMatch = conf.length > 0 ? pwd === conf : true;
+
+            mark(reqLen,   okLen);
+            mark(reqMatch, okMatch);
+
+            // Feedback en inputs
+            if (pwdInput && pwd.length > 0) {
+                pwdInput.classList.toggle('input-valid',   okLen);
+                pwdInput.classList.toggle('input-invalid', !okLen);
+            }
+            if (confInput && conf.length > 0) {
+                confInput.classList.toggle('input-valid',   pwd === conf);
+                confInput.classList.toggle('input-invalid', pwd !== conf);
+            }
+
+            // Deshabilitar botón SOLO si el usuario ya escribió y hay error
+            if (btn) {
+                var shouldDisable = typed && !(okLen && okMatch);
+                btn.disabled = shouldDisable;
+            }
+        }
+
+        if (pwdInput)  pwdInput.addEventListener('input',  validate);
+        if (confInput) confInput.addEventListener('input',  validate);
+
+        // Validación final al enviar
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                var pwd  = pwdInput  ? pwdInput.value  : '';
+                var conf = confInput ? confInput.value : '';
+
+                if (pwd !== conf) {
+                    e.preventDefault();
+                    if (confInput) {
+                        confInput.classList.add('input-invalid');
+                        confInput.focus();
+                    }
+                    return;
+                }
+
+                // Spinner al enviar
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando cuenta...';
+                }
+            });
+        }
+
+        // Username: sin espacios
+        var usernameInput = document.getElementById('username');
+        if (usernameInput) {
+            usernameInput.addEventListener('input', function () {
+                this.value = this.value.replace(/\s+/g, '');
+            });
+        }
+    });
+})();
+</script>
+{% endblock %}
