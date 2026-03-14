@@ -321,7 +321,7 @@ function mostrarMensajeBienvenida() {
         'background: #333; color: #10b981; padding: 10px; border-radius: 5px; margin-left: 10px;'
     );
     console.log('%cDesarrollado por Jeff 💻', 'color: #667eea; font-size: 12px;');
-    console.log('%cEsta aplicación gestiona clientes y transacciones', 'color: #6b7280; font-size: 11px;');
+    console.log('%cEsta aplicación gestiona transacciones y deudas', 'color: #6b7280; font-size: 11px;');
 }
 
 /* 

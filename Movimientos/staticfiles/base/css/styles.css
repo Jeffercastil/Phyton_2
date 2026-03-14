@@ -5,29 +5,50 @@ ESTILOS GENERALES Y RESET
 */
 
 /* 
-* = selector universal (aplica a TODOS los elementos)
-Eliminamos márgenes y padding por defecto del navegador
-box-sizing: border-box hace que el padding se incluya en el ancho total
+* = Selector Universal. Significa: "Aplica esto a TODOS los elementos (divs, botones, párrafos, etc.)"
+Esto sirve para limpiar los estilos "sucios" que vienen por defecto en los navegadores.
 */
+* {
+    margin: 0;       /* Elimina cualquier espacio externo que tengan los elementos por defecto */
+    padding: 0;      /* Elimina cualquier relleno interno que tengan los elementos por defecto */
+    
+    /* 
+    'border-box' es el método de cálculo de caja. 
+    Si dices: "mide 100px", medirá 100px TOTAL (incluyendo el borde y el padding).
+    Sin esto, la caja crecería cada vez que le agregues padding, rompiendo el diseño.
+    */
+    box-sizing: border-box; 
+} /* Fin de la regla universal (Reset) */
 
-*{ 
-    margin: 0;
-    padding : 0;
-    box-sizing: border-box;
+html, body {
+    height: 100%;
 }
-
 /* 
-Estilos del body (cuerpo de la página)
+Estilos para la etiqueta <body> (el cuerpo principal de toda la página web).
 */
-body{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuentes del sistema */
-    background-color: #f5f7fa; /* Color de fondo gris claro */
-    color: #333; /* Color de texto gris oscuro */
-    line-height: 1.6; /* Espaciado entre líneas */
-    min-height: 100vh; /* Altura mínima = 100% del viewport (pantalla) */
-    display: flex; /* Usamos flexbox para layout */
-    flex-direction: column; /* Los elementos se apilan verticalmente */
-}
+body {
+    /* Define la fuente (tipo de letra) a usar. Busca 'Segoe UI', si no, Tahoma, etc. */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* Color de fondo: #f5f7fa es un código hexadecimal para un gris azulado muy suave */
+    background-color: #f5f7fa; 
+    
+    /* Color del texto: #333 es un gris oscuro (casi negro), que cansa menos la vista que el negro puro */
+    color: #333; 
+    
+    /* Altura de la línea de texto. 1.6 significa que el espacio es 1.6 veces el tamaño de la letra */
+    line-height: 1.6;
+    
+    /* 
+    'min-height: 100vh' = Altura Mínima del 100% del Viewport Height (toda la pantalla visible).
+    Esto asegura que el fondo llegue hasta abajo siempre, aunque haya poco contenido.
+    */
+    min-height: 100vh;
+    
+    display: flex; /* Activa el modo Flexbox para permitir alineamientos especiales */
+    flex-direction: column; /* Ordena los elementos hijos (Navbar, Contenido, Footer) en una columna vertical */
+} /* Fin de los estilos del Body */
+
 
 /* 
 ===============================================
@@ -35,30 +56,1529 @@ BARRA DE NAVEGACIÓN (NAVBAR)
 ===============================================
 */
 
+/* Estilos para el contenedor principal de la barra de navegación */
 .navbar {
-    background:linear-gradient(135deg, #667eea 0%,#764ba2 100%);/*Degradado morado*/
-    color: white; /* texto blanco*/
-    padding : 1rem 2rem; /* Espacio interno: 1rem arriba /abajo, 2rem izquierda /derecha */
-    box-shadow :0px 2px 10PX rgba(0,0,0,0.1); /* sombra sutil*/
-    position :sticky; /* Se queda fijo al hacer scroll  */
-    top: 0; /* pegado arriba  */
-    z-index :1000; /* Aparece sobre  otros elementos */
+    /* Crea un fondo degradado que va del color #667eea al #764ba2 en diagonal */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white; /* Todo el texto dentro de la barra será de color blanco */
+    
+    /* Espacio interno: 1rem arriba y abajo, 2rem a izquierda y derecha */
+    padding: 1rem 2rem; 
+    
+    /* 
+    'box-shadow' añade sombra.
+    (0, 2px, 10px) = Desplazamiento X, Desplazamiento Y, Desenfoque.
+    (rgba(0,0,0,0.1)) = Color negro con 10% de transparencia.
+    */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    
+    position: sticky; /* 'sticky' hace que el elemento se quede fijo al hacer scroll */
+    top: 0; /* Lo fija a 0px desde la parte superior de la ventana */
+    
+    /* 'z-index' es la profundidad. 1000 significa que estará por encima de otros elementos */
+    z-index: 1000;
+} /* Fin de los estilos de la Navbar */
+
+
+/* 
+Contenedor interno de la Navbar (envuelve al logo, menú y usuario)
+*/
+.navbar-container {
+    display: flex; /* Activa el modo Flexbox para alinear los elementos internos */
+    
+    /* 'justify-content' distribuye el espacio HORIZONTALMENTE */
+    justify-content: space-between; /* 'space-between' empuja el logo a la izq y el usuario a la der */
+    
+    /* 'align-items' alinea el espacio VERTICALMENTE */
+    align-items: center; /* Centra todos los elementos verticalmente */
+    
+    max-width: 1400px; /* El ancho máximo de este contenedor será de 1400px */
+    margin: 0 auto; /* '0' margen vertical, 'auto' horizontal = CENTRA el contenedor en la pantalla */
+} /* Fin del Navbar Container */
+
+
+/* Estilos para la marca/Logo del sistema */
+.navbar-brand {
+    font-size: 1.5rem; /* Tamaño de fuente grande */
+    font-weight: bold; /* Texto en negrita */
+    display: flex; /* Activa flexbox para alinear icono y texto */
+    align-items: center; /* Centra verticalmente el icono con el texto */
+    gap: 0.5rem; /* 'gap' crea un espacio de 0.5rem entre el icono y el texto */
+} /* Fin del Navbar Brand */
+
+
+/* 
+Lista desordenada que contiene los enlaces del menú (Dashboard, Clientes...)
+*/
+.navbar-menu {
+    display: flex; /* Muestra los ítems de la lista en fila horizontal */
+    list-style: none; /* Elimina los puntos de viñeta típicos de las listas HTML */
+    gap: 2rem; /* Espacio de 2rem (32px) entre cada ítem del menú */
+} /* Fin del Navbar Menu */
+
+
+/* Estilos para cada enlace (<a>) dentro del menú */
+.navbar-menu a {
+    color: white; /* Color del texto del enlace */
+    text-decoration: none; /* Quita la línea subrayada que viene por defecto en los enlaces */
+    padding: 0.5rem 1rem; /* Espacio interno alrededor del texto del enlace */
+    border-radius: 5px; /* Redondea las esquinas del fondo al pasar el mouse */
+    transition: all 0.3s ease; /* Animación suave de 0.3s cuando cambie el estado (hover) */
+    display: flex; /* Flexbox para alinear icono con el texto */
+    align-items: center; /* Centrado vertical */
+    gap: 0.5rem; /* Espacio entre icono y texto del enlace */
+} /* Fin de los estilos de los enlaces del menú */
+
+
+/* 
+:hover significa "Al pasar el mouse por encima"
+Estilos que se activan solo cuando el mouse está sobre el elemento
+*/
+.navbar-menu a:hover {
+    /* Cambia el fondo a blanco con 20% de transparencia */
+    background-color: rgba(255,255,255,0.2); 
+    
+    /* Mueve el elemento 2px hacia arriba (efecto visual de "saltar") */
+    transform: translateY(-2px); 
+} /* Fin del efecto Hover del menú */
+
+
+/* Sección que contiene el nombre de usuario y el botón de salir */
+.navbar-user {
+    display: flex; /* Alinea nombre y botón */
+    align-items: center; /* Centrado vertical */
+    gap: 1rem; /* Espacio entre el nombre y el botón */
+} /* Fin del Navbar User */
+
+
+/* Botón para cerrar sesión (Salir) */
+.btn-logout {
+    background-color: rgba(255,255,255,0.2); /* Fondo blanco semitransparente */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    padding: 0.5rem 1rem; /* Tamaño del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor a la "manita" al pasar el mouse */
+    transition: all 0.3s ease; /* Animación de transición suave */
+} /* Fin del botón Logout */
+
+
+/* Efecto hover del botón de logout */
+.btn-logout:hover {
+    background-color: rgba(255,255,255,0.3); /* Fondo ligeramente más claro al pasar el mouse */
+} /* Fin del hover del botón Logout */
+
+
+/* 
+===============================================
+CONTENIDO PRINCIPAL
+===============================================
+*/
+
+/* Área donde vive el contenido de las páginas (Dashboard, Clientes, etc.) */
+.main-content {
+    /* 
+    'flex: 1' hace que este contenedor crezca para ocupar TODO el espacio libre disponible.
+    Esto empuja al Footer hasta el fondo de la página.
+    */
+    flex: 1; 
+    
+    padding: 2rem; /* Espacio alrededor de todo el contenido */
+    max-width: 1400px; /* Limita el ancho máximo */
+    width: 100%; /* Ocupa el 100% del ancho disponible hasta el límite anterior */
+    margin: 0 auto; /* Centra el contenido horizontalmente */
+} /* Fin del Main Content */
+
+
+/* 
+===============================================
+PÁGINA DE INICIO (LANDING)
+===============================================
+*/
+
+/* Sección Hero: La sección grande y destacada de la portada */
+.hero {
+    text-align: center; /* Centra todo el texto y elementos dentro del Hero */
+    padding: 4rem 2rem; /* Espacio grande arriba/abajo, pequeño a los lados */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Degradado morado */
+    color: white; /* Texto blanco */
+    border-radius: 15px; /* Bordes muy redondeados */
+    margin-bottom: 3rem; /* Margen inferior para separarse del contenido de abajo */
+} /* Fin del Hero */
+
+
+/* Título principal dentro del Hero */
+.hero h1 {
+    font-size: 3rem; /* Tamaño de fuente gigante */
+    margin-bottom: 1rem; /* Espacio entre el título y lo que sigue */
+} /* Fin del título del Hero */
+
+
+/* Subtítulo o texto secundario del Hero */
+.hero-subtitle {
+    font-size: 1.2rem; /* Tamaño de fuente medio */
+    margin-bottom: 2rem; /* Espacio antes de los botones */
+    opacity: 0.9; /* Transparencia del 90% (hace que se vea ligeramente grisáceo) */
+} /* Fin del subtítulo del Hero */
+
+
+/* Contenedor de los botones que están en el Hero */
+.hero-buttons {
+    display: flex; /* Flexbox para alinear botones */
+    gap: 1rem; /* Espacio entre los botones */
+    justify-content: center; /* Centra los botones horizontalmente */
+    flex-wrap: wrap; /* Permite que los botones salten a la siguiente línea si no caben */
+} /* Fin de los botones del Hero */
+
+
+/* 
+===============================================
+CARACTERÍSTICAS (FEATURES)
+===============================================
+*/
+
+/* Contenedor de la sección de características */
+.features {
+    padding: 3rem 0; /* Espacio vertical para separar secciones */
+} /* Fin del Features */
+
+
+/* Títulos de la sección de características */
+.features h2 {
+    text-align: center; /* Título centrado */
+    font-size: 2rem; /* Tamaño grande */
+    margin-bottom: 2rem; /* Espacio antes de la cuadrícula */
+    color: #667eea; /* Color morado */
+} /* Fin de los títulos Features */
+
+
+/* 
+Cuadrícula (Grid) que contiene las tarjetas de características
+Es como una tabla invisible de 3 columnas
+*/
+.features-grid {
+    display: grid; /* Activa el sistema de cuadrícula CSS Grid */
+    
+    /* Crea 3 columnas iguales. '1fr' = 1 fracción del espacio disponible */
+    grid-template-columns: repeat(3, 1fr);
+    
+    gap: 2rem; /* Espacio entre las tarjetas */
+} /* Fin de la cuadrícula Features */
+
+
+/* Tarjeta individual de característica */
+.feature-card {
+    background: white; /* Fondo blanco */
+    padding: 2rem; /* Relleno interno */
+    border-radius: 10px; /* Esquinas redondeadas */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra suave */
+    text-align: center; /* Texto centrado dentro de la tarjeta */
+    transition: transform 0.3s ease; /* Animación para cuando el mouse pase */
+} /* Fin de la tarjeta Feature */
+
+
+/* Efecto hover de la tarjeta de característica */
+.feature-card:hover {
+    transform: translateY(-5px); /* Mueve la tarjeta 5px hacia arriba (efecto flotante) */
+    box-shadow: 0 8px 12px rgba(0,0,0,0.15); /* Sombra más grande y difusa para dar profundidad */
+} /* Fin del hover Feature Card */
+
+
+/* Icono dentro de la tarjeta de característica */
+.feature-icon {
+    font-size: 3rem; /* Icono muy grande */
+    color: #667eea; /* Color morado */
+    margin-bottom: 1rem; /* Espacio entre icono y texto */
+} /* Fin del icono Feature */
+
+
+/* Título h3 dentro de la tarjeta */
+.feature-card h3 {
+    margin-bottom: 1rem; /* Espacio después del título */
+    color: #333; /* Color gris oscuro */
+} /* Fin del h3 Feature Card */
+
+
+/* Párrafo dentro de la tarjeta */
+.feature-card p {
+    color: #666; /* Color gris medio */
+    line-height: 1.8; /* Altura de línea generosa para lectura cómoda */
+} /* Fin del párrafo Feature Card */
+
+
+/* 
+===============================================
+DASHBOARD
+===============================================
+*/
+
+/* Encabezado de la página Dashboard */
+.dashboard-header {
+    margin-bottom: 2rem; /* Espacio debajo del encabezado */
+} /* Fin del Dashboard Header */
+
+
+/* Título h1 del Dashboard */
+.dashboard-header h1 {
+    color: #333; /* Texto gris oscuro */
+    font-size: 2rem; /* Tamaño grande */
+    margin-bottom: 0.5rem; /* Pequeño espacio debajo del título */
+} /* Fin del h1 Dashboard Header */
+
+
+/* Párrafo descriptivo del Dashboard */
+.dashboard-header p {
+    color: #666; /* Texto gris medio */
+} /* Fin del párrafo Dashboard Header */
+
+
+/* Contenedor Grid para las tarjetas de estadísticas (Ingresos, Gastos, Balance) */
+.stats-cards {
+    display: grid; /* Activa CSS Grid */
+    
+    /* 
+    'auto-fit' = Crea tantas columnas como quepan automáticamente.
+    'minmax(250px, 1fr)' = Cada columna tiene un ancho MÍNIMO de 250px.
+    Si la pantalla es pequeña, las tarjetas pasan a la siguiente línea.
+    */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    
+    gap: 1.5rem; /* Espacio entre tarjetas */
+    margin-bottom: 2rem; /* Espacio debajo de las tarjetas */
+} /* Fin del Grid Stats Cards */
+
+
+/* Tarjeta individual de estadística */
+.stat-card {
+    background: white; /* Fondo blanco */
+    padding: 1.5rem; /* Relleno interno */
+    border-radius: 10px; /* Esquinas redondeadas */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra suave */
+    display: flex; /* Alinea icono y texto horizontalmente */
+    align-items: center; /* Centrado vertical del icono y texto */
+    gap: 1rem; /* Espacio entre icono y texto */
+    border-left: 4px solid #667eea; /* Borde izquierdo de 4px de color morado */
+    transition: transform 0.2s ease; /* Animación muy rápida */
+} /* Fin de Stat Card */
+
+
+/* Hover de la tarjeta de estadística */
+.stat-card:hover {
+    transform: scale(1.02); /* Aumenta el tamaño de la tarjeta al 102% (crece un poco) */
+} /* Fin del hover Stat Card */
+
+
+/* Variante Verde (Ingresos) */
+.stat-card.success {
+    border-left-color: #10b981; /* Cambia el borde izquierdo a verde */
+} /* Fin de variante Success */
+
+
+/* Variante Roja (Gastos) */
+.stat-card.danger {
+    border-left-color: #ef4444; /* Cambia el borde izquierdo a rojo */
+} /* Fin de variante Danger */
+
+
+/* Variante Azul (Info) */
+.stat-card.info {
+    border-left-color: #3b82f6; /* Cambia el borde izquierdo a azul */
+} /* Fin de variante Info */
+
+
+/* Variante Naranja (Alerta) */
+.stat-card.warning {
+    border-left-color: #f59e0b; /* Cambia el borde izquierdo a naranja */
+} /* Fin de variante Warning */
+
+
+/* El círculo del icono dentro de la tarjeta */
+.stat-icon {
+    font-size: 2.5rem; /* Tamaño del icono */
+    color: #667eea; /* Color del icono */
+    background: rgba(102, 126, 234, 0.1); /* Fondo del círculo (morado muy claro, 10% opacidad) */
+    padding: 1rem; /* Relleno para que el círculo sea grande */
+    border-radius: 50%; /* Convierte el cuadrado en un círculo perfecto */
+} /* Fin del Stat Icon */
+
+
+/* Color del icono si la tarjeta es Success */
+.stat-card.success .stat-icon {
+    color: #10b981; /* Icono verde */
+    background: rgba(16, 185, 129, 0.1); /* Fondo verde muy claro */
+} /* Fin del icono Success */
+
+
+/* Color del icono si la tarjeta es Danger */
+.stat-card.danger .stat-icon {
+    color: #ef4444; /* Icono rojo */
+    background: rgba(239, 68, 68, 0.1); /* Fondo rojo muy claro */
+} /* Fin del icono Danger */
+
+
+/* Título h3 dentro de la tarjeta de estadísticas */
+.stat-info h3 {
+    color: #666; /* Texto gris medio */
+    font-size: 0.9rem; /* Texto pequeño */
+    font-weight: normal; /* Peso normal (sin negrita) */
+    margin-bottom: 0.5rem; /* Espacio debajo del texto */
+} /* Fin del texto Stat Info h3 */
+
+
+/* Valor numérico grande dentro de la tarjeta */
+.stat-value {
+    font-size: 1.8rem; /* Tamaño grande */
+    font-weight: bold; /* Texto en negrita */
+    color: #333; /* Gris oscuro */
+} /* Fin del valor numérico Stat Value */
+
+
+/* 
+===============================================
+TABLAS
+===============================================
+*/
+
+/* Sección de transacciones recientes */
+.recent-transactions {
+    background: white; /* Fondo blanco */
+    padding: 2rem; /* Relleno interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra suave */
+    margin-bottom: 2rem; /* Espacio debajo de la sección */
+} /* Fin de Recent Transactions */
+
+
+/* Cabecera de la sección (Título y botón) */
+.section-header {
+    display: flex; /* Alineación flexible */
+    justify-content: space-between; /* Título a la izquierda, Botón a la derecha */
+    align-items: center; /* Centrado vertical */
+    margin-bottom: 1.5rem; /* Espacio debajo del encabezado */
+} /* Fin del Section Header */
+
+
+/* Título h2 dentro del encabezado */
+.section-header h2 {
+    color: #333; /* Gris oscuro */
+    font-size: 1.5rem; /* Tamaño mediano-grande */
+} /* Fin del h2 Section Header */
+
+
+/* Contenedor responsivo para la tabla (permite scroll horizontal si es necesario) */
+.table-responsive {
+    overflow-x: auto; /* 'auto' añade barra de scroll horizontal solo si la tabla es muy ancha */
+} /* Fin del Table Responsive */
+
+
+/* Estilos de la tabla HTML */
+.data-table {
+    width: 100%; /* La tabla ocupa todo el ancho disponible */
+    border-collapse: collapse; /* Une los bordes de las celdas (evita bordes dobles) */
+} /* Fin de Data Table */
+
+
+/* Cabeza de la tabla (encabezados de columnas) */
+.data-table thead {
+    background-color: #f8f9fa; /* Fondo gris muy claro */
+} /* Fin del Thead */
+
+
+/* Celdas de encabezado (th = table header) */
+.data-table th {
+    padding: 1rem; /* Espacio interno */
+    text-align: left; /* Texto alineado a la izquierda */
+    font-weight: 600; /* Semi-negrita */
+    color: #495057; /* Color gris específico */
+    border-bottom: 2px solid #dee2e6; /* Borde inferior grueso */
+} /* Fin de los th */
+
+
+/* Celdas de datos (td = table data) */
+.data-table td {
+    padding: 1rem; /* Espacio interno */
+    border-bottom: 1px solid #dee2e6; /* Borde inferior fino para separar filas */
+} /* Fin de los td */
+
+
+/* Efecto hover en las filas de la tabla */
+.data-table tbody tr:hover {
+    background-color: #f8f9fa; /* Cambia el fondo de la fila a gris muy claro al pasar el mouse */
+} /* Fin del hover fila tabla */
+
+
+/* 
+===============================================
+BADGES (ETIQUETAS)
+===============================================
+*/
+
+/* Estilo base para etiquetas (badge) como las de "INGRESO" o "GASTO" */
+.badge {
+    display: inline-block; /* Permite darle ancho y alto a un elemento en línea */
+    padding: 0.25rem 0.75rem; /* Pequeño relleno interno */
+    border-radius: 20px; /* Bordes muy redondeados (forma de pastilla) */
+    font-size: 0.85rem; /* Texto pequeño */
+    font-weight: 600; /* Semi-negrita */
+} /* Fin de Badge */
+
+
+/* Badge de color verde (Éxito) */
+.badge-success {
+    background-color: #d1fae5; /* Fondo verde pastel */
+    color: #065f46; /* Texto verde oscuro para legibilidad */
+} /* Fin de Badge Success */
+
+
+/* Badge de color rojo (Peligro) */
+.badge-danger {
+    background-color: #fee2e2; /* Fondo rojo pastel */
+    color: #991b1b; /* Texto rojo oscuro para legibilidad */
+} /* Fin de Badge Danger */
+
+
+/* 
+===============================================
+BOTONES
+===============================================
+*/
+
+/* Estilos base para todos los botones */
+.btn {
+    display: inline-block; /* Se comporta como bloque pero en línea */
+    padding: 0.75rem 1.5rem; /* Relleno interno */
+    border-radius: 8px; /* Bordes redondeados */
+    text-decoration: none; /* Quita subrayado si es un enlace */
+    font-weight: 600; /* Semi-negrita */
+    transition: all 0.3s ease; /* Animación suave para cambios */
+    border: none; /* Sin borde visible */
+    cursor: pointer; /* Cursor en forma de mano */
+    text-align: center; /* Texto centrado */
+} /* Fin de Botón Base */
+
+
+/* Botón primario (principal) */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Degradado morado */
+    color: white; /* Texto blanco */
+} /* Fin de Botón Primario */
+
+
+/* Hover del botón primario */
+.btn-primary:hover {
+    transform: translateY(-2px); /* Mueve el botón 2px hacia arriba */
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4); /* Añade una sombra brillante */
+} /* Fin del Hover Primario */
+
+
+/* Botón secundario */
+.btn-secondary {
+    background: white; /* Fondo blanco */
+    color: #667eea; /* Texto morado */
+    border: 2px solid #667eea; /* Borde sólido morado */
+} /* Fin de Botón Secundario */
+
+
+/* Hover del botón secundario */
+.btn-secondary:hover {
+    background: #667eea; /* Fondo se vuelve morado */
+    color: white; /* Texto se vuelve blanco */
+} /* Fin del Hover Secundario */
+
+
+/* Variante pequeña de botón (sm = small) */
+.btn-sm {
+    padding: 0.5rem 1rem; /* Relleno más pequeño */
+    font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+} /* Fin de Botón Pequeño */
+
+
+/* 
+===============================================
+COLORES DE TEXTO (Utility Classes)
+===============================================
+*/
+
+/* Clase para texto de éxito (verde) */
+.text-success {
+    color: #10b981 !important; /* !important fuerza a que este color se aplique siempre */
+} /* Fin de Text Success */
+
+
+/* Clase para texto de peligro (rojo) */
+.text-danger {
+    color: #ef4444 !important; /* !important fuerza el color rojo */
+} /* Fin de Text Danger */
+
+
+/* Clase para texto apagado (muted) */
+.text-muted {
+    color: #6c757d !important; /* !important fuerza el color gris apagado */
+} /* Fin de Text Muted */
+
+
+/* 
+===============================================
+ESTADO VACÍO (EMPTY STATE)
+===============================================
+*/
+
+/* Mensaje que aparece cuando no hay datos */
+.empty-state {
+    text-align: center; /* Todo centrado */
+    padding: 3rem; /* Mucho espacio alrededor */
+    color: #6c757d; /* Texto gris */
+} /* Fin del Empty State */
+
+
+/* Icono dentro del empty state */
+.empty-state i {
+    margin-bottom: 1rem; /* Espacio debajo del icono */
+    color: #dee2e6; /* Color gris pálido para el icono */
+} /* Fin del icono Empty State */
+
+
+/* Párrafo dentro del empty state */
+.empty-state p {
+    margin-bottom: 1rem; /* Espacio debajo del texto */
+} /* Fin del párrafo Empty State */
+
+
+/* 
+===============================================
+ACCIONES RÁPIDAS
+===============================================
+*/
+
+/* Sección de accesos rápidos */
+.quick-actions {
+    background: white; /* Fondo blanco */
+    padding: 2rem; /* Relleno interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra suave */
+} /* Fin de Quick Actions */
+
+
+/* Título de la sección Quick Actions */
+.quick-actions h2 {
+    margin-bottom: 1.5rem; /* Espacio debajo del título */
+    color: #333; /* Gris oscuro */
+} /* Fin del h2 Quick Actions */
+
+
+/* Cuadrícula para las tarjetas de acción rápida */
+.actions-grid {
+    display: grid; /* Activa Grid */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Grid responsivo automático */
+    gap: 1rem; /* Espacio entre tarjetas */
+} /* Fin de Actions Grid */
+
+
+/* Tarjeta individual de acción rápida */
+.action-card {
+    display: flex; /* Flexbox */
+    flex-direction: column; /* Apila el icono arriba y el texto abajo */
+    align-items: center; /* Centrado horizontal */
+    gap: 0.5rem; /* Espacio entre icono y texto */
+    padding: 2rem; /* Relleno interno */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Degradado morado */
+    color: white; /* Texto blanco */
+    border-radius: 10px; /* Bordes redondeados */
+    text-decoration: none; /* Quita subrayado si es enlace */
+    transition: transform 0.3s ease; /* Animación */
+} /* Fin de Action Card */
+
+
+/* Hover de Action Card */
+.action-card:hover {
+    transform: scale(1.05); /* Aumenta el tamaño al 105% */
+} /* Fin de Hover Action Card */
+
+
+/* Icono dentro de Action Card */
+.action-card i {
+    font-size: 2rem; /* Tamaño del icono */
+} /* Fin del icono Action Card */
+
+
+/* 
+===============================================
+FOOTER (Pie de página)
+===============================================
+*/
+
+/* Estilos del pie de página */
+.footer {
+    background-color: #343a40; /* Fondo gris oscuro */
+    color: white; /* Texto blanco */
+    text-align: center; /* Texto centrado */
+    padding: 1.5rem; /* Relleno interno */
+    margin-top: auto; /* Empuja el footer al fondo si el contenido es corto */
+} /* Fin del Footer */
+
+
+/* 
+===============================================
+RESPONSIVE (PANTALLAS PEQUEÑAS)
+===============================================
+*/
+
+/* 
+Media Query: "Si la pantalla tiene MÁXIMO 768px de ancho (Tablets y Móviles)..."
+Todo lo que esté dentro solo se aplica en pantallas pequeñas.
+*/
+@media (max-width: 768px) {
+    
+    /* Cuadrícula de características en móvil */
+    .features-grid {
+        grid-template-columns: 1fr; /* Cambia de 3 columnas a 1 sola columna */
+    } /* Fin Features Grid Móvil */
+    
+    /* Menú de navegación en móvil */
+    .navbar-menu {
+        flex-direction: column; /* Apila los enlaces verticalmente */
+        gap: 0.5rem; /* Menos espacio entre enlaces apilados */
+    } /* Fin Navbar Menu Móvil */
+    
+    /* Contenedor de la navbar en móvil */
+    .navbar-container {
+        flex-direction: column; /* Apila logo, menú y usuario verticalmente */
+        gap: 1rem; /* Espacio entre los elementos apilados */
+    } /* Fin Navbar Container Móvil */
+    
+    /* Título Hero en móvil */
+    .hero h1 {
+        font-size: 2rem; /* Reduce el tamaño del título */
+    } /* Fin Título Hero Móvil */
+    
+    /* Estadísticas en móvil */
+    .stats-cards {
+        grid-template-columns: 1fr; /* Tarjetas una debajo de otra */
+    } /* Fin Stats Cards Móvil */
+    
+} /* Fin de la Media Query (Estilos para móvil) */
+
+/* 
+===============================================
+PÁGINA DE CLIENTES Y TRANSACCIONES
+===============================================
+*/
+
+/* Encabezado de página con título y botón */
+.page-header {
+    display: flex; /* Flexbox para alinear elementos */
+    justify-content: space-between; /* Título a la izq, botón a la der */
+    align-items: center; /* Centrado vertical */
+    margin-bottom: 2rem; /* Espacio debajo del encabezado */
+    flex-wrap: wrap; /* Se ajusta en pantallas pequeñas */
+    gap: 1rem; /* Espacio entre elementos si se apilan */
+}
+
+.page-header h1 {
+    color: #333; /* Texto gris oscuro */
+    font-size: 2rem; /* Tamaño grande */
+    margin-bottom: 0.5rem; /* Espacio debajo del título */
+}
+
+.page-header p {
+    color: #666; /* Texto gris medio */
+}
+
+/* Link de email */
+.email-link {
+    color: #667eea; /* Color morado */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.email-link:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* Botones de acción en las tablas */
+.action-buttons {
+    display: flex; /* Flexbox para alinear botones */
+    gap: 0.5rem; /* Espacio entre botones */
 }
 
 /* 
-Contenedor flexible de la navbar
-justify-content: space-between separa los elementos a los extremos
+Botones con iconos pequeños
+Usados para Ver, Editar, Eliminar
 */
-
-.navbar-container {
-    display: flex;
-    justify-content: space-between; /* Logo a la izq, menú al centro, usuario a la der */
-    align-items: center; /* Centra verticalmente */
-    max-width: 1400px; /* Ancho máximo */
-    margin: 0 auto; /* Centra horizontalmente */
+.btn-icon {
+    padding: 0.5rem; /* Relleno pequeño */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    transition: all 0.3s ease; /* Animación suave */
+    background-color: transparent; /* Fondo transparente por defecto */
+    font-size: 1rem; /* Tamaño del icono */
 }
 
-/* Logo y nombre del sistema */
-h1{
-    font-size:100px;
+.btn-icon:hover {
+    transform: scale(1.1); /* Crece 10% al pasar el mouse */
+}
+
+/* Botón de información (azul) */
+.btn-icon.btn-info {
+    color: #3b82f6; /* Color azul */
+}
+
+.btn-icon.btn-info:hover {
+    background-color: rgba(59, 130, 246, 0.1); /* Fondo azul muy claro */
+}
+
+/* Botón de advertencia (amarillo/naranja) */
+.btn-icon.btn-warning {
+    color: #f59e0b; /* Color naranja */
+}
+
+.btn-icon.btn-warning:hover {
+    background-color: rgba(245, 158, 11, 0.1); /* Fondo naranja muy claro */
+}
+
+/* Botón de peligro (rojo) */
+.btn-icon.btn-danger {
+    color: #ef4444; /* Color rojo */
+}
+
+.btn-icon.btn-danger:hover {
+    background-color: rgba(239, 68, 68, 0.1); /* Fondo rojo muy claro */
+}
+
+/* 
+===============================================
+MODALES (VENTANAS EMERGENTES)
+===============================================
+*/
+
+/* 
+Contenedor principal del modal
+position: fixed = Se queda fijo sobre la página
+z-index: 9999 = Asegura que esté por encima del Navbar (que era 1000)
+*/
+.modal {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 9999; /* Z-Index muy alto para estar sobre todo */
+    display: none; /* Oculto por defecto (controlado por JS: display: flex) */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    padding: 1rem; 
+    background-color: rgba(0,0,0,0.6); /* Fondo oscuro semitransparente directamente en el contenedor */
+    backdrop-filter: blur(3px); /* Desenfoca el fondo para resaltar el modal */
+}
+
+/* 
+Overlay oscuro de fondo (Ya lo tenemos en .modal, pero lo mantenemos por compatibilidad)
+Le damos un z-index bajo para asegurar que el contenido quede encima.
+*/
+.modal-overlay {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 1; /* Capa 1: El fondo */
+}
+
+/* 
+Caja blanca del modal
+position: relative + z-index: 2 = Asegura que quede encima del overlay
+*/
+.modal-content {
+    position: relative; 
+    z-index: 2; /* Capa 2: El contenido (encima del fondo) */
+    background: white; 
+    border-radius: 12px; /* Bordes redondeados modernos */
+    max-width: 550px; /* Ancho máximo ideal para lectura */
+    width: 100%; 
+    max-height: 90vh; /* No exceda el 90% de la altura de la pantalla */
+    overflow-y: auto; /* Scroll si el contenido es muy largo */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3); /* Sombra fuerte y elegante */
+    animation: modalEntrada 0.3s ease-out forwards; /* Animación de entrada */
+}
+
+/* Animación de entrada suave */
+@keyframes modalEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95); /* Empieza arriba y pequeño */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1); /* Termina en su posición */
+    }
+}
+
+/* Encabezado del modal */
+.modal-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 1.2rem 1.5rem; 
+    border-bottom: 1px solid #e5e7eb; /* Borde inferior gris suave */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Degradado morado */
+    color: white; 
+    border-radius: 12px 12px 0 0; /* Redondea solo las esquinas superiores */
+}
+
+.modal-header h2 {
+    font-size: 1.25rem; 
+    margin: 0; 
+    font-weight: 600;
+}
+
+/* Botón de cerrar (X) */
+.modal-close {
+    background: rgba(255,255,255,0.2); 
+    border: none; 
+    color: white; 
+    font-size: 1.2rem; 
+    cursor: pointer; 
+    padding: 0.3rem 0.6rem; 
+    border-radius: 6px; /* Cuadrado ligeramente redondeado */
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    transition: all 0.2s ease; 
+}
+
+.modal-close:hover {
+    background: rgba(255,255,255,0.4); 
+    transform: rotate(90deg); /* Gira al pasar el mouse */
+}
+
+/* Cuerpo del modal */
+.modal-body {
+    padding: 1.5rem 2rem; /* Espacio cómodo */
+}
+/* 
+===============================================
+FORMULARIOS
+===============================================
+*/
+
+/* 
+Grupo de formulario (label + input)
+Cada campo del formulario está dentro de un form-group
+*/
+.form-group {
+    margin-bottom: 1.5rem; /* Espacio entre cada campo */
+}
+
+/* Etiquetas de los campos (Label) */
+.form-group label {
+    display: block; /* Ocupa toda la línea */
+    margin-bottom: 0.5rem; /* Espacio debajo de la etiqueta */
+    font-weight: 600; /* Semi-negrita */
+    color: #374151; /* Color gris oscuro */
+}
+
+/* 
+Campos de entrada (input, select, textarea)
+width: 100% = Ocupa todo el ancho disponible
+*/
+.form-control {
+    width: 100%; /* Ancho completo */
+    padding: 0.75rem 1rem; /* Relleno interno */
+    border: 2px solid #e5e7eb; /* Borde gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente */
+    transition: all 0.3s ease; /* Animación suave */
+    font-family: inherit; /* Usa la misma fuente del body */
+}
+
+/* 
+:focus se activa cuando haces clic en el campo
+outline: none quita el borde azul por defecto del navegador
+*/
+.form-control:focus {
+    outline: none; /* Quita el borde azul por defecto */
+    border-color: #667eea; /* Borde morado */
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); /* Sombra sutil morada */
+}
+
+/* Contenedor de botones del formulario */
+.form-actions {
+    display: flex; /* Flexbox para alinear botones */
+    gap: 1rem; /* Espacio entre botones */
+    justify-content: flex-end; /* Botones alineados a la derecha */
+    margin-top: 2rem; /* Espacio arriba de los botones */
+}
+
+/* 
+===============================================
+ESTADÍSTICAS RÁPIDAS
+===============================================
+*/
+
+.quick-stats {
+    padding: 3rem 0; /* Espacio vertical */
+}
+
+.quick-stats h2 {
+    text-align: center; /* Título centrado */
+    font-size: 2rem; /* Tamaño grande */
+    margin-bottom: 2rem; /* Espacio debajo del título */
+    color: #333; /* Color gris oscuro */
+}
+
+.stats-grid {
+    display: grid; /* Grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Grid responsivo */
+    gap: 2rem; /* Espacio entre tarjetas */
+}
+
+.stat-card {
+    background: white; /* Fondo blanco */
+    padding: 2rem; /* Relleno interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra */
+    text-align: center; /* Texto centrado */
+    transition: transform 0.3s ease; /* Animación */
+}
+
+.stat-card:hover {
+    transform: translateY(-5px); /* Sube 5px al pasar el mouse */
+}
+
+.stat-number {
+    font-size: 1.2rem; /* Tamaño del número */
+    color: #667eea; /* Color morado */
+    margin: 1rem 0; /* Espacio arriba y abajo */
+}
+
+.btn-link {
+    color: #667eea; /* Color morado */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: 600; /* Semi-negrita */
+    transition: all 0.3s ease; /* Animación */
+}
+
+.btn-link:hover {
+    color: #764ba2; /* Color morado más oscuro al pasar el mouse */
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* 
+===============================================
+RESPONSIVE (PANTALLAS PEQUEÑAS)
+===============================================
+*/
+
+/* 
+Media Query para pantallas de máximo 768px (tablets y móviles)
+*/
+@media (max-width: 768px) {
+    
+    /* Modal ocupa más espacio en móviles */
+    .modal-content {
+        max-width: 95%; /* 95% del ancho en móvil */
+        margin: 1rem; /* Margen alrededor */
+    }
+    
+    /* Header de página se apila verticalmente */
+    .page-header {
+        flex-direction: column; /* Elementos uno debajo del otro */
+        align-items: flex-start; /* Alineados a la izquierda */
+    }
+    
+    /* Botones del formulario se apilan */
+    .form-actions {
+        flex-direction: column; /* Botones uno debajo del otro */
+    }
+    
+    .form-actions .btn {
+        width: 100%; /* Botones ocupan todo el ancho */
+    }
+}
+
+/*
+===============================================
+ADDITIONS TO styles.css
+Pega esto AL FINAL de tu styles.css existente
+===============================================
+*/
+
+/*
+===============================================
+CONTENEDOR GENERAL DE PÁGINAS
+===============================================
+*/
+.transacciones-container,
+.clientes-container,
+.deudas-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/*
+===============================================
+BOTÓN SUCCESS (verde) — para Descargar Plantilla
+===============================================
+*/
+.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    color: white;
+}
+
+/*
+===============================================
+STAT CARD — variante info
+===============================================
+*/
+.stat-card.info .stat-icon {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+}
+
+/*
+===============================================
+BARRA DE PROGRESO (usada en deudas)
+===============================================
+*/
+.progress-bar-container {
+    background: #f1f5f9;
+    border-radius: 99px;
+    height: 10px;
+    overflow: hidden;
+}
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #10b981, #6366f1);
+    transition: width 0.6s ease;
+}
+
+/*
+===============================================
+TARJETA DE DEUDA
+===============================================
+*/
+.deuda-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #6366f1;
+    transition: box-shadow 0.2s ease;
+}
+.deuda-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+.deuda-card.reportado {
+    border-left-color: #ef4444;
+}
+
+.deuda-badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.deuda-badge.normal {
+    background: #ede9fe;
+    color: #6d28d9;
+}
+.deuda-badge.reportado {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.deuda-numeros {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    min-width: 300px;
+}
+.deuda-numero-box {
+    border-radius: 10px;
+    padding: 0.8rem;
+    text-align: center;
+}
+.deuda-numero-box p.label {
+    margin: 0;
+    font-size: 0.75rem;
+}
+.deuda-numero-box p.value {
+    margin: 0;
+    font-weight: 700;
+}
+
+/*
+===============================================
+GRÁFICAS — contenedor general
+===============================================
+*/
+.chart-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+}
+.chart-card h3 {
+    margin: 0 0 1rem;
+    color: #1e293b;
+    font-size: 1.1rem;
+}
+.chart-wrapper {
+    height: 280px;
+    position: relative;
+}
+
+/*
+===============================================
+RESUMEN INTERÉS (modal deudas)
+===============================================
+*/
+.resumen-interes {
+    background: #fef3c7;
+    border-radius: 10px;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 0.88rem;
+    color: #92400e;
+}
+
+/*
+===============================================
+RESPONSIVE ADICIONAL
+===============================================
+*/
+@media (max-width: 768px) {
+    .deuda-numeros {
+        grid-template-columns: 1fr 1fr;
+        min-width: unset;
+        width: 100%;
+    }
+    .chart-wrapper {
+        height: 200px;
+    }
+}
+
+/*
+===============================================
+AGREGAR AL FINAL DE styles.css
+Botones de deuda: editar, eliminar, footer
+===============================================
+*/
+
+/* Botón Editar (azul) */
+.btn-edit {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    border: none;
+}
+.btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59,130,246,0.4);
+    color: white;
+}
+
+/* Botón Eliminar (rojo) */
+.btn-delete {
+    background: #ef4444;
+    color: white;
+    border: none;
+}
+.btn-delete:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    color: white;
+}
+
+/* Footer de la tarjeta de deuda */
+.deuda-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/*
+===============================================
+REGISTRO / AUTENTICACIÓN
+===============================================
+*/
+
+/* Contenedor principal para páginas SIN autenticar (login, registro) */
+.main-content-auth {
+    flex: 1;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+.main-content {
+    flex: 1; 
+    padding: 2rem;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* SOBRESCRIBE main-content cuando contiene auth */
+.main-content:has(.auth-container) {
+    padding: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+}
+
+.auth-container {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+/* Contenedor centrado de la tarjeta de auth */
+.auth-container {
+    flex: 1;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* La tarjeta blanca del formulario */
+.auth-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Encabezado con icono */
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.auth-header h1 {
+    color: #1e293b;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.auth-header p {
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+/* Grid de 2 columnas para nombre/apellido */
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Texto de ayuda debajo de inputs */
+.form-text {
+    color: #6b7280;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Pie del formulario */
+.auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+    color: #764ba2;
+}
+
+/* Mensajes de alerta */
+.alert-msg {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: #d1fae5;
+    color: #065f46;
+    border-left: 4px solid #10b981;
+}
+
+.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+    border-left: 4px solid #ef4444;
+}
+
+/* ============================================
+   SECCIÓN CTA (CALL TO ACTION) - Landing Page
+   ============================================ */
+
+.cta-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 4rem 2rem;
+    margin-top: 3rem;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+}
+
+.cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-section h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.cta-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.cta-benefits {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.cta-benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.cta-benefit-item i {
+    color: #a3e635;
+    font-size: 1.2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-large {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+.cta-login-text {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.cta-login-text a {
+    color: #a3e635;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.cta-login-text a:hover {
+    border-bottom-color: #a3e635;
+}
+
+/* Responsive para móviles */
+@media (max-width: 640px) {
+    .auth-card {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .form-row-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .cta-section {
+        padding: 2.5rem 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .cta-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .cta-benefits {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-large {
+        padding: 0.9rem 1.8rem;
+        font-size: 1rem;
+    }
 }

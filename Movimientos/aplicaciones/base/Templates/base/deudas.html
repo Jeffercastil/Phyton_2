@@ -1,0 +1,431 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Deudas - Sistema de Movimientos{% endblock %}
+
+{% block content %}
+<div class="transacciones-container">
+
+    <!-- ENCABEZADO -->
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-file-invoice-dollar"></i> Gestión de Deudas</h1>
+            <p>Controla tus deudas y lleva el seguimiento de pagos</p>
+        </div>
+        <div style="display:flex; gap:0.6rem;">
+            <button style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; border-radius:8px; padding:0.5rem 1rem; cursor:pointer;" onclick="abrirCalculadora()">
+                <i class="fas fa-calculator"></i> Calculadora
+            </button>
+            <button class="btn btn-primary" onclick="abrirModalDeuda()">
+                <i class="fas fa-plus"></i> Nueva Deuda
+            </button>
+        </div>
+    </div>
+
+    <!-- TARJETAS RESUMEN -->
+    <div class="stats-cards" style="margin-bottom:2rem;">
+        <div class="stat-card danger">
+            <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
+            <div class="stat-info">
+                <h3>Total Pendiente</h3>
+                <p class="stat-value">${{ total_deuda|floatformat:0|intcomma }}</p>
+            </div>
+        </div>
+        <div class="stat-card success">
+            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="stat-info">
+                <h3>Total Pagado</h3>
+                <p class="stat-value">${{ total_pagado|floatformat:0|intcomma }}</p>
+            </div>
+        </div>
+        <div class="stat-card info">
+            <div class="stat-icon"><i class="fas fa-list"></i></div>
+            <div class="stat-info">
+                <h3>Deudas Activas</h3>
+                <p class="stat-value">{{ deudas_data|length }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIV PUENTE para JS externo -->
+    <div id="deudasData"
+         data-nombres='{{ nombres_json|safe }}'
+         data-pendientes='{{ pendientes_json|safe }}'
+         data-pagados='{{ pagados_json|safe }}'
+         data-csrf="{{ csrf_token }}"
+         style="display:none;"></div>
+
+    <!-- URLs para JS externo -->
+    <script>
+        window.URLS = { crearDeuda: "{% url 'base:crear_deuda' %}" };
+    </script>
+
+    <!-- GRÁFICA GENERAL -->
+    {% if deudas_data %}
+    <div class="chart-card" style="margin-bottom:2rem;">
+        <h3><i class="fas fa-chart-bar" style="color:#6366f1;"></i> Estado General de Deudas</h3>
+        <div class="chart-wrapper" style="height:280px;">
+            <canvas id="graficaDeudas"></canvas>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- LISTA DE DEUDAS -->
+    {% for item in deudas_data %}
+    <div style="margin-bottom:1.5rem; border-radius:16px; background:#fff;
+                box-shadow:0 2px 12px rgba(0,0,0,0.07); padding:1.5rem;
+                border-left:5px solid {% if item.deuda.tipo == 'REPORTADO' %}#ef4444{% else %}#6366f1{% endif %};">
+
+        <!-- FILA SUPERIOR: nombre + badge + botones -->
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem; margin-bottom:1rem;">
+            <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+                <h3 style="margin:0; font-size:1.1rem; color:#1e293b;">{{ item.deuda.nombre }}</h3>
+                <span style="padding:0.2rem 0.7rem; border-radius:99px; font-size:0.75rem; font-weight:700;
+                    {% if item.deuda.tipo == 'REPORTADO' %}background:#fee2e2; color:#991b1b;{% else %}background:#ede9fe; color:#6d28d9;{% endif %}">
+                    {{ item.deuda.tipo }}
+                </span>
+            </div>
+            <!-- BOTONES -->
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                <button style="background:#7c3aed; color:#fff; border:none; border-radius:8px; padding:0.4rem 0.9rem; cursor:pointer; font-size:0.85rem;"
+                        onclick="abrirPago({{ item.deuda.id }}, '{{ item.deuda.nombre|escapejs }}', {{ item.deuda.cuota_mensual }})">
+                    <i class="fas fa-money-bill"></i> Pagar
+                </button>
+                <button style="background:#3b82f6; color:#fff; border:none; border-radius:8px; padding:0.4rem 0.9rem; cursor:pointer; font-size:0.85rem;"
+                        onclick="abrirEditar(
+                            {{ item.deuda.id }},
+                            '{{ item.deuda.nombre|escapejs }}',
+                            '{{ item.deuda.tipo }}',
+                            {{ item.deuda.valor_inicial }},
+                            {{ item.deuda.valor_total_a_pagar }},
+                            {{ item.deuda.cuota_mensual }},
+                            {{ item.deuda.total_meses }},
+                            '{{ item.deuda.fecha_inicio|date:"Y-m-d" }}',
+                            '{{ item.deuda.descripcion|escapejs }}'
+                        )">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+                <button style="background:#ef4444; color:#fff; border:none; border-radius:8px; padding:0.4rem 0.7rem; cursor:pointer; font-size:0.85rem;"
+                        onclick="eliminarDeuda({{ item.deuda.id }})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+
+        {% if item.deuda.descripcion %}
+        <p style="color:#64748b; margin:0 0 1rem; font-size:0.88rem;">{{ item.deuda.descripcion }}</p>
+        {% endif %}
+
+        <!-- FILA CENTRAL: números + mini gráfica dona -->
+        <div style="display:flex; gap:1.5rem; flex-wrap:wrap; align-items:center;">
+
+            <!-- NÚMEROS -->
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; flex:1; min-width:240px;">
+                <div style="background:#f8fafc; border-radius:10px; padding:0.6rem 0.8rem;">
+                    <p style="margin:0; color:#64748b; font-size:0.73rem;">Valor inicial</p>
+                    <p style="margin:0; font-weight:700; color:#1e293b; font-size:0.95rem;">${{ item.deuda.valor_inicial|floatformat:0|intcomma }}</p>
+                </div>
+                <div style="background:#f8fafc; border-radius:10px; padding:0.6rem 0.8rem;">
+                    <p style="margin:0; color:#64748b; font-size:0.73rem;">Total a pagar</p>
+                    <p style="margin:0; font-weight:700; color:#1e293b; font-size:0.95rem;">${{ item.deuda.valor_total_a_pagar|floatformat:0|intcomma }}</p>
+                </div>
+                <div style="background:#d1fae5; border-radius:10px; padding:0.6rem 0.8rem;">
+                    <p style="margin:0; color:#065f46; font-size:0.73rem;">✅ Pagado</p>
+                    <p style="margin:0; font-weight:700; color:#065f46; font-size:0.95rem;">${{ item.total_pagado|floatformat:0|intcomma }}</p>
+                </div>
+                <div style="background:#fee2e2; border-radius:10px; padding:0.6rem 0.8rem;">
+                    <p style="margin:0; color:#991b1b; font-size:0.73rem;">⏳ Pendiente</p>
+                    <p style="margin:0; font-weight:700; color:#991b1b; font-size:0.95rem;">${{ item.saldo_pendiente|floatformat:0|intcomma }}</p>
+                </div>
+                <div style="background:#fef3c7; border-radius:10px; padding:0.6rem 0.8rem;">
+                    <p style="margin:0; color:#92400e; font-size:0.73rem;">Interés total</p>
+                    <p style="margin:0; font-weight:700; color:#92400e; font-size:0.95rem;">${{ item.interes_total|floatformat:0|intcomma }}</p>
+                </div>
+                <div style="background:#ede9fe; border-radius:10px; padding:0.6rem 0.8rem;">
+                    <p style="margin:0; color:#6d28d9; font-size:0.73rem;">Meses restantes</p>
+                    <p style="margin:0; font-weight:700; color:#6d28d9; font-size:0.95rem;">{{ item.meses_restantes }} / {{ item.deuda.total_meses }}</p>
+                </div>
+            </div>
+
+            <!-- MINI GRÁFICA DONA -->
+            <div style="display:flex; flex-direction:column; align-items:center; min-width:150px;">
+                <canvas id="miniChart_{{ item.deuda.id }}"
+                        data-pagado="{{ item.total_pagado }}"
+                        data-pendiente="{{ item.saldo_pendiente }}"
+                        width="140" height="140"></canvas>
+                <div style="display:flex; gap:1rem; margin-top:0.5rem; font-size:0.75rem;">
+                    <span style="color:#10b981;">● Pagado</span>
+                    <span style="color:#ef4444;">● Pendiente</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- BARRA DE PROGRESO -->
+        <div style="margin-top:1rem;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
+                <span style="color:#64748b; font-size:0.82rem;">Progreso de pago</span>
+                <span style="font-weight:700; color:#1e293b; font-size:0.82rem;">{{ item.porcentaje_pagado }}%</span>
+            </div>
+            <div style="background:#e2e8f0; border-radius:99px; height:10px; overflow:hidden;">
+                <div style="width:{{ item.porcentaje_pagado }}%; height:100%; border-radius:99px;
+                            background:linear-gradient(90deg,#10b981,#059669); transition:width 0.6s;"></div>
+            </div>
+        </div>
+
+        <!-- PIE -->
+        <div style="margin-top:0.8rem; color:#64748b; font-size:0.83rem;">
+            <i class="fas fa-calendar-check"></i>
+            Cuota: <strong style="color:#1e293b;">${{ item.deuda.cuota_mensual|floatformat:0|intcomma }}</strong>
+            &nbsp;|&nbsp;
+            <i class="fas fa-clock"></i>
+            Inicio: <strong style="color:#1e293b;">{{ item.deuda.fecha_inicio|date:"d/m/Y" }}</strong>
+            &nbsp;|&nbsp;
+            Interés pagado: <strong style="color:#f59e0b;">${{ item.interes_pagado|floatformat:0|intcomma }}</strong>
+        </div>
+
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <i class="fas fa-file-invoice-dollar fa-3x"></i>
+        <h3>No tienes deudas registradas</h3>
+        <p>Registra tu primera deuda para hacer seguimiento</p>
+        <button class="btn btn-primary" onclick="abrirModalDeuda()">
+            <i class="fas fa-plus"></i> Nueva Deuda
+        </button>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+<!-- MODAL NUEVA DEUDA -->
+<div id="modalDeuda" class="modal">
+    <div class="modal-overlay" onclick="cerrarModalDeuda()"></div>
+    <div class="modal-content" style="max-width:550px;">
+        <div class="modal-header">
+            <h2><i class="fas fa-file-invoice-dollar"></i> Nueva Deuda</h2>
+            <button class="modal-close" onclick="cerrarModalDeuda()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Nombre de la deuda</label>
+                <input type="text" id="d_nombre" class="form-control" placeholder="Ej: Moto Yamaha, Tarjeta Visa">
+            </div>
+            <div class="form-group">
+                <label>Tipo</label>
+                <select id="d_tipo" class="form-control">
+                    <option value="DEUDA">Deuda Normal</option>
+                    <option value="REPORTADO">Deuda Reportada</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Valor inicial (capital)</label>
+                <input type="number" id="d_valor_inicial" class="form-control" step="0.01" min="0"
+                       placeholder="Ej: 2354535" oninput="calcularCuota()">
+            </div>
+            <div class="form-group">
+                <label>Valor total a pagar (con intereses)</label>
+                <input type="number" id="d_valor_total" class="form-control" step="0.01" min="0"
+                       placeholder="Ej: 3000000" oninput="calcularCuota()">
+            </div>
+            <div class="form-group">
+                <label>Plazo en meses</label>
+                <input type="number" id="d_meses" class="form-control" min="1"
+                       placeholder="Ej: 48" oninput="calcularCuota()">
+            </div>
+            <div class="form-group">
+                <label>Cuota mensual</label>
+                <input type="number" id="d_cuota" class="form-control" step="0.01" min="0"
+                       placeholder="Se calcula automáticamente">
+                <small style="color:#94a3b8;">Se calcula si ingresas valor total y meses</small>
+            </div>
+            <div id="resumenInteres" class="resumen-interes" style="display:none;">
+                <strong>📊 Resumen:</strong>
+                Interés total: <strong id="montoInteres">$0</strong> |
+                Tasa aprox: <strong id="tasaInteres">0%</strong>
+            </div>
+            <div class="form-group">
+                <label>Fecha de inicio</label>
+                <input type="date" id="d_fecha" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Descripción (opcional)</label>
+                <textarea id="d_descripcion" class="form-control" rows="2"
+                          placeholder="Ej: Préstamo banco XYZ"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModalDeuda()">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="guardarDeuda()">
+                    <i class="fas fa-save"></i> Guardar Deuda
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL EDITAR DEUDA -->
+<div id="modalEditar" class="modal">
+    <div class="modal-overlay" onclick="cerrarEditar()"></div>
+    <div class="modal-content" style="max-width:550px;">
+        <div class="modal-header">
+            <h2><i class="fas fa-edit"></i> Editar Deuda</h2>
+            <button class="modal-close" onclick="cerrarEditar()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="e_id">
+            <div class="form-group">
+                <label>Nombre de la deuda</label>
+                <input type="text" id="e_nombre" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Tipo</label>
+                <select id="e_tipo" class="form-control">
+                    <option value="DEUDA">Deuda Normal</option>
+                    <option value="REPORTADO">Deuda Reportada</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Valor inicial (capital)</label>
+                <input type="number" id="e_valor_inicial" class="form-control" step="0.01" min="0">
+            </div>
+            <div class="form-group">
+                <label>Valor total a pagar</label>
+                <input type="number" id="e_valor_total" class="form-control" step="0.01" min="0">
+            </div>
+            <div class="form-group">
+                <label>Plazo en meses</label>
+                <input type="number" id="e_meses" class="form-control" min="1">
+            </div>
+            <div class="form-group">
+                <label>Cuota mensual</label>
+                <input type="number" id="e_cuota" class="form-control" step="0.01" min="0">
+            </div>
+            <div class="form-group">
+                <label>Fecha de inicio</label>
+                <input type="date" id="e_fecha" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea id="e_descripcion" class="form-control" rows="2"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="cerrarEditar()">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="guardarEdicion()">
+                    <i class="fas fa-save"></i> Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL REGISTRAR PAGO -->
+<div id="modalPago" class="modal">
+    <div class="modal-overlay" onclick="cerrarPago()"></div>
+    <div class="modal-content" style="max-width:420px;">
+        <div class="modal-header">
+            <h2><i class="fas fa-money-bill"></i> Registrar Pago</h2>
+            <button class="modal-close" onclick="cerrarPago()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <p id="pagoNombreDeuda" style="color:#64748b; margin-bottom:1rem;"></p>
+            <input type="hidden" id="pago_deuda_id">
+            <div class="form-group">
+                <label>Monto del pago</label>
+                <input type="number" id="pago_monto" class="form-control" step="0.01" min="0">
+            </div>
+            <div class="form-group">
+                <label>Fecha del pago</label>
+                <input type="date" id="pago_fecha" class="form-control">
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="cerrarPago()">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="registrarPago()">
+                    <i class="fas fa-check"></i> Confirmar Pago
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL CALCULADORA -->
+<div id="modalCalculadora" class="modal" style="display:none;">
+    <div class="modal-overlay" onclick="cerrarCalculadora()"></div>
+    <div class="modal-content" style="max-width:340px; border-radius:20px; overflow:hidden; padding:0;">
+
+        <!-- Header -->
+        <div style="background:linear-gradient(135deg,#6366f1,#8b5cf6); padding:1rem 1.2rem; display:flex; justify-content:space-between; align-items:center;">
+            <h2 style="margin:0; color:#fff; font-size:1rem;"><i class="fas fa-calculator"></i> Calculadora</h2>
+            <button onclick="cerrarCalculadora()" style="background:rgba(255,255,255,0.2); border:none; color:#fff; border-radius:50%; width:28px; height:28px; cursor:pointer; font-size:1rem;">×</button>
+        </div>
+
+        <!-- Pantalla -->
+        <div style="background:#1e293b; padding:1rem 1.2rem;">
+            <div id="calc_historial" style="color:#94a3b8; font-size:0.78rem; text-align:right; min-height:18px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></div>
+            <div id="calc_display" style="color:#fff; font-size:2rem; font-weight:700; text-align:right; word-break:break-all; line-height:1.2; margin-top:0.2rem;">0</div>
+        </div>
+
+        <!-- Botones -->
+        <div style="background:#f8fafc; padding:1rem; display:grid; grid-template-columns:repeat(4,1fr); gap:0.5rem;">
+
+            <!-- Fila 1 -->
+            <button class="calc-btn special" onclick="calcClear()" style="grid-column:span 2;">AC</button>
+            <button class="calc-btn special" onclick="calcPorcentaje()">%</button>
+            <button class="calc-btn op" onclick="calcOperador('/')">÷</button>
+
+            <!-- Fila 2 -->
+            <button class="calc-btn num" onclick="calcNum('7')">7</button>
+            <button class="calc-btn num" onclick="calcNum('8')">8</button>
+            <button class="calc-btn num" onclick="calcNum('9')">9</button>
+            <button class="calc-btn op" onclick="calcOperador('*')">×</button>
+
+            <!-- Fila 3 -->
+            <button class="calc-btn num" onclick="calcNum('4')">4</button>
+            <button class="calc-btn num" onclick="calcNum('5')">5</button>
+            <button class="calc-btn num" onclick="calcNum('6')">6</button>
+            <button class="calc-btn op" onclick="calcOperador('-')">−</button>
+
+            <!-- Fila 4 -->
+            <button class="calc-btn num" onclick="calcNum('1')">1</button>
+            <button class="calc-btn num" onclick="calcNum('2')">2</button>
+            <button class="calc-btn num" onclick="calcNum('3')">3</button>
+            <button class="calc-btn op" onclick="calcOperador('+')">+</button>
+
+            <!-- Fila 5 -->
+            <button class="calc-btn num" onclick="calcNum('0')" style="grid-column:span 2;">0</button>
+            <button class="calc-btn num" onclick="calcPunto()">.</button>
+            <button class="calc-btn igual" onclick="calcIgual()">=</button>
+
+        </div>
+
+        <!-- Botón copiar resultado -->
+        <div style="padding:0 1rem 1rem; background:#f8fafc;">
+            <button onclick="calcCopiarResultado()" style="width:100%; background:#6366f1; color:#fff; border:none; border-radius:10px; padding:0.6rem; cursor:pointer; font-size:0.88rem;">
+                <i class="fas fa-copy"></i> Usar este resultado en el formulario
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+.calc-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.1s, transform 0.1s;
+}
+.calc-btn:active { opacity: 0.7; transform: scale(0.95); }
+.calc-btn.num    { background: #fff; color: #1e293b; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.calc-btn.op     { background: #ede9fe; color: #6d28d9; }
+.calc-btn.special{ background: #e2e8f0; color: #475569; }
+.calc-btn.igual  { background: #6366f1; color: #fff; }
+</style>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'base/js/deudas.js' %}"></script>
+{% endblock %}

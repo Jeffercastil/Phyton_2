@@ -1,286 +1,205 @@
-<!-- 
-    COMENTARIO DE PLANTILLA (TEMPLATE)
-    Esta línea es un comentario HTML para ti, Django no la lee.
--->
-{% extends 'base/base.html' %} <!-- Hereda (copia) la estructura base del archivo base/base.html -->
+{% extends 'base/base.html' %}
+{% load static %}
 
-<!-- Cargamos el sistema de archivos estáticos para poder usar imágenes o css locales si fuera necesario -->
-{% load static %} 
+{% block title %}Iniciar Sesión - Sistema de Movimientos{% endblock %}
 
-<!-- Inicia el Bloque 'title'. Reemplaza el título definido en base.html -->
-{% block title %}Iniciar Sesión - Sistema de Movimientos{% endblock %} 
+{% block extra_css %}
+<style>
+.login-container {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: #f3f4f6;
+}
 
-<!-- Inicia el Bloque 'content'. Aquí va todo el cuerpo visible de la página -->
-{% block content %} 
+.login-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    padding: 2.5rem 2.5rem 2rem;
+    width: 100%;
+    max-width: 420px;
+}
 
-<!-- Contenedor principal para centrar todo el formulario en la página -->
+/* ---- Header ---- */
+.login-header { text-align: center; margin-bottom: 2rem; }
+
+.login-icon { font-size: 2.5rem; color: #667eea; margin-bottom: 0.75rem; }
+
+.login-header h2 {
+    font-size: 1.65rem; font-weight: 700;
+    color: #111827; margin: 0 0 0.35rem;
+}
+
+.login-header p { color: #6b7280; font-size: 0.88rem; margin: 0; }
+
+/* ---- Error global ---- */
+.alert-error {
+    background: #fee2e2;
+    border-left: 4px solid #ef4444;
+    color: #991b1b;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+}
+
+/* ---- Grupos ---- */
+.form-group {
+    display: flex; flex-direction: column; gap: 0.35rem;
+    margin-bottom: 1.1rem;
+}
+
+.form-group label {
+    font-size: 0.85rem; font-weight: 600; color: #374151;
+    display: flex; align-items: center; gap: 0.4rem;
+}
+
+.form-group label i { color: #667eea; }
+
+/* ---- Inputs generados por Django ---- */
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #111827;
+    background: #fff;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-form input[type="text"]::placeholder,
+.login-form input[type="password"]::placeholder { color: #9ca3af; }
+
+.login-form input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102,126,234,0.12);
+    outline: none;
+}
+
+.field-error { color: #dc2626; font-size: 0.8rem; }
+
+/* ---- Olvidaste contraseña ---- */
+.forgot-password-link {
+    display: block;
+    text-align: right;
+    font-size: 0.82rem;
+    color: #9ca3af;
+    text-decoration: none;
+    margin-top: -0.5rem;
+    margin-bottom: 1.25rem;
+    transition: color 0.2s;
+}
+
+.forgot-password-link:hover { color: #667eea; }
+
+/* ---- Botón ---- */
+.btn-login {
+    width: 100%; padding: 0.85rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff; border: none; border-radius: 10px;
+    font-size: 1rem; font-weight: 700; font-family: inherit;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    transition: opacity 0.2s, transform 0.15s;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 14px rgba(102,126,234,0.35);
+}
+
+.btn-login:hover { opacity: 0.92; transform: translateY(-1px); }
+
+/* ---- Footer ---- */
+.login-footer {
+    text-align: center;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1.25rem;
+    display: flex; flex-direction: column; gap: 0.6rem;
+}
+
+.login-footer p { font-size: 0.875rem; color: #6b7280; margin: 0; }
+
+.login-footer a {
+    color: #667eea; font-weight: 600; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    transition: color 0.2s;
+}
+
+.login-footer a:hover { color: #764ba2; }
+
+@media (max-width: 460px) {
+    .login-card { padding: 2rem 1.25rem; border-radius: 12px; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
 <div class="login-container">
-    
-    <!-- La tarjeta blanca que contiene el formulario (la "caja" de login) -->
     <div class="login-card">
-        
-        <!-- Sección del encabezado visual (Icono y título) -->
-        <div class="login-header">
-            <!-- Icono de usuario de Font Awesome (fa-3x significa tamaño extra grande) -->
-            <i class="fas fa-user-circle fa-3x"></i> 
-            
-            <!-- Título principal H2 -->
-            <h2>Iniciar Sesión</h2> 
-            
-            <!-- Párrafo descriptivo debajo del título -->
-            <p>Ingresa tus credenciales para acceder al sistema</p>
-        </div> <!-- Fin del encabezado del login -->
 
-        <!-- 
-            Formulario HTML.
-            method="post": Método seguro para enviar datos sensibles (contraseñas).
-            class="login-form": Clase CSS para aplicar estilos a este formulario.
-        -->
+        <div class="login-header">
+            <div class="login-icon">
+                <i class="fas fa-sign-in-alt"></i>
+            </div>
+            <h2>Iniciar Sesión</h2>
+            <p>Ingresa tus credenciales para acceder al sistema</p>
+        </div>
+
         <form method="post" class="login-form">
-            
-            <!-- 
-                Token de seguridad de Django.
-                OBLIGATORIO en todo formulario POST. 
-                Genera un código oculto que prueba que eres tú quien envía el formulario y no un atacante.
-            -->
             {% csrf_token %}
 
-            <!-- 
-                Bloque Condicional de Django: "SI hay errores generales en el formulario..."
-                'non_field_errors' son errores que no son de un campo específico (ej: usuario/contraseña incorrectos).
-            -->
             {% if form.non_field_errors %}
-                <div class="alert alert-error">
-                    <!-- Muestra el texto del error -->
+                <div class="alert-error">
+                    <i class="fas fa-exclamation-circle"></i>
                     {{ form.non_field_errors }}
-                </div> <!-- Fin de la alerta de error -->
-            {% endif %} <!-- Fin del bloque condicional de errores -->
+                </div>
+            {% endif %}
 
-            <!-- Grupo del campo: Nombre de usuario -->
             <div class="form-group">
-                <!-- 
-                    Etiqueta Label.
-                    for="...": Conecta la etiqueta con el campo de entrada para accesibilidad.
-                    form.username.id_for_label: Obtiene el ID automático que Django le dio al campo.
-                -->
                 <label for="{{ form.username.id_for_label }}">
-                    <i class="fas fa-user"></i> Usuario <!-- Icono de usuario pequeño -->
-                </label> 
-                
-                <!-- 
-                    Esta es la magia de Django.
-                    {{ form.username }} es reemplazado automáticamente por un <input type="text"> completo.
-                    Django lo pinta aquí basado en tu forms.py.
-                -->
-                {{ form.username }} 
-                
-                <!-- 
-                    Condicional: "SI el campo username tiene errores específicos..."
-                    (ej: el usuario está vacío o no existe).
-                -->
+                    <i class="fas fa-user"></i> Usuario
+                </label>
+                {{ form.username }}
                 {% if form.username.errors %}
                     <span class="field-error">{{ form.username.errors }}</span>
-                {% endif %} <!-- Fin del condicional de errores username -->
-            </div> <!-- Fin del grupo de usuario -->
+                {% endif %}
+            </div>
 
-            <!-- Grupo del campo: Contraseña -->
             <div class="form-group">
-                <!-- Etiqueta para el campo contraseña -->
                 <label for="{{ form.password.id_for_label }}">
-                    <i class="fas fa-lock"></i> Contraseña <!-- Icono de candado -->
+                    <i class="fas fa-lock"></i> Contraseña
                 </label>
-                
-                <!-- Django pinta aquí el <input type="password"> -->
-                {{ form.password }} 
-                
-                <!-- Condicional: "SI el campo password tiene errores específicos..." -->
+                {{ form.password }}
                 {% if form.password.errors %}
                     <span class="field-error">{{ form.password.errors }}</span>
-                {% endif %} <!-- Fin del condicional de errores password -->
-            </div> <!-- Fin del grupo de contraseña -->
+                {% endif %}
+            </div>
 
-            <!-- Botón para enviar el formulario -->
-            <button type="submit" class="btn btn-primary btn-block">
+            <a href="{% url 'password_reset' %}" class="forgot-password-link">
+                <i class="fas fa-key"></i> ¿Olvidaste tu contraseña?
+            </a>
+
+            <button type="submit" class="btn-login">
                 <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
             </button>
 
-            <!-- Pie del formulario (opcional, para volver atrás) -->
             <div class="login-footer">
-                <!-- Enlace a la página principal (index) -->
-                <a href="{% url 'base:index' %}" class="btn-link">
+                <p>¿No tienes cuenta?
+                    <a href="{% url 'base:registro' %}">
+                        <i class="fas fa-user-plus"></i> Crear cuenta gratis
+                    </a>
+                </p>
+                <a href="{% url 'base:index' %}">
                     <i class="fas fa-arrow-left"></i> Volver al inicio
                 </a>
-            </div> <!-- Fin del pie del formulario -->
-        </form> <!-- Fin del formulario -->
-    </div> <!-- Fin de la tarjeta de login -->
-</div> <!-- Fin del contenedor principal -->
-{% endblock %} <!-- Fin del bloque de contenido -->
-
-<!-- Bloque extra_css definido en base.html para añadir CSS adicional SOLO a esta página -->
-{% block extra_css %}
-<style>
-    /* 
-        ==========================================
-        ESTILOS ESPECÍFICOS DE LOGIN
-        (CSS Inline)
-        ==========================================
-    */
-
-    /* Contenedor principal: Usa Flexbox para centrar todo vertical y horizontalmente */
-    .login-container {
-        display: flex; /* Activa el modo Flexbox */
-        justify-content: center; /* Centrado horizontal (mitad de la pantalla) */
-        align-items: center; /* Centrado vertical (mitad de la pantalla) */
-        
-        /* 
-            Altura mínima calculada dinámicamente.
-            100vh = 100% del alto de la pantalla (Viewport Height).
-            Restamos 200px aprox para compensar el navbar y el footer.
-        */
-        min-height: calc(100vh - 200px); 
-        
-        padding: 2rem; /* Espacio interno alrededor */
-    } /* Fin del login-container */
-
-
-    /* La tarjeta blanca visual */
-    .login-card {
-        background: white; /* Fondo blanco */
-        border-radius: 15px; /* Esquinas muy redondeadas */
-        box-shadow: 0 10px 40px rgba(0,0,0,0.1); /* Sombra grande y suave detrás de la tarjeta */
-        padding: 3rem; /* Mucho relleno interno */
-        max-width: 450px; /* La tarjeta no será más ancha de 450px */
-        width: 100%; /* Pero ocupará el 100% del ancho disponible en pantallas pequeñas */
-    } /* Fin del login-card */
-
-
-    /* Encabezado de la tarjeta (Icono y título) */
-    .login-header {
-        text-align: center; /* Centra el texto y el icono */
-        margin-bottom: 2rem; /* Espacio debajo del encabezado */
-    } /* Fin del login-header */
-
-
-    /* Icono grande del encabezado */
-    .login-header i {
-        color: #667eea; /* Color morado */
-        margin-bottom: 1rem; /* Espacio debajo del icono */
-    } /* Fin del icono del encabezado */
-
-
-    /* Título H2 del encabezado */
-    .login-header h2 {
-        color: #333; /* Gris oscuro */
-        margin-bottom: 0.5rem; /* Espacio debajo del título */
-    } /* Fin del título H2 */
-
-
-    /* Párrafo descriptivo */
-    .login-header p {
-        color: #666; /* Gris medio */
-        font-size: 0.9rem; /* Texto un poco pequeño */
-    } /* Fin del párrafo descriptivo */
-
-
-    /* El formulario en sí */
-    .login-form {
-        width: 100%; /* Ocupa todo el ancho de la tarjeta */
-    } /* Fin del login-form */
-
-
-    /* Contenedor de cada campo (input) */
-    .form-group {
-        margin-bottom: 1.5rem; /* Espacio vertical grande entre campos */
-    } /* Fin del form-group */
-
-
-    /* Etiqueta label de los campos */
-    .form-group label {
-        display: block; /* Se comporta como bloque (ocupa toda la línea) */
-        margin-bottom: 0.5rem; /* Espacio entre etiqueta y cuadro de texto */
-        font-weight: 600; /* Texto semi-negrita */
-        color: #374151; /* Color gris oscuro */
-    } /* Fin de la etiqueta label */
-
-
-    /* 
-        Estilos para los campos de entrada (inputs) generados por Django.
-        Selecciona inputs tipo 'text' y 'password' DENTRO de .login-form.
-    */
-    .login-form input[type="text"],
-    .login-form input[type="password"] {
-        width: 100%; /* El input ocupa todo el ancho disponible */
-        padding: 0.75rem 1rem; /* Relleno interno (alto del cuadro) */
-        border: 2px solid #e5e7eb; /* Borde gris claro de 2px */
-        border-radius: 8px; /* Bordes ligeramente redondeados */
-        font-size: 1rem; /* Tamaño de letra normal */
-        transition: all 0.3s ease; /* Animación suave cuando cambia de estado */
-    } /* Fin de los estilos de inputs */
-
-
-    /* 
-        Estilo cuando el usuario hace click en el input (Estado de Enfoque).
-    */
-    .login-form input:focus {
-        outline: none; /* Quita el borde azul por defecto del navegador */
-        border-color: #667eea; /* Cambia el borde a morado */
-        
-        /* 
-        Añade un anillo (sombra interna) morado de 3px.
-        rgba(102, 126, 234, 0.1) = color morado con 10% de opacidad.
-        */
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    } /* Fin del estilo Focus */
-
-
-    /* Caja de alerta de error global */
-    
-    .alert-error {
-        background-color: #fee2e2; /* Fondo rojo muy claro (pastel) */
-        color: #991b1b; /* Texto rojo oscuro para contraste */
-        padding: 1rem; /* Relleno interno */
-        border-radius: 8px; /* Bordes redondeados */
-        margin-bottom: 1.5rem; /* Espacio debajo de la alerta */
-        border-left: 4px solid #ef4444; /* Borde izquierdo rojo sólido */
-    } /* Fin de la alerta de error */
-
-
-    /* Texto pequeño de error específico (debajo del input) */
-    .field-error {
-        color: #ef4444; /* Texto rojo */
-        font-size: 0.85rem; /* Texto pequeño */
-        display: block; /* Ocupa toda la línea */
-        margin-top: 0.5rem; /* Espacio entre el input y el error */
-    } /* Fin del texto de error de campo */
-
-
-    /* Botón que ocupa todo el bloque */
-    .btn-block {
-        width: 100%; /* Ancho completo */
-        padding: 1rem; /* Relleno generoso */
-        font-size: 1.1rem; /* Texto ligeramente más grande */
-    } /* Fin del botón de bloque */
-
-
-    /* Pie del formulario (sección volver) */
-    .login-footer {
-        text-align: center; /* Centra el enlace */
-        margin-top: 1.5rem; /* Espacio arriba */
-        padding-top: 1.5rem; /* Espacio interno arriba */
-        border-top: 1px solid #e5e7eb; /* Línea divisoria superior gris */
-    } /* Fin del pie del formulario */
-
-
-    /* 
-        Media Query: Estilos para pantallas pequeñas (móviles, menos de 768px)
-    */
-    @media (max-width: 768px) {
-        
-        /* Ajuste de la tarjeta en móvil */
-        .login-card {
-            padding: 2rem; /* Reducimos el padding de 3rem a 2rem para que ocupe menos espacio */
-        } /* Fin del ajuste móvil */
-        
-    } /* Fin de la Media Query -->
-</style>
-{% endblock %} <!-- Fin del bloque extra_css -->
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

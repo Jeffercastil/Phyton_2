@@ -3,120 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- El título de la página se puede cambiar desde cada template hijo -->
     <title>{% block title %}Sistema de Movimientos{% endblock %}</title>
-    
-    <!-- 
-    {# load static #} es necesario para cargar archivos CSS, JS, imágenes 
-    desde la carpeta 'static' de Django
-    -->
+
     {% load static %}
-    
-    <!-- Enlace al archivo CSS principal -->
+
+    <!-- Chart.js SIN defer — debe estar disponible antes que los JS de cada página -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS principal -->
     <link rel="stylesheet" href="{% static 'base/css/styles.css' %}">
-    
-    <!-- 
-    Font Awesome: librería de iconos gratuita
-    La cargamos desde un CDN (Content Delivery Network) 
-    -->
+
+    <!-- Font Awesome: iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- 
-    {# block extra_css #} permite que otros templates agreguen CSS adicional
-    si lo necesitan sin modificar este archivo base
-    -->
+
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- 
-    Barra de navegación (navbar)
-    Solo se muestra si el usuario está autenticado (logged in)
-    -->
     {% if user.is_authenticated %}
     <nav class="navbar">
         <div class="navbar-container">
-            <!-- Logo y nombre del sistema -->
             <div class="navbar-brand">
                 <i class="fas fa-chart-line"></i>
                 <span>Sistema de Movimientos</span>
             </div>
-            
-            <!-- Menú de navegación -->
+
             <ul class="navbar-menu">
-                <!-- 
-                {# url 'base:dashboard' #} genera la URL usando el nombre de la ruta
-                definido en urls.py (name='dashboard')
-                'base:' es el namespace (app_name = 'base' en urls.py)
-                -->
                 <li><a href="{% url 'base:dashboard' %}">
                     <i class="fas fa-home"></i> Dashboard
                 </a></li>
-                
-                <li><a href="{% url 'base:clientes' %}">
-                    <i class="fas fa-users"></i> Clientes
-                </a></li>
-                
                 <li><a href="{% url 'base:transacciones' %}">
                     <i class="fas fa-exchange-alt"></i> Transacciones
                 </a></li>
+                <li><a href="{% url 'base:deudas' %}">
+                    <i class="fas fa-file-invoice-dollar"></i> Deudas
+                </a></li>
             </ul>
-            
-            <!-- Información del usuario y botón de logout -->
+
             <div class="navbar-user">
-                <!-- {{ user.username }} muestra el nombre del usuario logueado -->
-                <span><i class="fas fa-user"></i> {{ user.username }}</span>
-                
-                <!-- 
-                Formulario para cerrar sesión
-                POST es necesario por seguridad (previene ataques CSRF)
-                -->
-                <form method="post" action="{% url 'logout' %}" style="display: inline;">
-                    <!-- 
-                    {# csrf_token #} es obligatorio en todos los formularios POST
-                    Protege contra ataques Cross-Site Request Forgery
-                    -->
-                    {% csrf_token %}
-                    <button type="submit" class="btn-logout">
-                        <i class="fas fa-sign-out-alt"></i> Salir
-                    </button>
-                </form>
+                    <a href="{% url 'base:mi_perfil' %}" style="color:white; text-decoration:none; margin-right:0.5rem;">
+                        <i class="fas fa-user-circle"></i> {{ user.username }}
+                    </a>
+                    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i> Salir
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
     </nav>
     {% endif %}
-   
-    <!-- 
-    Contenedor principal donde se cargará el contenido de cada página
-    -->
+
     <main class="main-content">
-        <!-- 
-        {# block content #} es el área que cada template hijo reemplazará
-        con su propio contenido específico
-        -->
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
-    
-    <!-- 
-    Footer (pie de página)
-    Solo se muestra si el usuario está autenticado
-    -->
+
     {% if user.is_authenticated %}
     <footer class="footer">
         <p>&copy; 2026 Sistema de Movimientos - Desarrollado por Jeff</p>
     </footer>
     {% endif %}
-    
-    <!-- 
-    Cargamos el archivo JavaScript principal
-    defer hace que se cargue después del HTML
-    -->
+
+    <!-- main.js con defer está bien, no usa Chart.js -->
     <script src="{% static 'base/js/main.js' %}" defer></script>
-    
-    <!-- 
-    {# block extra_js #} permite que otros templates agreguen JavaScript adicional
-    -->
-    {% block extra_js %}
-    {% endblock %}
+
+    <!-- Los JS de cada página van aquí, DESPUÉS de Chart.js -->
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

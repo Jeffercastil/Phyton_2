@@ -1095,3 +1095,933 @@ Media Query para pantallas de máximo 768px (tablets y móviles)
         width: 100%; /* Botones ocupan todo el ancho */
     }
 }
+
+/*
+===============================================
+ADDITIONS TO styles.css
+Pega esto AL FINAL de tu styles.css existente
+===============================================
+*/
+
+/*
+===============================================
+CONTENEDOR GENERAL DE PÁGINAS
+===============================================
+*/
+.transacciones-container,
+.clientes-container,
+.deudas-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/*
+===============================================
+BOTÓN SUCCESS (verde) — para Descargar Plantilla
+===============================================
+*/
+.btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    color: white;
+}
+
+/*
+===============================================
+STAT CARD — variante info
+===============================================
+*/
+.stat-card.info .stat-icon {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+}
+
+/*
+===============================================
+BARRA DE PROGRESO (usada en deudas)
+===============================================
+*/
+.progress-bar-container {
+    background: #f1f5f9;
+    border-radius: 99px;
+    height: 10px;
+    overflow: hidden;
+}
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #10b981, #6366f1);
+    transition: width 0.6s ease;
+}
+
+/*
+===============================================
+TARJETA DE DEUDA
+===============================================
+*/
+.deuda-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #6366f1;
+    transition: box-shadow 0.2s ease;
+}
+.deuda-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+.deuda-card.reportado {
+    border-left-color: #ef4444;
+}
+
+.deuda-badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.deuda-badge.normal {
+    background: #ede9fe;
+    color: #6d28d9;
+}
+.deuda-badge.reportado {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.deuda-numeros {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    min-width: 300px;
+}
+.deuda-numero-box {
+    border-radius: 10px;
+    padding: 0.8rem;
+    text-align: center;
+}
+.deuda-numero-box p.label {
+    margin: 0;
+    font-size: 0.75rem;
+}
+.deuda-numero-box p.value {
+    margin: 0;
+    font-weight: 700;
+}
+
+/*
+===============================================
+GRÁFICAS — contenedor general
+===============================================
+*/
+.chart-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+}
+.chart-card h3 {
+    margin: 0 0 1rem;
+    color: #1e293b;
+    font-size: 1.1rem;
+}
+.chart-wrapper {
+    height: 280px;
+    position: relative;
+}
+
+/*
+===============================================
+RESUMEN INTERÉS (modal deudas)
+===============================================
+*/
+.resumen-interes {
+    background: #fef3c7;
+    border-radius: 10px;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 0.88rem;
+    color: #92400e;
+}
+
+/*
+===============================================
+RESPONSIVE ADICIONAL
+===============================================
+*/
+@media (max-width: 768px) {
+    .deuda-numeros {
+        grid-template-columns: 1fr 1fr;
+        min-width: unset;
+        width: 100%;
+    }
+    .chart-wrapper {
+        height: 200px;
+    }
+}
+
+/*
+===============================================
+AGREGAR AL FINAL DE styles.css
+Botones de deuda: editar, eliminar, footer
+===============================================
+*/
+
+/* Botón Editar (azul) */
+.btn-edit {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    border: none;
+}
+.btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59,130,246,0.4);
+    color: white;
+}
+
+/* Botón Eliminar (rojo) */
+.btn-delete {
+    background: #ef4444;
+    color: white;
+    border: none;
+}
+.btn-delete:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    color: white;
+}
+
+/* Footer de la tarjeta de deuda */
+.deuda-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/*
+===============================================
+REGISTRO / AUTENTICACIÓN
+===============================================
+*/
+
+/* Contenedor principal para páginas SIN autenticar (login, registro) */
+.main-content-auth {
+    flex: 1;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+.main-content {
+    flex: 1; 
+    padding: 2rem;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* SOBRESCRIBE main-content cuando contiene auth */
+.main-content:has(.auth-container) {
+    padding: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+}
+
+.auth-container {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+/* Contenedor centrado de la tarjeta de auth */
+.auth-container {
+    flex: 1;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* La tarjeta blanca del formulario */
+.auth-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Encabezado con icono */
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.auth-header h1 {
+    color: #1e293b;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.auth-header p {
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+/* Grid de 2 columnas para nombre/apellido */
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Texto de ayuda debajo de inputs */
+.form-text {
+    color: #6b7280;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Pie del formulario */
+.auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+    color: #764ba2;
+}
+
+/* Mensajes de alerta */
+.alert-msg {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: #d1fae5;
+    color: #065f46;
+    border-left: 4px solid #10b981;
+}
+
+.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+    border-left: 4px solid #ef4444;
+}
+
+/* ============================================
+   SECCIÓN CTA (CALL TO ACTION) - Landing Page
+   ============================================ */
+
+.cta-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 4rem 2rem;
+    margin-top: 3rem;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+}
+
+.cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-section h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.cta-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.cta-benefits {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.cta-benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.cta-benefit-item i {
+    color: #a3e635;
+    font-size: 1.2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-large {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+.cta-login-text {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.cta-login-text a {
+    color: #a3e635;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.cta-login-text a:hover {
+    border-bottom-color: #a3e635;
+}
+
+/* ============================================
+   ESTILOS ESPECÍFICOS DE LOGIN
+   ============================================ */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    padding: 2rem;
+}
+
+.login-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    padding: 3rem;
+    max-width: 450px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.login-header i {
+    color: #667eea;
+    margin-bottom: 1rem;
+    font-size: 3.5rem;
+}
+
+.login-header h2 {
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.login-header p {
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.login-form {
+    width: 100%;
+}
+
+/* Inputs del formulario de login */
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form input[type="email"] {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f9fafb;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus,
+.login-form input[type="email"]:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.login-footer .register-link {
+    margin-bottom: 1rem;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.login-footer .register-link a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.login-footer .register-link a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* ============================================
+   MEJORAS EN REGISTRO - NUEVO DISEÑO
+   ============================================ */
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 150px);
+    padding: 2rem 1rem;
+}
+
+.register-card {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.12);
+    padding: 2.5rem;
+    max-width: 520px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.register-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
+}
+
+.register-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2.5rem;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.register-header h1 {
+    color: #1f2937;
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.register-header p {
+    color: #6b7280;
+    font-size: 1rem;
+}
+
+.register-form {
+    width: 100%;
+}
+
+.register-form .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.register-form .form-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+.register-form .form-group label i {
+    color: #667eea;
+    font-size: 0.9rem;
+}
+
+.register-form .form-control {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f9fafb;
+}
+
+.register-form .form-control:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.register-form .form-control::placeholder {
+    color: #9ca3af;
+}
+
+.register-form .form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.register-form .form-text {
+    color: #9ca3af;
+    font-size: 0.8rem;
+    margin-top: 0.35rem;
+    display: block;
+}
+
+.register-form .btn-submit {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.register-form .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
+.register-form .btn-submit:active {
+    transform: translateY(0);
+}
+
+.register-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.register-footer p {
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.register-footer a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.register-footer a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+.password-requirements {
+    background: #f3f4f6;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+.password-requirements h4 {
+    font-size: 0.85rem;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.password-requirements ul {
+    list-style: none;
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.password-requirements li {
+    padding: 0.2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.password-requirements li i {
+    font-size: 0.7rem;
+    color: #9ca3af;
+}
+
+.password-requirements li.valid i {
+    color: #10b981;
+}
+
+/* ============================================
+   RECUPERACIÓN DE CONTRASEÑA
+   ============================================ */
+
+.password-reset-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    padding: 2rem;
+}
+
+.password-reset-card {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.12);
+    padding: 3rem;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+}
+
+.password-reset-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.password-reset-icon {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2.5rem;
+    color: white;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.password-reset-card h2 {
+    color: #1f2937;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.password-reset-card p {
+    color: #6b7280;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.password-reset-form .form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.password-reset-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.password-reset-form input[type="email"] {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f9fafb;
+}
+
+.password-reset-form input[type="email"]:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.password-reset-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.password-reset-footer a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.password-reset-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive para móviles */
+@media (max-width: 640px) {
+    .auth-card {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .form-row-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .cta-section {
+        padding: 2.5rem 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .cta-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .cta-benefits {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-large {
+        padding: 0.9rem 1.8rem;
+        font-size: 1rem;
+    }
+
+    .login-card {
+        padding: 2rem;
+        margin: 1rem;
+    }
+
+    .login-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .register-card {
+        padding: 1.8rem;
+        margin: 1rem;
+    }
+
+    .register-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .register-form .form-row-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .register-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+}

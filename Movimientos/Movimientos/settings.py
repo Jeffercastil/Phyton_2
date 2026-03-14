@@ -53,10 +53,17 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Movimientos.urls'
 
+# ─────────────────────────────────────────────────────────────
+# PEGA ESTO en Movimientos/settings.py
+# Reemplaza el bloque TEMPLATES que ya tienes
+# ─────────────────────────────────────────────────────────────
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # ↓ ESTA ES LA LÍNEA CLAVE que faltaba
+        # Le dice a Django dónde buscar templates fuera de las apps
+        'DIRS': [BASE_DIR / 'aplicaciones' / 'base' / 'Templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,8 +143,14 @@ MEDIA_URL= '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Abre el archivo settings.py de tu carpeta de proyecto
-ALLOWED_HOSTS = ['d9df-152-201-102-254.ngrok-free.app', 'localhost', '127.0.0.1', '*']
-CSRF_TRUSTED_ORIGINS = ['https://d9df-152-201-102-254.ngrok-free.app']
+ALLOWED_HOSTS = ['6b71-152-201-102-254.ngrok-free.app', 'localhost', '127.0.0.1', '*']
+# Permite cualquier subdominio de ngrok (solo en desarrollo)
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.ngrok-free.app',
+    'https://*.ngrok.io',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]
 
 STATIC_URL = '/static/'
 
@@ -153,10 +166,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Carpetas adicionales donde Django buscará archivos estáticos (opcional en desarrollo)
 # Para desarrollo, Django encuentra automáticamente la carpeta static/ dentro de cada app
-STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, 'static'),  # Solo si tienes una carpeta 'static' en la raíz
-]
-
+STATICFILES_DIRS = [BASE_DIR / 'static']
 # ==========================================
 # CONFIGURACIÓN DE AUTENTICACIÓN
 # ==========================================
@@ -169,3 +179,18 @@ LOGIN_URL = '/accounts/login/'
 
 # Redirige al index después de logout
 LOGOUT_REDIRECT_URL = '/'
+
+# ==========================================
+# CONFIGURACIÓN DE EMAIL (Desarrollo)
+# ==========================================
+# En desarrollo, los emails se imprimen en la consola
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Para producción, usar SMTP:
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'tuemail@gmail.com'
+# EMAIL_HOST_PASSWORD = 'tucontraseña'
+DEFAULT_FROM_EMAIL = 'Sistema de Movimientos <no-reply@movimientos.com>'

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python manage.py makemigrations)",
+      "Bash(source venv/Scripts/activate && python manage.py makemigrations)",
+      "Bash(source venv/Scripts/activate && python manage.py migrate)",
+      "Bash(source venv/Scripts/activate && python manage.py check)",
+      "Bash(python manage.py showmigrations)",
+      "Bash(source venv/Scripts/activate && python manage.py showmigrations)",
+      "Bash(source venv/Scripts/activate && python manage.py collectstatic --noinput)"
+    ]
+  }
+}

@@ -30,22 +30,22 @@
             
             <!-- Subtítulo descriptivo -->
             <p class="hero-subtitle">
-                Administra tus ingresos y gastos de manera eficiente. 
-                Lleva control de tus clientes y transacciones en tiempo real.
+                Administra tus ingresos y gastos de manera eficiente.
+                Lleva control de tus transacciones y deudas en tiempo real.
             </p>
             
             <!-- Botones de acción -->
             <div class="hero-buttons">
-                <!-- 
+                <!--
                     Si el usuario NO está autenticado, mostramos botones de login/registro
                      if not user.is_authenticated  es una condición de Django
                 -->
                 {% if not user.is_authenticated %}
-                    <a href="{% url 'login' %}" class="btn btn-primary">
-                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                    <a href="{% url 'base:registro' %}" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Crear Cuenta
                     </a>
-                    <a href="#features" class="btn btn-secondary">
-                        <i class="fas fa-info-circle"></i> Más Información
+                    <a href="{% url 'login' %}" class="btn btn-secondary">
+                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                     </a>
                 {% else %}
                     <!-- Si el usuario YA está autenticado, lo llevamos al dashboard -->
@@ -63,15 +63,15 @@
         
         <!-- Grid de 3 columnas con las características -->
         <div class="features-grid">
-            <!-- Característica 1: Gestión de Clientes -->
+            <!-- Característica 1: Gestión de Deudas -->
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-file-invoice-dollar"></i>
                 </div>
-                <h3>Gestión de Clientes</h3>
+                <h3>Gestión de Deudas</h3>
                 <p>
-                    Administra la información de tus clientes de forma organizada.
-                    Guarda documentos, contactos y vincula transacciones.
+                    Controla tus deudas con cálculo automático de cuotas.
+                    Visualiza el progreso de pagos y mantén tus finanzas al día.
                 </p>
             </div>
             
@@ -108,14 +108,14 @@
         <div class="stats-grid">
             <!-- Cada tarjeta muestra una estadística -->
             <div class="stat-card">
-                <i class="fas fa-users stat-icon"></i>
-                <h3>Clientes</h3>
-                <p class="stat-number">Ver todos</p>
-                <a href="{% url 'base:clientes' %}" class="btn-link">
+                <i class="fas fa-file-invoice-dollar stat-icon"></i>
+                <h3>Deudas</h3>
+                <p class="stat-number">Ver todas</p>
+                <a href="{% url 'base:deudas' %}" class="btn-link">
                     Gestionar <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
-            
+
             <div class="stat-card">
                 <i class="fas fa-list stat-icon"></i>
                 <h3>Transacciones</h3>
@@ -124,7 +124,7 @@
                     Gestionar <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
-            
+
             <div class="stat-card">
                 <i class="fas fa-chart-line stat-icon"></i>
                 <h3>Dashboard</h3>
@@ -136,5 +136,8 @@
         </div>
     </section>
     {% endif %}
+
+    <!-- Sección de llamada a la acción (CTA) para usuarios no autenticados -->
+
 </div>
 {% endblock %}
