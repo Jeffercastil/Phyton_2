@@ -1,0 +1,5 @@
+[deploy]
+startCommand = "gunicorn Movimientos.wsgi --chdir Movimientos --bind 0.0.0.0:$PORT --log-level debug --access-logfile - --error-logfile -"
+healthcheckPath = "/accounts/login/"
+healthcheckTimeout = 300
+restartPolicyType = "never"
