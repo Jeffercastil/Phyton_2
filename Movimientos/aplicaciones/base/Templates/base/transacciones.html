@@ -16,10 +16,10 @@
 <div class="transacciones-container">
     
     <!-- Etiqueta HTML: Encabezado de la página -->
-    <div class="page-header" style="flex-wrap: wrap; align-items: flex-start;">
-        
+    <div class="page-header">
+
         <!-- Etiqueta HTML: Contenedor para el título y los filtros -->
-        <div style="flex: 1; min-width: 300px;">
+        <div style="flex: 1; min-width: 280px;">
             <!-- Etiqueta HTML: Título principal con icono -->
             <h1><i class="fas fa-exchange-alt"></i> Gestión de Transacciones</h1>
             <!-- Etiqueta HTML: Párrafo de descripción -->
@@ -27,12 +27,12 @@
 
 
  <!-- BOTONES DE ACCIÓN (Importar Excel + Nueva Transacción) -->
-        <div style="display: flex; gap: 1rem; align-items: center;">
-            
-                
+        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+
+
                 <!-- BOTÓN DESCARGAR PLANTILLA -->
-                <a href="{% static 'plantillas/plantilla_transacciones.xlsx' %}" 
-                   class="btn btn-success" 
+                <a href="{% static 'plantillas/plantilla_transacciones.xlsx' %}"
+                   class="btn btn-success"
                    download
                    title="Descargar archivo Excel vacío para llenar">
                     <i class="fas fa-download"></i> Descargar Plantilla
@@ -47,12 +47,20 @@
                     <i class="fas fa-file-excel"></i> Importar Excel
                 </button>
             </form>
+
+            <!-- BOTÓN EXPORTAR A EXCEL CON DASHBOARD -->
+            <a href="{% url 'base:exportar_excel' %}?{{ request.GET.urlencode }}"
+               class="btn btn-primary"
+               style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"
+               title="Exportar todas las transacciones a Excel con Dashboard incluido">
+                <i class="fas fa-file-export"></i> Exportar a Excel
+            </a>
         
 
     </div>
 
                 <!-- SECCIÓN DE FILTROS -->
-            <form method="GET" action="" style="margin-top: 1rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+            <form method="GET" action="" style="margin-top: 1rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; justify-content: flex-start;">
                 
                 <!-- Filtro Año -->
                 <select name="anio" class="form-control" style="width: auto; padding: 0.5rem; font-size: 0.9rem;">
@@ -181,9 +189,8 @@
     
     <!-- FIN SECCIÓN MENSAJES -->        
 
-    <!-- ═══════ AQUÍ PONES LAS GRÁFICAS - NUEVO ═══════ -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;">
+    <!-- ═══════ GRÁFICAS ═══════ -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
 
         <!-- GRÁFICA 1: Ingresos vs Gastos -->
         <div style="background: white; border-radius: 16px; padding: 1.5rem;

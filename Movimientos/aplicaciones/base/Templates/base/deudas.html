@@ -8,12 +8,12 @@
 
     <!-- ENCABEZADO -->
     <div class="page-header">
-        <div>
+        <div style="flex:1;">
             <h1><i class="fas fa-file-invoice-dollar"></i> Gestión de Deudas</h1>
             <p>Controla tus deudas y lleva el seguimiento de pagos</p>
         </div>
-        <div style="display:flex; gap:0.6rem;">
-            <button style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; border-radius:8px; padding:0.5rem 1rem; cursor:pointer;" onclick="abrirCalculadora()">
+        <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+            <button class="btn btn-secondary" onclick="abrirCalculadora()" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1;">
                 <i class="fas fa-calculator"></i> Calculadora
             </button>
             <button class="btn btn-primary" onclick="abrirModalDeuda()">
@@ -23,7 +23,7 @@
     </div>
 
     <!-- TARJETAS RESUMEN -->
-    <div class="stats-cards" style="margin-bottom:2rem;">
+    <div class="stats-cards" style="margin-bottom:1.5rem;">
         <div class="stat-card danger">
             <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
             <div class="stat-info">

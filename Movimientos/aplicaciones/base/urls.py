@@ -19,6 +19,9 @@ urlpatterns = [
     # Importar Excel
     path('importar-excel/', views.importar_excel, name='importar_excel'),
 
+    # Exportar Excel con Dashboard
+    path('exportar-excel/', views.exportar_excel, name='exportar_excel'),
+
     # Deudas
     path('deudas/', views.deudas_lista, name='deudas'),
     path('api/crear-deuda/', views.crear_deuda, name='crear_deuda'),
