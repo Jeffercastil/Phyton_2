@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&pe^@zjnf8u04rhzr*86)3=n9&1#q5rc21mdi=31*@wvi%wxyk'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-&pe^@zjnf8u04rhzr*86)3=n9&1#q5rc21mdi=31*@wvi%wxyk')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*', '*.railway.app']
+RAILWAY_STATIC_URL = os.environ.get('RAILWAY_STATIC_URL', '')
+if RAILWAY_STATIC_URL:
+    ALLOWED_HOSTS.append(RAILWAY_STATIC_URL)
 
 
 # Application definition
@@ -43,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # WhiteNoise para archivos estáticos
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,19 +86,33 @@ WSGI_APPLICATION = 'Movimientos.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'mssql',
-         'NAME': 'DJANGO_MOVIMIENTOS',
-        'USER': 'Jefrino',
-        'PASSWORD': 'Emily2713*cas',
-        'HOST': 'DESKTOP-7L879NC\\SQLEXPRESS',# o IP\INSTANCIA
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
+# Configuración de base de datos para Railway (PostgreSQL) o desarrollo (SQL Server)
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
     }
-}
+else:
+    # Configuración de desarrollo con SQL Server
+    DATABASES = {
+        'default': {
+            'ENGINE': 'mssql',
+             'NAME': 'DJANGO_MOVIMIENTOS',
+            'USER': 'Jefrino',
+            'PASSWORD': 'Emily2713*cas',
+            'HOST': 'DESKTOP-7L879NC\\SQLEXPRESS',
+            'PORT': '1433',
+            'OPTIONS': {
+                'driver': 'ODBC Driver 17 for SQL Server',
+            },
+        }
+    }
 
 
 # Password validation
@@ -146,11 +165,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ALLOWED_HOSTS = ['6b71-152-201-102-254.ngrok-free.app', 'localhost', '127.0.0.1', '*']
 # Permite cualquier subdominio de ngrok (solo en desarrollo)
 CSRF_TRUSTED_ORIGINS = [
+    'https://*.railway.app',
     'https://*.ngrok-free.app',
     'https://*.ngrok.io',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
 ]
+if RAILWAY_STATIC_URL:
+    CSRF_TRUSTED_ORIGINS.append(f"https://{RAILWAY_STATIC_URL}")
 
 STATIC_URL = '/static/'
 
@@ -164,9 +186,11 @@ STATIC_URL = '/static/'
 # Carpeta donde se recopilarán todos los archivos estáticos en producción
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Carpetas adicionales donde Django buscará archivos estáticos (opcional en desarrollo)
-# Para desarrollo, Django encuentra automáticamente la carpeta static/ dentro de cada app
+# Carpetas adicionales donde Django buscará archivos estáticos
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+# WhiteNoise para servir archivos estáticos en producción
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # ==========================================
 # CONFIGURACIÓN DE AUTENTICACIÓN
 # ==========================================
@@ -194,3 +218,34 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST_USER = 'tuemail@gmail.com'
 # EMAIL_HOST_PASSWORD = 'tucontraseña'
 DEFAULT_FROM_EMAIL = 'Sistema de Movimientos <no-reply@movimientos.com>'
+
+# ==========================================
+# CONFIGURACIÓN DE LOGGING PARA RAILWAY
+# ==========================================
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
