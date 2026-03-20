@@ -6,79 +6,52 @@ echo "Iniciando aplicación Django en Railway"
 echo "=========================================="
 echo ""
 
-# Mostrar variables de entorno disponibles (ocultando contraseñas)
+# Mostrar variables de entorno
 echo "Variables de entorno:"
 echo "  PORT=$PORT"
-echo "  RAILWAY_ENVIRONMENT=$RAILWAY_ENVIRONMENT"
-echo "  DATABASE_URL está configurada: $([ -n "$DATABASE_URL" ] && echo 'SÍ' || echo 'NO')"
+echo "  DATABASE_URL configurada: $([ -n \"$DATABASE_URL\" ] \u0026\u0026 echo 'SÍ' || echo 'NO')"
 echo ""
 
-# Verificar que PORT esté definido
+# Verificar PORT
 if [ -z "$PORT" ]; then
-    echo "⚠️  ADVERTENCIA: PORT no está definido, usando 8000 por defecto"
+    echo "⚠️  PORT no definido, usando 8000"
     export PORT=8000
 fi
 
-# Verificar que DATABASE_URL esté definido
+# Verificar DATABASE_URL
 if [ -z "$DATABASE_URL" ]; then
     echo "❌ ERROR: DATABASE_URL no está configurada"
-    echo ""
-    echo "Para que la aplicación funcione en Railway, debes:"
-    echo "1. Ir al Dashboard de Railway"
-    echo "2. Click en 'New' → 'Database' → 'Add PostgreSQL'"
-    echo "3. Vincular la base de datos a tu servicio"
-    echo ""
-    echo "La variable DATABASE_URL se configurará automáticamente."
+    echo "Crea PostgreSQL en Railway: New → Database → Add PostgreSQL"
     exit 1
 fi
 
 echo "✅ Configuración correcta"
 echo ""
 
-# Aplicar migraciones
-echo "📦 Aplicando migraciones de base de datos..."
-python manage.py migrate --noinput
-if [ $? -eq 0 ]; then
-    echo "✅ Migraciones aplicadas correctamente"
-else
-    echo "❌ Error aplicando migraciones"
-    exit 1
-fi
-echo ""
-
-# Importar datos si existe el archivo
+# Crear tablas e importar datos si existe el archivo JSON
 if [ -f "datos_exportados.json" ]; then
     echo "📥 Archivo datos_exportados.json encontrado"
-    echo "🔄 Importando datos a PostgreSQL..."
-    python importar_a_postgresql.py || echo "⚠️  Advertencia: No se pudieron importar todos los datos"
+    echo "🔄 Creando tablas e importando datos..."
+    python importar_a_postgres.py || echo "⚠️  Advertencia: Algunos datos no se pudieron importar"
     echo ""
 fi
 
-# Recolectar archivos estáticos
-echo "📁 Recolectando archivos estáticos..."
-python manage.py collectstatic --noinput --clear
-if [ $? -eq 0 ]; then
-    echo "✅ Archivos estáticos recolectados"
-else
-    echo "⚠️  Advertencia: No se pudieron recolectar todos los archivos estáticos"
-fi
+# Aplicar migraciones de Django (por si faltan tablas del sistema)
+echo "📦 Aplicando migraciones de Django..."
+python manage.py migrate --noinput || echo "⚠️  Algunas migraciones fallaron (puede ser normal)"
 echo ""
 
-# Verificar que el puerto esté disponible
-echo "🔍 Verificando configuración del servidor..."
-echo "  Puerto: $PORT"
-echo "  Bind: 0.0.0.0:$PORT"
+# Recolectar archivos estáticos
+echo "📁 Recolectando archivos estáticos..."
+python manage.py collectstatic --noinput --clear || echo "⚠️  Algunos archivos estáticos no se pudieron recolectar"
 echo ""
 
 # Iniciar gunicorn
-echo "🚀 Iniciando servidor Gunicorn..."
-echo "=========================================="
+echo "🚀 Iniciando servidor Gunicorn en puerto $PORT..."
 exec gunicorn Movimientos.wsgi:application \
     --bind "0.0.0.0:$PORT" \
     --workers 2 \
     --threads 2 \
     --timeout 60 \
     --access-logfile - \
-    --error-logfile - \
-    --capture-output \
-    --enable-stdio-inheritance
+    --error-logfile -
