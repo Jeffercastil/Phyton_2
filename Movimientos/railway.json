@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "bash railway-start.sh",
+    "startCommand": "python importar_a_postgres.py && python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn Movimientos.wsgi:application --bind 0.0.0.0:$PORT",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }
