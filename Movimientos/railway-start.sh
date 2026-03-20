@@ -46,6 +46,14 @@ else
 fi
 echo ""
 
+# Importar datos si existe el archivo
+if [ -f "datos_exportados.json" ]; then
+    echo "📥 Archivo datos_exportados.json encontrado"
+    echo "🔄 Importando datos a PostgreSQL..."
+    python importar_a_postgresql.py || echo "⚠️  Advertencia: No se pudieron importar todos los datos"
+    echo ""
+fi
+
 # Recolectar archivos estáticos
 echo "📁 Recolectando archivos estáticos..."
 python manage.py collectstatic --noinput --clear
