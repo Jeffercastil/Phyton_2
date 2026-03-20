@@ -1,0 +1,2487 @@
+{
+  "usuarios": [],
+  "transacciones": [
+    {
+      "id": 1202,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 20000.0,
+      "fecha": "2025-05-30",
+      "descripcion": "Pago de gasolina"
+    },
+    {
+      "id": 1203,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 35000.0,
+      "fecha": "2025-06-01",
+      "descripcion": "Parrillada, por valor de 35 que se lo debo pagar a lesly"
+    },
+    {
+      "id": 1204,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 350000.0,
+      "fecha": "2025-05-30",
+      "descripcion": "Pago parcial del arriendo por un valor de 350 y en total son 500, faltaria el segundo pago de 150"
+    },
+    {
+      "id": 1205,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 47500.0,
+      "fecha": "2025-06-06",
+      "descripcion": "Pago que le debo a mayerly El pedido Son  30400 +17100"
+    },
+    {
+      "id": 1206,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 300000.0,
+      "fecha": "2025-06-15",
+      "descripcion": "Me prestaron 300 mil para el tema del trasteo y parte del arriendo de la habitacion, todavia debo esto y espero pagarlo el 15 de junio"
+    },
+    {
+      "id": 1207,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 2133075.0,
+      "fecha": "2025-01-30",
+      "descripcion": "pago del mes de enero del 16 al 31"
+    },
+    {
+      "id": 1208,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1564021.0,
+      "fecha": "2025-02-14",
+      "descripcion": "Pago del 1 al 15 de febrero"
+    },
+    {
+      "id": 1209,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1736434.0,
+      "fecha": "2025-02-28",
+      "descripcion": "Pago del 15 al 28 de febrero"
+    },
+    {
+      "id": 1210,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1303732.0,
+      "fecha": "2025-03-14",
+      "descripcion": "pago del 1 al 15 de marzo"
+    },
+    {
+      "id": 1211,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1748228.0,
+      "fecha": "2025-03-28",
+      "descripcion": "Pago del 15 al 28 de marzo"
+    },
+    {
+      "id": 1212,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1689671.0,
+      "fecha": "2025-04-14",
+      "descripcion": "Pago del 1 de abril hasta el 14 de abril"
+    },
+    {
+      "id": 1213,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1752459.0,
+      "fecha": "2025-04-30",
+      "descripcion": "pago del 16 al 30 de abril"
+    },
+    {
+      "id": 1214,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1335367.0,
+      "fecha": "2025-05-15",
+      "descripcion": "Pago del 1 al 15 de mayo"
+    },
+    {
+      "id": 1215,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1699467.0,
+      "fecha": "2025-01-15",
+      "descripcion": "1 al 15 de enero "
+    },
+    {
+      "id": 1216,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 900000.0,
+      "fecha": "2025-01-30",
+      "descripcion": "Pago de arriendo Enero adicional el internet y parte de la comida"
+    },
+    {
+      "id": 1217,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 900000.0,
+      "fecha": "2025-02-28",
+      "descripcion": "Pago de arriendo Enero adicional el internet y parte de la comida"
+    },
+    {
+      "id": 1218,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 900000.0,
+      "fecha": "2025-03-31",
+      "descripcion": "Pago de arriendo Marzo adicional el internet y parte de la comida"
+    },
+    {
+      "id": 1219,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 900000.0,
+      "fecha": "2025-04-30",
+      "descripcion": "Pago de arriendo Abril adicional el internet y parte de la comida"
+    },
+    {
+      "id": 1220,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 900000.0,
+      "fecha": "2025-05-30",
+      "descripcion": "Pago de arriendo mayo adicional el internet y parte de la comida"
+    },
+    {
+      "id": 1221,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 439000.0,
+      "fecha": "2025-01-31",
+      "descripcion": "pago de enero de la moto "
+    },
+    {
+      "id": 1222,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 439000.0,
+      "fecha": "2025-02-28",
+      "descripcion": "pago de febrero de la moto "
+    },
+    {
+      "id": 1223,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 439000.0,
+      "fecha": "2025-03-31",
+      "descripcion": "pago de marzo de la moto "
+    },
+    {
+      "id": 1224,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 439000.0,
+      "fecha": "2025-04-30",
+      "descripcion": "pago de abril de la moto "
+    },
+    {
+      "id": 1225,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 300000.0,
+      "fecha": "2025-04-30",
+      "descripcion": "Pago de abril de la tarjeta"
+    },
+    {
+      "id": 1226,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 230000.0,
+      "fecha": "2025-03-31",
+      "descripcion": "Pago tarjeta de marzo"
+    },
+    {
+      "id": 1227,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 230000.0,
+      "fecha": "2025-02-28",
+      "descripcion": "Pago tarjeta febrero"
+    },
+    {
+      "id": 1228,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 230000.0,
+      "fecha": "2025-01-31",
+      "descripcion": "pago de tarjeta de enero"
+    },
+    {
+      "id": 1229,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 130000.0,
+      "fecha": "2025-01-31",
+      "descripcion": "Pago de gasolina aproximado "
+    },
+    {
+      "id": 1230,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 130000.0,
+      "fecha": "2025-02-28",
+      "descripcion": "Pago de gasolina aproximado "
+    },
+    {
+      "id": 1231,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 130000.0,
+      "fecha": "2025-03-31",
+      "descripcion": "Pago de gasolina aproximado "
+    },
+    {
+      "id": 1232,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 130000.0,
+      "fecha": "2025-04-30",
+      "descripcion": "Pago de gasolina aproximado "
+    },
+    {
+      "id": 1233,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 110000.0,
+      "fecha": "2025-05-30",
+      "descripcion": "Pago de gasolina aproximado "
+    },
+    {
+      "id": 1234,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 300000.0,
+      "fecha": "2025-02-28",
+      "descripcion": "Cuando se daño la moto, y tuve que arreglarla el tema fue la parte de la bobina"
+    },
+    {
+      "id": 1235,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 550000.0,
+      "fecha": "2025-03-31",
+      "descripcion": "Cambio de los frenos, aceite, entre otras cosas de la moto "
+    },
+    {
+      "id": 1236,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "trabajo-adicional",
+      "monto": 2700000.0,
+      "fecha": "2025-03-31",
+      "descripcion": "Trabajo que eralice en atlantic por un mes y medio "
+    },
+    {
+      "id": 1237,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 800000.0,
+      "fecha": "2025-03-31",
+      "descripcion": "Pago de salud y pension por el contrato de atlantic de prestación de servicios "
+    },
+    {
+      "id": 1238,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 32000.0,
+      "fecha": "2025-05-31",
+      "descripcion": "Mecato de Emily "
+    },
+    {
+      "id": 1239,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 21000.0,
+      "fecha": "2025-05-31",
+      "descripcion": "Hambúrguer 21mil "
+    },
+    {
+      "id": 1240,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 7700.0,
+      "fecha": "2025-05-31",
+      "descripcion": "Compre dos manzanas Y una papa , Y una chocolatina"
+    },
+    {
+      "id": 1241,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 47000.0,
+      "fecha": "2025-06-01",
+      "descripcion": "Compre una mazorcada com dos limonadas naturales "
+    },
+    {
+      "id": 1242,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 8000.0,
+      "fecha": "2025-06-01",
+      "descripcion": "Dos cervezas con paola"
+    },
+    {
+      "id": 1243,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 100000.0,
+      "fecha": "2025-06-01",
+      "descripcion": "100 mil del arriendo a juan"
+    },
+    {
+      "id": 1244,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 120000.0,
+      "fecha": "2025-06-01",
+      "descripcion": "Pago de traslado"
+    },
+    {
+      "id": 1245,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 15600.0,
+      "fecha": "2025-06-01",
+      "descripcion": "Pago de hueco,tamal chocolate,coca cola"
+    },
+    {
+      "id": 1246,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 5000.0,
+      "fecha": "2025-06-01",
+      "descripcion": "Postre "
+    },
+    {
+      "id": 1247,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 6000.0,
+      "fecha": "2025-06-01",
+      "descripcion": "Arepa"
+    },
+    {
+      "id": 1248,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 107260.0,
+      "fecha": "2025-06-02",
+      "descripcion": "Un mercado pequeno, para mi Y Pollo 18050"
+    },
+    {
+      "id": 1249,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 3800.0,
+      "fecha": "2025-06-02",
+      "descripcion": "Coca cola "
+    },
+    {
+      "id": 1250,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 15000.0,
+      "fecha": "2025-06-03",
+      "descripcion": "Compra de essência "
+    },
+    {
+      "id": 1251,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": " gasto-varios",
+      "monto": 85000.0,
+      "fecha": "2025-06-13",
+      "descripcion": "pagado Debo 85 de calabresa a lá cunhada de leno"
+    },
+    {
+      "id": 1252,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 5000.0,
+      "fecha": "2025-06-03",
+      "descripcion": "Cópia de Las dos llaves "
+    },
+    {
+      "id": 1253,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 4200.0,
+      "fecha": "2025-06-03",
+      "descripcion": "Compre una chocolatina Y un chocorramo"
+    },
+    {
+      "id": 1254,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 20000.0,
+      "fecha": "2025-06-04",
+      "descripcion": "Pago de gasolina "
+    },
+    {
+      "id": 1255,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 21579.0,
+      "fecha": "2025-06-04",
+      "descripcion": "Crema desonic  21600 Y lá pastas ketokonazol "
+    },
+    {
+      "id": 1256,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 10400.0,
+      "fecha": "2025-06-05",
+      "descripcion": "Pago de Coca-Cola,chocorramo,coca cola pequena "
+    },
+    {
+      "id": 1257,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 3232341.0,
+      "fecha": "2025-06-13",
+      "descripcion": "pago de nomina con prima"
+    },
+    {
+      "id": 1258,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 80000.0,
+      "fecha": "2025-06-13",
+      "descripcion": "Pago del perfume, total son 120, pague 80 falta 40 "
+    },
+    {
+      "id": 1259,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 10000.0,
+      "fecha": "2025-06-13",
+      "descripcion": "postre de stefany"
+    },
+    {
+      "id": 1260,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": " gasto-varios",
+      "monto": 20000.0,
+      "fecha": "2025-06-13",
+      "descripcion": "pagado-se pago el valor a brayan"
+    },
+    {
+      "id": 1261,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 61410.0,
+      "fecha": "2025-06-13",
+      "descripcion": "Compra de armario de tela"
+    },
+    {
+      "id": 1262,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 151900.0,
+      "fecha": "2025-06-13",
+      "descripcion": "pago de silla que necesitaba"
+    },
+    {
+      "id": 1263,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 18900.0,
+      "fecha": "2025-06-13",
+      "descripcion": "pago netflix "
+    },
+    {
+      "id": 1264,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 201000.0,
+      "fecha": "2025-06-13",
+      "descripcion": "ARROCERA-TABLA DE PATACON-RAYADOR-TRAPO DE COCINA-VASOS-SARTEN PARA HUEVOS"
+    },
+    {
+      "id": 1265,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 33000.0,
+      "fecha": "2025-06-13",
+      "descripcion": "CREMA CABELLO"
+    },
+    {
+      "id": 1266,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 35200.0,
+      "fecha": "2025-06-13",
+      "descripcion": "POLLO-PAPAS-CHICHARRON"
+    },
+    {
+      "id": 1267,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 13000.0,
+      "fecha": "2025-06-13",
+      "descripcion": "GALLETAS-COMPARTIR"
+    },
+    {
+      "id": 1268,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 28000.0,
+      "fecha": "2025-06-14",
+      "descripcion": "DETERGENTE-AROMATIZANTE-SPAY AMBIENTE"
+    },
+    {
+      "id": 1269,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 170000.0,
+      "fecha": "2025-06-14",
+      "descripcion": "PAGO TRANSPORTE EMILY JUNIO JULIO"
+    },
+    {
+      "id": 1270,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 24000.0,
+      "fecha": "2025-06-14",
+      "descripcion": "CERVEZA"
+    },
+    {
+      "id": 1271,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 183471.0,
+      "fecha": "2025-06-14",
+      "descripcion": "ROPA-EMILY "
+    },
+    {
+      "id": 1272,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 320000.0,
+      "fecha": "2025-06-14",
+      "descripcion": "COMIDA EMILY-PAGO DE CARRO"
+    },
+    {
+      "id": 1273,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 50000.0,
+      "fecha": "2025-06-14",
+      "descripcion": "REGALO  CUMPLE SOBRINA PAO"
+    },
+    {
+      "id": 1274,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 65000.0,
+      "fecha": "2025-06-14",
+      "descripcion": "PELUCHE EMILY"
+    },
+    {
+      "id": 1275,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 180000.0,
+      "fecha": "2025-06-14",
+      "descripcion": "MANDO PS5"
+    },
+    {
+      "id": 1276,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 14516.0,
+      "fecha": "2025-06-15",
+      "descripcion": "PAGO INSTALACION MOVISTAR"
+    },
+    {
+      "id": 1277,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 75000.0,
+      "fecha": "2025-06-22",
+      "descripcion": "BOTINES LLUVIA:50000-PORTACASCO:25000"
+    },
+    {
+      "id": 1278,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 20000.0,
+      "fecha": "2025-06-15",
+      "descripcion": "FRUTAS"
+    },
+    {
+      "id": 1279,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 17500.0,
+      "fecha": "2025-06-15",
+      "descripcion": "UTILES EMILY"
+    },
+    {
+      "id": 1280,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 202500.0,
+      "fecha": "2025-06-15",
+      "descripcion": "ASEO"
+    },
+    {
+      "id": 1281,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 88000.0,
+      "fecha": "2025-06-15",
+      "descripcion": "COMPRA EN DOLARCITY"
+    },
+    {
+      "id": 1282,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 60200.0,
+      "fecha": "2025-06-15",
+      "descripcion": "COMIDA CON EMILY"
+    },
+    {
+      "id": 1283,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 9500.0,
+      "fecha": "2025-06-22",
+      "descripcion": "PAPAS EMILY"
+    },
+    {
+      "id": 1284,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 350000.0,
+      "fecha": "2025-06-16",
+      "descripcion": "SEGURO GPS MOTO"
+    },
+    {
+      "id": 1285,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 5800.0,
+      "fecha": "2025-06-16",
+      "descripcion": "CHOCORRAMO"
+    },
+    {
+      "id": 1286,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 20000.0,
+      "fecha": "2025-06-16",
+      "descripcion": "PLATA QUE LE ENVIE A EMILY PARA EL EVENTO DEL CINE"
+    },
+    {
+      "id": 1287,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 14000.0,
+      "fecha": "2025-06-16",
+      "descripcion": "MEDICAMENTOS PARA LA GRIPE "
+    },
+    {
+      "id": 1288,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 6370.0,
+      "fecha": "2025-06-17",
+      "descripcion": "CARRO EMILY"
+    },
+    {
+      "id": 1289,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 7400.0,
+      "fecha": "2025-06-16",
+      "descripcion": "CARRO EMILY"
+    },
+    {
+      "id": 1290,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 30000.0,
+      "fecha": "2025-06-17",
+      "descripcion": "ARROZ CHAUFA"
+    },
+    {
+      "id": 1291,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 25200.0,
+      "fecha": "2025-06-17",
+      "descripcion": "COMIDA Y COSAS DE ASEO"
+    },
+    {
+      "id": 1292,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 5600.0,
+      "fecha": "2025-06-18",
+      "descripcion": "PAPEL HIGIENICO-FRUTIÑO"
+    },
+    {
+      "id": 1293,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 5300.0,
+      "fecha": "2025-06-18",
+      "descripcion": "MEDICAMENTO GRIPE"
+    },
+    {
+      "id": 1294,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 4400.0,
+      "fecha": "2025-06-18",
+      "descripcion": "PAN"
+    },
+    {
+      "id": 1295,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 15400.0,
+      "fecha": "2025-06-19",
+      "descripcion": "HAMBURGUESA Y GASEOSA"
+    },
+    {
+      "id": 1296,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 40000.0,
+      "fecha": "2025-06-27",
+      "descripcion": "PAGO RESTANTE DE PERFUME"
+    },
+    {
+      "id": 1297,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 28000.0,
+      "fecha": "2025-06-21",
+      "descripcion": "PERROS CON EMILY"
+    },
+    {
+      "id": 1298,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 42000.0,
+      "fecha": "2025-06-20",
+      "descripcion": "Salchipapa 34 mil y cocacola 8mil"
+    },
+    {
+      "id": 1299,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 4300.0,
+      "fecha": "2025-06-19",
+      "descripcion": "Bonyurt"
+    },
+    {
+      "id": 1300,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 14400.0,
+      "fecha": "2025-06-21",
+      "descripcion": "DETERGENTE"
+    },
+    {
+      "id": 1301,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": " gasto-varios",
+      "monto": 40000.0,
+      "fecha": "2025-06-27",
+      "descripcion": "pagado PAGO DE DAYANA"
+    },
+    {
+      "id": 1302,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 7500.0,
+      "fecha": "2025-06-25",
+      "descripcion": "comida que le compre a emily"
+    },
+    {
+      "id": 1303,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 26000.0,
+      "fecha": "2025-06-26",
+      "descripcion": "GASOLINA"
+    },
+    {
+      "id": 1304,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 20000.0,
+      "fecha": "2025-06-26",
+      "descripcion": "FORRO PARA EL CELULAR"
+    },
+    {
+      "id": 1305,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 21000.0,
+      "fecha": "2025-06-26",
+      "descripcion": "COMIDA - GARGERIAS"
+    },
+    {
+      "id": 1306,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 440000.0,
+      "fecha": "2025-06-27",
+      "descripcion": "ARRIENDO PAGO 440000"
+    },
+    {
+      "id": 1307,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 252000.0,
+      "fecha": "2025-06-27",
+      "descripcion": "PAGO DE TARJETA"
+    },
+    {
+      "id": 1308,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 439000.0,
+      "fecha": "2025-06-27",
+      "descripcion": "PAGO DE JUNIO MOTO"
+    },
+    {
+      "id": 1309,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": " gasto-varios",
+      "monto": 12000.0,
+      "fecha": "2025-06-27",
+      "descripcion": "PAGO DE LAU POSTRE"
+    },
+    {
+      "id": 1310,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 33000.0,
+      "fecha": "2025-06-27",
+      "descripcion": "Hamburguesa"
+    },
+    {
+      "id": 1311,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 8700.0,
+      "fecha": "2025-06-27",
+      "descripcion": "Chocorramo Y chocorramito Y empanada"
+    },
+    {
+      "id": 1312,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 90000.0,
+      "fecha": "2025-06-28",
+      "descripcion": "TRAGO Y GATEORE"
+    },
+    {
+      "id": 1313,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 9900.0,
+      "fecha": "2025-06-28",
+      "descripcion": "Bonyurt sniker"
+    },
+    {
+      "id": 1314,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 15700.0,
+      "fecha": "2025-06-28",
+      "descripcion": "Pescado"
+    },
+    {
+      "id": 1315,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 15000.0,
+      "fecha": "2025-06-28",
+      "descripcion": "LIMPIADOR DE PANTALLA"
+    },
+    {
+      "id": 1316,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 32800.0,
+      "fecha": "2025-06-28",
+      "descripcion": "Coca-Cola Y hamburguesa"
+    },
+    {
+      "id": 1317,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 10000.0,
+      "fecha": "2025-06-29",
+      "descripcion": "APUESTA"
+    },
+    {
+      "id": 1318,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 13500.0,
+      "fecha": "2025-06-29",
+      "descripcion": "Almuerzo"
+    },
+    {
+      "id": 1319,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 6000.0,
+      "fecha": "2025-06-29",
+      "descripcion": "Postre"
+    },
+    {
+      "id": 1320,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 22000.0,
+      "fecha": "2025-07-01",
+      "descripcion": "Jugos "
+    },
+    {
+      "id": 1321,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 78000.0,
+      "fecha": "2025-07-01",
+      "descripcion": "JUEGOS DE EMILY"
+    },
+    {
+      "id": 1322,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 28000.0,
+      "fecha": "2025-06-30",
+      "descripcion": "ALMUERZO"
+    },
+    {
+      "id": 1323,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 27000.0,
+      "fecha": "2025-06-30",
+      "descripcion": "COSA PARA EL TOBILLO"
+    },
+    {
+      "id": 1324,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 10900.0,
+      "fecha": "2025-07-01",
+      "descripcion": "Jugo Emily "
+    },
+    {
+      "id": 1325,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 49900.0,
+      "fecha": "2025-07-01",
+      "descripcion": "Pollo kfc"
+    },
+    {
+      "id": 1326,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-adicional",
+      "monto": 200000.0,
+      "fecha": "2025-06-30",
+      "descripcion": "PAGO DE PC"
+    },
+    {
+      "id": 1327,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-adicional",
+      "monto": 200000.0,
+      "fecha": "2025-05-30",
+      "descripcion": "PAGO DE ABRIL Y MARZO"
+    },
+    {
+      "id": 1328,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 43100.0,
+      "fecha": "2025-07-02",
+      "descripcion": "CHICHARRON-PECHUGA-QUESO-JAMON"
+    },
+    {
+      "id": 1329,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 10600.0,
+      "fecha": "2025-07-04",
+      "descripcion": "PAN Y MAS PAN"
+    },
+    {
+      "id": 1330,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 10000.0,
+      "fecha": "2025-07-04",
+      "descripcion": "CEPILLO DE LAVAR Y JABON"
+    },
+    {
+      "id": 1331,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 7800.0,
+      "fecha": "2025-07-04",
+      "descripcion": "PAN DULCE BIMBO ZANAHORIA"
+    },
+    {
+      "id": 1332,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 2400.0,
+      "fecha": "2025-07-04",
+      "descripcion": "PEPSI PERSONAL"
+    },
+    {
+      "id": 1333,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 8950.0,
+      "fecha": "2025-07-14",
+      "descripcion": "CHOCOLATE"
+    },
+    {
+      "id": 1334,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 20300.0,
+      "fecha": "2025-07-10",
+      "descripcion": "PAN BIMBO Y OTROS PANES, MAS COCACOLA Y GASEOSA"
+    },
+    {
+      "id": 1335,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 8000.0,
+      "fecha": "2025-07-13",
+      "descripcion": "DETERGENTE MAS GOMITAS DE LA LABADORA "
+    },
+    {
+      "id": 1336,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 60000.0,
+      "fecha": "2025-07-15",
+      "descripcion": "DOS ALITAS Y UN JUGO"
+    },
+    {
+      "id": 1337,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 131000.0,
+      "fecha": "2025-07-15",
+      "descripcion": "CALABRESA Y OTRA COSA"
+    },
+    {
+      "id": 1339,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 99000.0,
+      "fecha": "2025-07-16",
+      "descripcion": "COMIDA carnes"
+    },
+    {
+      "id": 1340,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 80000.0,
+      "fecha": "2025-07-15",
+      "descripcion": "CELULAR DE SEGUNDA"
+    },
+    {
+      "id": 1341,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 104500.0,
+      "fecha": "2025-07-15",
+      "descripcion": "Comida productos necessários "
+    },
+    {
+      "id": 1342,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 40000.0,
+      "fecha": "2025-07-17",
+      "descripcion": "CAMBIO DE FRENO Y ADAPTADOR DE USB PARA LA MOTO"
+    },
+    {
+      "id": 1343,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 64000.0,
+      "fecha": "2025-07-17",
+      "descripcion": "HAMBURGUESAS Y GASEOSA"
+    },
+    {
+      "id": 1344,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 25000.0,
+      "fecha": "2025-07-17",
+      "descripcion": "COMIDA PARA MI MAMA"
+    },
+    {
+      "id": 1345,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1323254.0,
+      "fecha": "2025-07-15",
+      "descripcion": "pago de nomina 15 julio"
+    },
+    {
+      "id": 1346,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "obligacion",
+      "monto": 100000.0,
+      "fecha": "2025-07-17",
+      "descripcion": "pago pc cesar 1000"
+    },
+    {
+      "id": 1347,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 141200.0,
+      "fecha": "2025-07-18",
+      "descripcion": "Materiales de Emily  Y cosas que queria"
+    },
+    {
+      "id": 1348,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 40000.0,
+      "fecha": "2025-07-18",
+      "descripcion": "Comida com emily"
+    },
+    {
+      "id": 1349,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 90000.0,
+      "fecha": "2025-07-18",
+      "descripcion": "Internet"
+    },
+    {
+      "id": 1350,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 56500.0,
+      "fecha": "2025-07-19",
+      "descripcion": "Aceite Y filtro50500 mas lá cambiada 6000"
+    },
+    {
+      "id": 1351,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1271093.0,
+      "fecha": "2025-07-29",
+      "descripcion": "Pago de nomina julio 30"
+    },
+    {
+      "id": 1352,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 400000.0,
+      "fecha": "2025-07-29",
+      "descripcion": "400000"
+    },
+    {
+      "id": 1353,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 439000.0,
+      "fecha": "2025-07-29",
+      "descripcion": "pago moto julio"
+    },
+    {
+      "id": 1354,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 257000.0,
+      "fecha": "2025-07-29",
+      "descripcion": "pago tarjeta"
+    },
+    {
+      "id": 1355,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 37320.0,
+      "fecha": "2025-07-29",
+      "descripcion": "PAPAS, DORITOS, COCACOLA, BONYURT, CHOCOLATE, JABON"
+    },
+    {
+      "id": 1356,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 68000.0,
+      "fecha": "2025-07-30",
+      "descripcion": "PAGO DE CADENA"
+    },
+    {
+      "id": 1357,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 23000.0,
+      "fecha": "2025-07-29",
+      "descripcion": "PAGO CELULAR"
+    },
+    {
+      "id": 1358,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 952454.0,
+      "fecha": "2025-08-15",
+      "descripcion": "Pago quincena15 de agosto 2025"
+    },
+    {
+      "id": 1359,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 40000.0,
+      "fecha": "2025-08-15",
+      "descripcion": "Comida 15mil Y 3 jugos 24mil"
+    },
+    {
+      "id": 1360,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 99000.0,
+      "fecha": "2025-08-15",
+      "descripcion": "Carne y pollo"
+    },
+    {
+      "id": 1361,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 17400.0,
+      "fecha": "2025-08-15",
+      "descripcion": "Crema para lá piel "
+    },
+    {
+      "id": 1362,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 170000.0,
+      "fecha": "2025-08-15",
+      "descripcion": "Pago de transporte de Emily agosto "
+    },
+    {
+      "id": 1363,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 101000.0,
+      "fecha": "2025-08-15",
+      "descripcion": "Adelanto de arriendo 101mil"
+    },
+    {
+      "id": 1364,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 20000.0,
+      "fecha": "2025-08-15",
+      "descripcion": "Gasolina"
+    },
+    {
+      "id": 1365,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 28000.0,
+      "fecha": "2025-07-31",
+      "descripcion": "Perfume"
+    },
+    {
+      "id": 1366,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 15000.0,
+      "fecha": "2025-08-10",
+      "descripcion": "Detergente Y aromamatel"
+    },
+    {
+      "id": 1367,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 35000.0,
+      "fecha": "2025-08-15",
+      "descripcion": "Arroz chaufa 35mil"
+    },
+    {
+      "id": 1368,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 69900.0,
+      "fecha": "2025-08-15",
+      "descripcion": "Internet agosto"
+    },
+    {
+      "id": 1369,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 49000.0,
+      "fecha": "2025-08-16",
+      "descripcion": "Comida Y atrás cositas"
+    },
+    {
+      "id": 1370,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 8000.0,
+      "fecha": "2025-08-16",
+      "descripcion": "Arreglar el clock Y alineacion de llantas"
+    },
+    {
+      "id": 1371,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 8300.0,
+      "fecha": "2025-08-28",
+      "descripcion": "CHOCOLATE "
+    },
+    {
+      "id": 1372,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 85.15,
+      "fecha": "2025-08-29",
+      "descripcion": "MERCADO"
+    },
+    {
+      "id": 1373,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 23700.0,
+      "fecha": "2025-08-29",
+      "descripcion": "verduras y frutas"
+    },
+    {
+      "id": 1374,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1130781.0,
+      "fecha": "2025-08-29",
+      "descripcion": "PAGO 30 DE AGOSTO 2025"
+    },
+    {
+      "id": 1375,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 69700.0,
+      "fecha": "2025-08-29",
+      "descripcion": "Pago deuda mayerly"
+    },
+    {
+      "id": 1376,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 21000.0,
+      "fecha": "2025-08-31",
+      "descripcion": "Gotas Y dulces pra Emily  Y crema"
+    },
+    {
+      "id": 1377,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 30000.0,
+      "fecha": "2025-08-31",
+      "descripcion": "Gasolina"
+    },
+    {
+      "id": 1378,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 17500.0,
+      "fecha": "2025-08-30",
+      "descripcion": "Hamburguesa+café con leche Y chocolatina"
+    },
+    {
+      "id": 1379,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 87500.0,
+      "fecha": "2025-08-31",
+      "descripcion": "Frysby"
+    },
+    {
+      "id": 1380,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 36000.0,
+      "fecha": "2025-08-31",
+      "descripcion": "Sibate fresas Y cosas "
+    },
+    {
+      "id": 1381,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1300000.0,
+      "fecha": "2025-09-15",
+      "descripcion": "pago 15 de septiembre 2025"
+    },
+    {
+      "id": 1382,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 43000.0,
+      "fecha": "2025-09-14",
+      "descripcion": "comida de mis dias de desanso y los perros que compre "
+    },
+    {
+      "id": 1383,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion",
+      "monto": 40000.0,
+      "fecha": "2025-09-13",
+      "descripcion": "Gasolina"
+    },
+    {
+      "id": 1384,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 20000.0,
+      "fecha": "2025-09-12",
+      "descripcion": "Postre y beiju"
+    },
+    {
+      "id": 1385,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 354000.0,
+      "fecha": "2025-09-15",
+      "descripcion": "Mercado de emily y pollo para ella, 99 carnes, 253 de mercado"
+    },
+    {
+      "id": 1386,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 37300.0,
+      "fecha": "2025-09-15",
+      "descripcion": "pechuga 7000, acuatate 2600, cocacola sprit y cosas para el compartir 24000 , 3700 de pan."
+    },
+    {
+      "id": 1387,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 99000.0,
+      "fecha": "2025-09-15",
+      "descripcion": "pedido de carne "
+    },
+    {
+      "id": 1388,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 50000.0,
+      "fecha": "2025-09-15",
+      "descripcion": "Regalo mi amor"
+    },
+    {
+      "id": 1389,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 55000.0,
+      "fecha": "2025-09-15",
+      "descripcion": "criatina"
+    },
+    {
+      "id": 1390,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 15900.0,
+      "fecha": "2025-09-15",
+      "descripcion": "Frutas Y chocolatina"
+    },
+    {
+      "id": 1391,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 32000.0,
+      "fecha": "2025-09-15",
+      "descripcion": "Purgante nitazozadina"
+    },
+    {
+      "id": 1392,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 12000.0,
+      "fecha": "2025-09-17",
+      "descripcion": "perro y dulce"
+    },
+    {
+      "id": 1393,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 69000.0,
+      "fecha": "2025-09-22",
+      "descripcion": "REGALO, MAS PILAS"
+    },
+    {
+      "id": 1394,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 70000.0,
+      "fecha": "2025-09-19",
+      "descripcion": "arroz, aceite, huevos"
+    },
+    {
+      "id": 1395,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 200000.0,
+      "fecha": "2025-10-12",
+      "descripcion": "COMIDA , COSAS VARIAS QUE NO ME ACUERDO."
+    },
+    {
+      "id": 1396,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "obligacion-cuota",
+      "monto": 500000.0,
+      "fecha": "2025-10-16",
+      "descripcion": "Pago de transporte y comida emily"
+    },
+    {
+      "id": 1397,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 88000.0,
+      "fecha": "2025-10-16",
+      "descripcion": "Comida con pao, y cositas para mi daniela"
+    },
+    {
+      "id": 1398,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 106000.0,
+      "fecha": "2025-10-16",
+      "descripcion": "Productos de aseo, comida y otras cositas para mi."
+    },
+    {
+      "id": 1399,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 25000.0,
+      "fecha": "2025-10-16",
+      "descripcion": "Gasolina moto"
+    },
+    {
+      "id": 1400,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 50000.0,
+      "fecha": "2025-10-16",
+      "descripcion": "Perfume combo"
+    },
+    {
+      "id": 1414,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 7200.0,
+      "fecha": "2026-03-06",
+      "descripcion": "Chocorramo, y unas papitas de chicharron, agua"
+    },
+    {
+      "id": 1415,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1227738.0,
+      "fecha": "2025-09-30",
+      "descripcion": "Pago de nómina 30 de septiembre 2025"
+    },
+    {
+      "id": 1416,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 2380790.0,
+      "fecha": "2025-10-15",
+      "descripcion": "Pago de nómina 15 de octubre 2025"
+    },
+    {
+      "id": 1417,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1052305.0,
+      "fecha": "2025-10-30",
+      "descripcion": "Pago de nómina 30 de octubre del 2025"
+    },
+    {
+      "id": 1418,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1058395.0,
+      "fecha": "2025-11-14",
+      "descripcion": "Pago de nómina del 15 de noviembre del 2025"
+    },
+    {
+      "id": 1419,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1644063.0,
+      "fecha": "2025-11-28",
+      "descripcion": "Pago de nómina del 30 de noviembre del 2025"
+    },
+    {
+      "id": 1420,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1785678.0,
+      "fecha": "2025-12-15",
+      "descripcion": "Pago nomina diciembre del 2025"
+    },
+    {
+      "id": 1421,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 2273595.0,
+      "fecha": "2025-12-30",
+      "descripcion": "Pago de nómina de diciembre del 2025"
+    },
+    {
+      "id": 1422,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1805867.0,
+      "fecha": "2026-01-15",
+      "descripcion": "Pago de nómina  15 enero del 2026 "
+    },
+    {
+      "id": 1423,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 2552479.0,
+      "fecha": "2026-01-29",
+      "descripcion": "Pago de nómina del 30 de enero del 2026"
+    },
+    {
+      "id": 1424,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1398150.0,
+      "fecha": "2026-02-13",
+      "descripcion": "Pago de nomina del 15 de febrero del 2026"
+    },
+    {
+      "id": 1425,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1456738.0,
+      "fecha": "2026-02-27",
+      "descripcion": "Pago de nomina 27 de febrero del 2026"
+    },
+    {
+      "id": 1426,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "obligacion",
+      "monto": 700000.0,
+      "fecha": "2026-02-13",
+      "descripcion": "Pago de 100000, desde el mes de agosto de la pc, cesitar"
+    },
+    {
+      "id": 1427,
+      "usuario_id": 1,
+      "deuda_id": 1,
+      "tipo": "GASTO",
+      "categoria": "deuda",
+      "monto": 300000.0,
+      "fecha": "2026-03-09",
+      "descripcion": "Pago deuda: Solicitud de prestamo"
+    },
+    {
+      "id": 1428,
+      "usuario_id": 1,
+      "deuda_id": 1,
+      "tipo": "GASTO",
+      "categoria": "deuda",
+      "monto": 145000.0,
+      "fecha": "2026-03-09",
+      "descripcion": "Pago deuda: Solicitud de prestamo"
+    },
+    {
+      "id": 1429,
+      "usuario_id": 1,
+      "deuda_id": 5,
+      "tipo": "GASTO",
+      "categoria": "deuda-reportado",
+      "monto": 45000.0,
+      "fecha": "2026-03-09",
+      "descripcion": "Pago deuda: ADDI"
+    },
+    {
+      "id": 1430,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 1759000.0,
+      "fecha": "2025-10-30",
+      "descripcion": "Comida tarjeta de crédito arriendo, cumple de emily y otras cosas"
+    },
+    {
+      "id": 1431,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 1759000.0,
+      "fecha": "2025-10-30",
+      "descripcion": "Comida tarjeta de crédito arriendo, cumple de emily y otras cosas"
+    },
+    {
+      "id": 1432,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 139000.0,
+      "fecha": "2026-03-11",
+      "descripcion": "Compra de carne, hamburguesa, y dos sand de carne y un mister te de limon, mas 20mil de gasolina "
+    },
+    {
+      "id": 1433,
+      "usuario_id": 1,
+      "deuda_id": 6,
+      "tipo": "GASTO",
+      "categoria": "deuda",
+      "monto": 18887300.0,
+      "fecha": "2026-03-11",
+      "descripcion": "Pago deuda: PAGO DE MOTO"
+    },
+    {
+      "id": 1434,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 1500000.0,
+      "fecha": "2025-12-16",
+      "descripcion": "Compra de cositas para emily, unas deudas y pago de algunas obligaciones"
+    },
+    {
+      "id": 1435,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 10000.0,
+      "fecha": "2026-03-12",
+      "descripcion": "Dos perros con gaseosa"
+    },
+    {
+      "id": 1436,
+      "usuario_id": 4,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Alimentación ",
+      "monto": 5000.0,
+      "fecha": "2026-03-12",
+      "descripcion": ""
+    },
+    {
+      "id": 1437,
+      "usuario_id": 5,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Alimentación ",
+      "monto": 5000.0,
+      "fecha": "2026-03-12",
+      "descripcion": "Mango"
+    },
+    {
+      "id": 1438,
+      "usuario_id": 6,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Alimentos",
+      "monto": 5000.0,
+      "fecha": "2026-03-12",
+      "descripcion": "Compré café "
+    },
+    {
+      "id": 1439,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "Prestamo",
+      "monto": 1480647.0,
+      "fecha": "2026-03-12",
+      "descripcion": "Préstamo de almi financiera"
+    },
+    {
+      "id": 1440,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 200000.0,
+      "fecha": "2026-03-12",
+      "descripcion": "Ahorros de emily"
+    },
+    {
+      "id": 1441,
+      "usuario_id": 7,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "Pago de nómina ",
+      "monto": 1361936.0,
+      "fecha": "2026-03-14",
+      "descripcion": ""
+    },
+    {
+      "id": 1442,
+      "usuario_id": 7,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Combo de cerveja y aguardiente amarillo.",
+      "monto": 145000.0,
+      "fecha": "2026-03-14",
+      "descripcion": ""
+    },
+    {
+      "id": 1443,
+      "usuario_id": 7,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Arriendo  mitad",
+      "monto": 665000.0,
+      "fecha": "2026-03-14",
+      "descripcion": ""
+    },
+    {
+      "id": 1444,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Regalo",
+      "monto": 400000.0,
+      "fecha": "2026-03-13",
+      "descripcion": "Cumple de daniela"
+    },
+    {
+      "id": 1445,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 400000.0,
+      "fecha": "2026-03-13",
+      "descripcion": "Le envié para pagar el transporte y su comida "
+    },
+    {
+      "id": 1446,
+      "usuario_id": 1,
+      "deuda_id": 7,
+      "tipo": "GASTO",
+      "categoria": "deuda",
+      "monto": 200000.0,
+      "fecha": "2026-03-14",
+      "descripcion": "Pago deuda: Mamita"
+    },
+    {
+      "id": 1447,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 290000.0,
+      "fecha": "2026-03-13",
+      "descripcion": "Compre comida y detergente   y otras cositas"
+    },
+    {
+      "id": 1448,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 10500.0,
+      "fecha": "2026-03-13",
+      "descripcion": "Compre unas pastas para la gripe y el gaterore"
+    },
+    {
+      "id": 1449,
+      "usuario_id": 7,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Google one",
+      "monto": 3900.0,
+      "fecha": "2026-03-14",
+      "descripcion": ""
+    },
+    {
+      "id": 1450,
+      "usuario_id": 7,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Google one ",
+      "monto": 3900.0,
+      "fecha": "2026-03-14",
+      "descripcion": ""
+    },
+    {
+      "id": 1451,
+      "usuario_id": 7,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Almuerzo ",
+      "monto": 14000.0,
+      "fecha": "2026-03-14",
+      "descripcion": ""
+    },
+    {
+      "id": 1452,
+      "usuario_id": 7,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Panadería ",
+      "monto": 8200.0,
+      "fecha": "2026-03-14",
+      "descripcion": ""
+    },
+    {
+      "id": 1453,
+      "usuario_id": 7,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Pago internet ",
+      "monto": 280000.0,
+      "fecha": "2026-03-14",
+      "descripcion": ""
+    },
+    {
+      "id": 1454,
+      "usuario_id": 7,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "Cigarro y tinto ",
+      "monto": 3800.0,
+      "fecha": "2026-03-14",
+      "descripcion": ""
+    },
+    {
+      "id": 1455,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 77000.0,
+      "fecha": "2026-03-16",
+      "descripcion": "Ollama"
+    },
+    {
+      "id": 1456,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 304000.0,
+      "fecha": "2026-03-14",
+      "descripcion": "Saco reflectivo 260,comida 19 mil, gasolina 25mil"
+    },
+    {
+      "id": 1457,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 43000.0,
+      "fecha": "2026-03-15",
+      "descripcion": "Tres carnes y un agua 3000"
+    },
+    {
+      "id": 1458,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 55000.0,
+      "fecha": "2026-03-17",
+      "descripcion": "Gasolina de mi amor, y el arreglo de la moto"
+    },
+    {
+      "id": 1459,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 9000.0,
+      "fecha": "2026-03-18",
+      "descripcion": "Papas y gaseosa de mi hijita linda."
+    },
+    {
+      "id": 1460,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 20000.0,
+      "fecha": "2026-03-18",
+      "descripcion": "Cobro de arreglo de la moto"
+    },
+    {
+      "id": 1461,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "pago-nomina",
+      "monto": 1277000.0,
+      "fecha": "2026-03-13",
+      "descripcion": "Pago de nomina del 15 de marzo del 2026"
+    },
+    {
+      "id": 1462,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "INGRESO",
+      "categoria": "obligacion",
+      "monto": 100000.0,
+      "fecha": "2026-03-18",
+      "descripcion": "Pago de cesitar del 15 de marzo del 2026"
+    },
+    {
+      "id": 1463,
+      "usuario_id": 1,
+      "deuda_id": null,
+      "tipo": "GASTO",
+      "categoria": "gasto-varios",
+      "monto": 40000.0,
+      "fecha": "2026-03-17",
+      "descripcion": "Compre los audifonos del intercomunicador"
+    }
+  ],
+  "deudas": [],
+  "perfiles": []
+}
