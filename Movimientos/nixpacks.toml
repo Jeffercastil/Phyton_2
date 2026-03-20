@@ -1,0 +1,10 @@
+# Nixpacks configuration for Railway
+
+[phases.setup]
+aptPkgs = ["libpq-dev", "gcc"]
+
+[phases.build]
+cmds = ["python manage.py collectstatic --noinput"]
+
+[start]
+cmd = "bash railway-start.sh"
